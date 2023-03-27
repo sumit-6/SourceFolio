@@ -6,8 +6,6 @@ import Previewbutton from './Components/Previewbutton';
 function App() {
   return (
      <div>
-      {/* <h1>Hello</h1> */}
-      
       <Routes>
         <Route path='/' element={<Previewbutton/>}/>
         <Route path='portfolio' element={<Portfolio/>}/>

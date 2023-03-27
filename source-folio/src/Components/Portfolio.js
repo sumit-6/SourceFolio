@@ -1,11 +1,15 @@
 import React from "react";
-import PortFolioHome from "./PortfolioHome";
+import NavBar from "./NavBar";
+import Home from "./Home";
 
 const Portfolio = () => {
   return(
-    <div>
-        <PortFolioHome/>
-    </div>
+    <>
+        <NavBar/>
+        <main className='main'>
+          <Home/>
+        </main>
+    </>
   )
 };
 
