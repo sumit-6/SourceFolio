@@ -17,11 +17,11 @@ const Info=()=>{
           <span className="about__subtitle">10+ projects</span>
         </div>
 
-        <div className="about__box">
+        {/* <div className="about__box">
           <BiSupport/>
           <h3 className="about__title">Support</h3>
           <span className="about__subtitle">Online 24/7</span>
-        </div>
+        </div> */}
       </div>
     );
 }
