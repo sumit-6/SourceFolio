@@ -16,7 +16,7 @@ const Social=()=>{
         </a>
 
         <a
-          href="https://www.instagram.com"
+          href="https://www.linkedin.com"
           className="home__social-icon"
           target="_blank"
         >
@@ -24,7 +24,7 @@ const Social=()=>{
         </a>
 
         <a
-          href="https://www.instagram.com"
+          href="https://www.github.com"
           className="home__social-icon"
           target="_blank"
         >
