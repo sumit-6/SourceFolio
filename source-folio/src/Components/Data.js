@@ -3,8 +3,8 @@ import "./home.css"
 
 const Data = () => {
   return(
-    <div className="home__date">
-    <h1 className="home__title">
+    <div className="home__data">
+    <h1 className="home__title" style={{fontSize : "3rem"}}>
       Vin Diesel
     </h1>
     <p className="home__description">
