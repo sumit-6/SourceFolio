@@ -4,8 +4,8 @@ import "./home.css"
 const Data = () => {
   return(
     <div className="home__data">
-    <h1 className="home__title" style={{fontSize : "3rem"}}>
-      Vin Diesel
+    <h1 className="home__title" style={{fontSize : "2rem"}}>
+      I am <span className="change-context"></span>
     </h1>
     <p className="home__description">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores laborum
