@@ -9,7 +9,7 @@ const About = () =>{
     return (
       <section className="about section" id="about">
         <h2 className="section__title" style={{ color: "white" }}>
-          About Me
+          <span style={{color:"orange"}}>About</span> <span>Me</span>
         </h2>
         <span className="section__subtitle">My introduction</span>
 
@@ -23,8 +23,8 @@ const About = () =>{
               I am a Full Stack Developer and I can create web pages with UI/UX
               interfaces. Apart from that I love doing DSA and problem-solving.
             </p>
-            <a className="button button--flex" style={{color : "white"}}>
-              {/* download="" href={CV} */ }
+            <a className="button button--flex" style={{ color: "white" }}>
+              {/* download="" href={CV} */}
               Read More...
               <svg
                 class="button__icon"

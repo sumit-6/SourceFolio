@@ -3,19 +3,21 @@ import NavBar from "./NavBar";
 import Home from "./Home";
 import "../App.css"
 import Aboutme from "./Aboutme.js"
+import Skills from "./Skills";
 
 const Portfolio = () => {
-  return(
+  return (
     <>
-        <NavBar/>
-        <main className='main'>
-          <Home/>
-        </main>
-        <hr/>
-        <Aboutme/>
-        <hr/>
+      <NavBar />
+      <main className="main">
+        <Home />
+        <hr />
+        <Aboutme />
+        <hr />
+        <Skills/>
+      </main>
     </>
-  )
+  );
 };
 
 export default Portfolio;
