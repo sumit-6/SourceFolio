@@ -14,15 +14,6 @@ const Previewbutton=()=>{
           Preview
         </button>
 
-        <div>
-          <h3>Create My own PortFolio ❤️</h3>
-          <button
-            onClick={() => navigate("ReactForm")}
-            style={{ backgroundColor: "orange", borderRadius: "4px" }}
-          >
-            Enter Data
-          </button>
-        </div>
       </div>
     );
 }

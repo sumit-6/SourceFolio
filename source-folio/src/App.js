@@ -4,15 +4,15 @@ import { Routes,Route } from 'react-router';
 import Portfolio from './Components/Portfolio';
 import Previewbutton from './Components/Previewbutton';
 
-import InsertDataInFormButton from './Components/InsertDataInFormButton';
-import HomeRoute from './Components/HomeRoutee';
-
 function App() {
   return (
     <div>
       <Routes>
-        <Route path="/*" element={<HomeRoute/>}/>
-        
+
+        <Route path="/" element={<Previewbutton />} />
+        <Route path="portfolio" element={<Portfolio />} />
+        {/* <Route path="ReactForm" element={<ReactForm/>}/> */}
+
       </Routes>
     </div>
   );
