@@ -4,6 +4,7 @@ import Home from "./Home";
 import "../App.css"
 import Aboutme from "./Aboutme.js"
 import Skills from "./Skills";
+// import "./portfolio.css";
 
 const Portfolio = () => {
   return (
