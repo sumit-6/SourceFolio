@@ -10,7 +10,7 @@ const NavBar=()=>{
           </a>
 
           <div className="nav__menu">
-            <ul className="nav__list grid">
+            <ul className="nav__list">
               <li className="nav__item">
                 <a
                   href="#about me"
