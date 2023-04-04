@@ -5,14 +5,13 @@ import Portfolio from './Components/Portfolio';
 import Previewbutton from './Components/Previewbutton';
 
 function App() {
+
   return (
     <div>
       <Routes>
 
         <Route path="/" element={<Previewbutton />} />
         <Route path="portfolio" element={<Portfolio />} />
-        {/* <Route path="ReactForm" element={<ReactForm/>}/> */}
-
       </Routes>
     </div>
   );

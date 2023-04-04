@@ -13,7 +13,13 @@ const Previewbutton=()=>{
         >
           Preview
         </button>
-
+        {/* <a href="https://react-form-ten-steel.vercel.app/">Open React Form</a> */}
+       <div >
+       <a href="https://react-form-ten-steel.vercel.app/" rel="noopener noreferrer">
+        <button style={{marginTop: "1rem" , backgroundColor: "orange", borderRadius: "4px" }}>Open React Form</button>
+       </a>
+       </div>
+ 
       </div>
     );
 }
