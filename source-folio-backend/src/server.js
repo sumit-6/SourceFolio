@@ -1,7 +1,6 @@
 import express from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
-import cors from 'cors';
 import helmet from 'helmet';
 import cl from 'cloudinary';
 import multer from 'multer';
@@ -384,10 +383,12 @@ app.get('/api/portfolio/:id', async(req, res) => {
 
 app.post('/edit/profilePicture/:id', upload.single('profilePicture'), async(req, res) => {
     const id = req.params.id;
+    const data = await Portfolio.findById(id);
+    await cloudinary.uploader.destroy(data.profilePicture.filename)
     const file = req.file;
     const obj = {profilePicture: {url: file.path, filename: file.filename }};
     await Portfolio.findByIdAndUpdate(id, obj);
-    res.redirect(`https://react-form-ten-steel.vercel.app//edit/${id}`);
+    res.redirect(`https://react-form-ten-steel.vercel.app/edit/${id}`);
 });
 
 app.post('/portfolio/edit/:id', async(req, res) => {
@@ -401,6 +402,8 @@ app.post('/portfolio/edit/:id', async(req, res) => {
 
 app.get('/portfolio/delete/:id', async(req, res) => {
     const id = req.params.id;
+    const data = await Portfolio.findById(id);
+    await cloudinary.uploader.destroy(data.profilePicture.filename)
     await Portfolio.findByIdAndDelete(id);
     res.redirect('http://localhost:3000')
 })
