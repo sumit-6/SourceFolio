@@ -169,6 +169,18 @@ img {
   align-items: center;
 }
 
+hr {
+  width: 40%;
+  height: 0.1rem;
+  background-color: rgb(227, 153, 24);
+  margin-bottom: 6px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 50px;
+  border-width: 0.5px;
+  border-color: rgb(239, 239, 240);
+}
+
 /*=============== BREAKPOINTS ===============*/
 /*for large device */
 @media screen and (max-width : 992px){
@@ -217,7 +229,7 @@ img {
     }
 }
 
-hr {
+/* hr {
   width: 40%;
   height: 0.1rem;
   background-color: rgb(227, 153, 24);
@@ -227,7 +239,7 @@ hr {
   margin-top: 50px;
   border-width: 0.5px;
   border-color: rgb(239, 239, 240);
-}
+} */
 
 /*----------------------------------------*/
 .App {
