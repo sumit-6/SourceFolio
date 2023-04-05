@@ -4,20 +4,24 @@ import Home from "./Home";
 import "../App.css"
 import Aboutme from "./Aboutme.js"
 import Skills from "./Skills";
-// import "./portfolio.css";
+// import "./PortFolio.module.css";
+import Achivements from "./Achivements";
 
 const Portfolio = () => {
   return (
-    <>
+    <div className="Portfolio">
       <NavBar />
       <main className="main">
         <Home />
         <hr />
         <Aboutme />
         <hr />
-        <Skills/>
+        <Skills />
+        <hr />
+        <Achivements/>
+        <hr/>
       </main>
-    </>
+    </div>
   );
 };
 

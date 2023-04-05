@@ -14,6 +14,15 @@ const Previewbutton=()=>{
           Preview
         </button>
 
+        {/* <div>
+          <h1>Enter Data</h1>
+          <button
+            onClick={() => navigate("ReactForm")}
+            style={{ backgroundColor: "orange", borderRadius: "4px" }}
+          >
+            Data
+          </button>
+        </div> */}
       </div>
     );
 }
