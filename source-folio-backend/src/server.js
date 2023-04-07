@@ -5,8 +5,12 @@ import helmet from 'helmet';
 import cl from 'cloudinary';
 import multer from 'multer';
 import dotenv from 'dotenv';
+import session from 'express-session';
+import flash from 'connect-flash';
+import MongoDBStorePackage from 'connect-mongodb-session';
+
 if(process.env.NODE_ENV !== 'production') {
-dotenv.config();
+    dotenv.config();
 }
 
 const cloudinary = cl.v2;
@@ -29,6 +33,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express(); 
+
+const secret = 'thisisasecret';
 
 app.use(helmet.crossOriginOpenerPolicy());
 app.use(helmet.crossOriginResourcePolicy());
@@ -230,7 +236,8 @@ function convertJSON(inputJSON) {
             };
             
             obj["projectName"] = inputJSON["projectName"][i];
-            obj["description"] = inputJSON["projectDescription_" + i];
+            if(typeof(inputJSON['projectDescription_' + i]) == 'object') obj["description"] = inputJSON["projectDescription_" + i];
+        else obj['description'].push(inputJSON['projectDescription_' + i]);
             obj["gitHubLink"] = inputJSON["githubLink"][i];
             obj["projectLink"] = inputJSON["projectLink"][i];
             
@@ -257,7 +264,7 @@ function convertJSON(inputJSON) {
         for(let i = 0; i < inputJSON['skillName'].length; i++) {
             const obj = {
                 "name": "",
-                "level": 0
+                "level": ""
             }
             
             obj["name"] = inputJSON["skillName"][i];
@@ -268,7 +275,7 @@ function convertJSON(inputJSON) {
     } else {
         const obj = {
             "name": "",
-            "level": 0
+            "level": ""
         }
 
         obj["name"] = inputJSON["skillName"];
@@ -281,7 +288,7 @@ function convertJSON(inputJSON) {
         for(let i = 0; i < inputJSON['toolName'].length; i++) {
             const obj = {
                 "name": "",
-                "level": 0
+                "level": ""
             }
             
             obj["name"] = inputJSON["toolName"][i];
@@ -292,7 +299,7 @@ function convertJSON(inputJSON) {
     } else {
         const obj = {
             "name": "",
-            "level": 0
+            "level": ""
         }
         
         obj["name"] = inputJSON["toolName"];
@@ -314,9 +321,9 @@ const EducationSchema = new Schema({
 });
 
 const DurationSchema = new Schema({
-    start: String,
-    end: String
-})
+    start: { type: String },
+    end: { type: String }
+});
 
 const ExperienceSchema = new Schema({
     role: String,
@@ -329,13 +336,13 @@ const ExperienceSchema = new Schema({
 const ProjectSchema = new Schema({
     projectName: String,
     description: [String],
-    githubLink: String,
+    gitHubLink: String,
     projectLink: String
 });
 
 const skillElementSchema = new Schema({
     name: String,
-    level: Number
+    level: String
 });
 
 const SkillsSchema = new Schema({
@@ -373,11 +380,44 @@ const Portfolio = mongoose.model('Portfolio', portfolioSchema);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
+
+const MongoDBStore = MongoDBStorePackage(session);
+const store = new MongoDBStore({
+    uri : dbUrl,
+    secret: secret,
+    touchAfter: 24 * 60 * 60
+});
+
+store.on('error', function(error) {
+    console.log("Session Store Error", error);
+})
+app.use(session({
+    store,
+    name: 'session',
+    secret: secret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        //secure: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}));
+
+app.use(flash());
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
 
 app.get('/api/portfolio/:id', async(req, res) => {
     const id = req.params.id;
     const data = await Portfolio.findById(id);
+    console.log(data.myExperience.duration);
     res.json(data);
 });
 
@@ -397,7 +437,8 @@ app.post('/portfolio/edit/:id', async(req, res) => {
   
     const resultantObj = convertJSON(updatedData);
     await Portfolio.findByIdAndUpdate(id, resultantObj, {new: true});
-    res.json(resultantObj);
+    req.flash('success', 'Successfully Updated!');
+    res.redirect(`http://localhost:3000/portfolio?success=${encodeURIComponent(req.flash('success'))}`);
 })
 
 app.get('/portfolio/delete/:id', async(req, res) => {
@@ -411,7 +452,9 @@ app.get('/portfolio/delete/:id', async(req, res) => {
 app.post('/portfolio/insert', upload.single('profilePicture'), async (req, res) => {
     const obj = req.body;
     obj.profilePicture = req.file;
+    console.log(obj);
     const resultantObj = convertJSON(obj);
+    console.log(resultantObj)
     const mongooseObj = new Portfolio(resultantObj);
     await mongooseObj.save();
     res.redirect('http://localhost:3000/portfolio');

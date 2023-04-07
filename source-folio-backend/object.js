@@ -50,7 +50,7 @@ export const object = {
 			"workDescription": [
 				"Recorded hint videos and editorials for 200+ problems for DSA Courses.",
 				"Managed a GFG Discord Server as GFG Weekly Coding Contest Moderator.",
-				"Conducted a Live DSA Mock Interview and uploaded a playlist Javascript Tutorial for Beginners"
+				"Conducted a Live DSA Mock Interview and uploaded a playlist Javascript Tutorial for Beginners."
 			],
 			"certificate": "https://www.youtube.com/playlist?list=PLDF8egcCqOtHZ5bd-WOYkQkNCFykMfK3b"
 		},
@@ -61,7 +61,7 @@ export const object = {
 				"start": "June",
 				"end": "August"
 			},
-			"company": "Biometric  Research Lab - DTU",
+			"company": "Biometric Research Lab - DTU",
 			"workDescription": [
 				"Worked on Object Tracking based on metaheuristics",
 				"Developed code for the implementation of different metaheuristics algorithms"
