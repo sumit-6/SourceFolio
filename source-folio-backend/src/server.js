@@ -236,7 +236,8 @@ function convertJSON(inputJSON) {
             };
             
             obj["projectName"] = inputJSON["projectName"][i];
-            obj["description"] = inputJSON["projectDescription_" + i];
+            if(typeof(inputJSON['projectDescription_' + i]) == 'object') obj["description"] = inputJSON["projectDescription_" + i];
+        else obj['description'].push(inputJSON['projectDescription_' + i]);
             obj["gitHubLink"] = inputJSON["githubLink"][i];
             obj["projectLink"] = inputJSON["projectLink"][i];
             
@@ -320,8 +321,8 @@ const EducationSchema = new Schema({
 });
 
 const DurationSchema = new Schema({
-    start: { type: Date },
-    end: { type: Date }
+    start: { type: String },
+    end: { type: String }
 });
 
 const ExperienceSchema = new Schema({
@@ -335,7 +336,7 @@ const ExperienceSchema = new Schema({
 const ProjectSchema = new Schema({
     projectName: String,
     description: [String],
-    githubLink: String,
+    gitHubLink: String,
     projectLink: String
 });
 
@@ -416,6 +417,7 @@ app.use((req, res, next) => {
 app.get('/api/portfolio/:id', async(req, res) => {
     const id = req.params.id;
     const data = await Portfolio.findById(id);
+    console.log(data.myExperience.duration);
     res.json(data);
 });
 
@@ -450,6 +452,7 @@ app.get('/portfolio/delete/:id', async(req, res) => {
 app.post('/portfolio/insert', upload.single('profilePicture'), async (req, res) => {
     const obj = req.body;
     obj.profilePicture = req.file;
+    console.log(obj);
     const resultantObj = convertJSON(obj);
     console.log(resultantObj)
     const mongooseObj = new Portfolio(resultantObj);

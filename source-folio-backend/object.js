@@ -50,7 +50,7 @@ export const object = {
 			"workDescription": [
 				"Recorded hint videos and editorials for 200+ problems for DSA Courses.",
 				"Managed a GFG Discord Server as GFG Weekly Coding Contest Moderator.",
-				"Conducted a Live DSA Mock Interview and uploaded a playlist Javascript Tutorial for Beginners"
+				"Conducted a Live DSA Mock Interview and uploaded a playlist Javascript Tutorial for Beginners."
 			],
 			"certificate": "https://www.youtube.com/playlist?list=PLDF8egcCqOtHZ5bd-WOYkQkNCFykMfK3b"
 		},
