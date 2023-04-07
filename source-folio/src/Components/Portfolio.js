@@ -6,7 +6,11 @@ import Aboutme from "./Aboutme.js"
 import Skills from "./Skills";
 // import "./PortFolio.module.css";
 import Achivements from "./Achivements";
+import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
 import Experience from "./Experience";
+
 
 const Portfolio = () => {
   const location = useLocation();
