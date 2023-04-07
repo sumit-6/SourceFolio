@@ -263,7 +263,7 @@ function convertJSON(inputJSON) {
         for(let i = 0; i < inputJSON['skillName'].length; i++) {
             const obj = {
                 "name": "",
-                "level": 0
+                "level": ""
             }
             
             obj["name"] = inputJSON["skillName"][i];
@@ -274,7 +274,7 @@ function convertJSON(inputJSON) {
     } else {
         const obj = {
             "name": "",
-            "level": 0
+            "level": ""
         }
 
         obj["name"] = inputJSON["skillName"];
@@ -287,7 +287,7 @@ function convertJSON(inputJSON) {
         for(let i = 0; i < inputJSON['toolName'].length; i++) {
             const obj = {
                 "name": "",
-                "level": 0
+                "level": ""
             }
             
             obj["name"] = inputJSON["toolName"][i];
@@ -298,7 +298,7 @@ function convertJSON(inputJSON) {
     } else {
         const obj = {
             "name": "",
-            "level": 0
+            "level": ""
         }
         
         obj["name"] = inputJSON["toolName"];
@@ -320,9 +320,9 @@ const EducationSchema = new Schema({
 });
 
 const DurationSchema = new Schema({
-    start: String,
-    end: String
-})
+    start: { type: Date },
+    end: { type: Date }
+});
 
 const ExperienceSchema = new Schema({
     role: String,
@@ -341,7 +341,7 @@ const ProjectSchema = new Schema({
 
 const skillElementSchema = new Schema({
     name: String,
-    level: Number
+    level: String
 });
 
 const SkillsSchema = new Schema({
@@ -451,6 +451,7 @@ app.post('/portfolio/insert', upload.single('profilePicture'), async (req, res) 
     const obj = req.body;
     obj.profilePicture = req.file;
     const resultantObj = convertJSON(obj);
+    console.log(resultantObj)
     const mongooseObj = new Portfolio(resultantObj);
     await mongooseObj.save();
     res.redirect('http://localhost:3000/portfolio');

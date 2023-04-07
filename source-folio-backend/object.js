@@ -61,7 +61,7 @@ export const object = {
 				"start": "June",
 				"end": "August"
 			},
-			"company": "Biometric  Research Lab - DTU",
+			"company": "Biometric Research Lab - DTU",
 			"workDescription": [
 				"Worked on Object Tracking based on metaheuristics",
 				"Developed code for the implementation of different metaheuristics algorithms"
