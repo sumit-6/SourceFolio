@@ -1,10 +1,98 @@
 import express from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
+import helmet from 'helmet';
+import cl from 'cloudinary';
+import multer from 'multer';
+import dotenv from 'dotenv';
+if(process.env.NODE_ENV !== 'production') {
+dotenv.config();
+}
+
+const cloudinary = cl.v2;
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET
+})
+const storage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+        folder: 'SourceFolio',
+        allowedFormats: ['jpeg', 'jpg', 'png']
+    }
+})
+const upload = multer({storage});
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 const app = express(); 
+
+app.use(helmet.crossOriginOpenerPolicy());
+app.use(helmet.crossOriginResourcePolicy());
+app.use(helmet.dnsPrefetchControl());
+app.use(helmet.expectCt());
+app.use(helmet.frameguard());
+app.use(helmet.hidePoweredBy());
+app.use(helmet.hsts());
+app.use(helmet.ieNoOpen());
+app.use(helmet.noSniff());
+app.use(helmet.originAgentCluster());
+app.use(helmet.permittedCrossDomainPolicies());
+app.use(helmet.referrerPolicy());
+app.use(helmet.xssFilter());
+const scriptSrcUrls = [
+    "https://stackpath.bootstrapcdn.com/",
+    "https://api.tiles.mapbox.com/",
+    "https://api.mapbox.com/",
+    "https://kit.fontawesome.com/",
+    "https://cdnjs.cloudflare.com/",
+    "https://cdn.jsdelivr.net/",
+];
+const styleSrcUrls = [
+    "https://kit-free.fontawesome.com/",
+    "https://stackpath.bootstrapcdn.com/",
+    "https://api.mapbox.com/",
+    "https://api.tiles.mapbox.com/",
+    "https://fonts.googleapis.com/",
+    "https://use.fontawesome.com/",
+    "https://cdn.jsdelivr.net/"
+];
+const connectSrcUrls = [
+    "https://api.mapbox.com/",
+    "https://a.tiles.mapbox.com/",
+    "https://b.tiles.mapbox.com/",
+    "https://events.mapbox.com/",
+];
+const fontSrcUrls = [];
+const cloudinary_val = process.env.CLOUDINARY_CLOUD_NAME
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                `https://res.cloudinary.com/${cloudinary_val}/`, //SHOULD MATCH YOUR CLOUDINARY ACCOUNT! 
+                "https://images.unsplash.com/",
+            ],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        }
+    })
+);
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 const dbUrl = 'mongodb://localhost:27017/source-folio';
 mongoose.connect(dbUrl);
@@ -23,7 +111,7 @@ function convertJSON(inputJSON) {
     	"mainDesignations": [],
     
     	"description": "",
-    	"profilePicture": "",
+    	
     
     	"myEducation": [],
     
@@ -47,7 +135,7 @@ function convertJSON(inputJSON) {
     if(typeof(inputJSON['mainDesignations']) == 'object') outputJSON['mainDesignations'] = inputJSON['mainDesignations'];
     else outputJSON['mainDesignations'].push(inputJSON['mainDesignations']);
     outputJSON['description'] = inputJSON['description'];
-    outputJSON['profilePicture'] = inputJSON['profilePicture'];
+    if(inputJSON['profilePicture']) outputJSON['profilePicture'] = {url: inputJSON['profilePicture'].path, filename: inputJSON['profilePicture'].filename};
     outputJSON['linkedIn'] = inputJSON['linkedIn'];
     outputJSON['instagram'] = inputJSON['instagram'];
     outputJSON['telephone'] = inputJSON['telephone'];
@@ -169,7 +257,7 @@ function convertJSON(inputJSON) {
         for(let i = 0; i < inputJSON['skillName'].length; i++) {
             const obj = {
                 "name": "",
-                "level": ""
+                "level": 0
             }
             
             obj["name"] = inputJSON["skillName"][i];
@@ -180,7 +268,7 @@ function convertJSON(inputJSON) {
     } else {
         const obj = {
             "name": "",
-            "level": ""
+            "level": 0
         }
 
         obj["name"] = inputJSON["skillName"];
@@ -193,7 +281,7 @@ function convertJSON(inputJSON) {
         for(let i = 0; i < inputJSON['toolName'].length; i++) {
             const obj = {
                 "name": "",
-                "level": ""
+                "level": 0
             }
             
             obj["name"] = inputJSON["toolName"][i];
@@ -204,7 +292,7 @@ function convertJSON(inputJSON) {
     } else {
         const obj = {
             "name": "",
-            "level": ""
+            "level": 0
         }
         
         obj["name"] = inputJSON["toolName"];
@@ -255,11 +343,19 @@ const SkillsSchema = new Schema({
     toolsAndFrameworks: [skillElementSchema]
 });
 
+const ImageSchema = new Schema({
+    url: String, filename: String
+})
+
+ImageSchema.virtual('thumbnail').get(function() {
+    return this.url.replace('/upload', '/upload/w_200')
+})
+
 const portfolioSchema = new Schema({
     name: String,
     mainDesignations: [String],
     description: String,
-    profilePicture: String,
+    profilePicture: ImageSchema,
     myEducation: [EducationSchema],
     myExperience: [ExperienceSchema],
     myProjects: [ProjectSchema],
@@ -279,15 +375,49 @@ app.set('views', path.join(__dirname, '../views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.post('/portfolio/insert', async (req, res) => {
+app.get('/api/portfolio/:id', async(req, res) => {
+    const id = req.params.id;
+    const data = await Portfolio.findById(id);
+    res.json(data);
+});
+
+app.post('/edit/profilePicture/:id', upload.single('profilePicture'), async(req, res) => {
+    const id = req.params.id;
+    const data = await Portfolio.findById(id);
+    await cloudinary.uploader.destroy(data.profilePicture.filename)
+    const file = req.file;
+    const obj = {profilePicture: {url: file.path, filename: file.filename }};
+    await Portfolio.findByIdAndUpdate(id, obj);
+    res.redirect(`https://react-form-ten-steel.vercel.app/edit/${id}`);
+});
+
+app.post('/portfolio/edit/:id', async(req, res) => {
+    const id = req.params.id;
+    const updatedData = req.body;
+  
+    const resultantObj = convertJSON(updatedData);
+    await Portfolio.findByIdAndUpdate(id, resultantObj, {new: true});
+    res.json(resultantObj);
+})
+
+app.get('/portfolio/delete/:id', async(req, res) => {
+    const id = req.params.id;
+    const data = await Portfolio.findById(id);
+    await cloudinary.uploader.destroy(data.profilePicture.filename)
+    await Portfolio.findByIdAndDelete(id);
+    res.redirect('http://localhost:3000')
+})
+
+app.post('/portfolio/insert', upload.single('profilePicture'), async (req, res) => {
     const obj = req.body;
+    obj.profilePicture = req.file;
     const resultantObj = convertJSON(obj);
     const mongooseObj = new Portfolio(resultantObj);
     await mongooseObj.save();
-    res.send(resultantObj);
-})
+    res.redirect('http://localhost:3000/portfolio');
+});
 
 app.listen(8000, () => {
-    console.log('server is listening on port:8000');
+    console.log('server is listening on http://localhost:8000');
 });
 

@@ -6,12 +6,13 @@ import Previewbutton from './Components/Previewbutton';
 // import ReactForm from './Components/ReactForm';
 
 function App() {
+
   return (
     <div>
       <Routes>
+
         <Route path="/" element={<Previewbutton />} />
         <Route path="portfolio" element={<Portfolio />} />
-        {/* <Route path="ReactForm" element={<ReactForm/>}/> */}
       </Routes>
     </div>
   );
