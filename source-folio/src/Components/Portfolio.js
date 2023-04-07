@@ -6,6 +6,7 @@ import Aboutme from "./Aboutme.js"
 import Skills from "./Skills";
 // import "./PortFolio.module.css";
 import Achivements from "./Achivements";
+import Experience from "./Experience";
 
 const Portfolio = () => {
   return (
@@ -13,11 +14,13 @@ const Portfolio = () => {
       <NavBar />
       <main className="main">
         <Home />
-        <hr />
+        <hr/>
         <Aboutme />
-        <hr />
+        <hr/>
+        <Experience/>
+        <hr/>
         <Skills />
-        <hr />
+        <hr/>
         <Achivements/>
         <hr/>
       </main>
