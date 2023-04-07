@@ -105,8 +105,7 @@ const Achivements=()=>{
                 </div>
                 <div>
                   <h3 className="qualification__title">
-                    Secured 10th position in the BITWARS event conducted under
-                    Invictus ‘22, Tech. Fest of DTU.
+                    Part of #define
                   </h3>
                 </div>
               </div>

@@ -6,9 +6,7 @@ import Aboutme from "./Aboutme.js"
 import Skills from "./Skills";
 // import "./PortFolio.module.css";
 import Achivements from "./Achivements";
-import { useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
+import Experience from "./Experience";
 
 const Portfolio = () => {
   const location = useLocation();
@@ -32,11 +30,13 @@ const Portfolio = () => {
       <NavBar />
       <main className="main">
         <Home />
-        <hr />
+        <hr/>
         <Aboutme />
-        <hr />
+        <hr/>
+        <Experience/>
+        <hr/>
         <Skills />
-        <hr />
+        <hr/>
         <Achivements/>
         <hr/>
       </main>
