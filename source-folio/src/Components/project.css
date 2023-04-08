@@ -1,8 +1,8 @@
-.projects {
+/* .projects {
     max-width: 1280px;
     margin: 0 auto;
     /* padding: 2rem; */
-    text-align: center;
+    /* text-align: center;
 }
 
 h1 {
@@ -48,4 +48,9 @@ h2{
 
 .card button:hover {
     color: orange;
+} */
+
+.experience__content{
+    margin-right: 1.3rem;
+
 }

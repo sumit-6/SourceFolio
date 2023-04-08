@@ -1,9 +1,16 @@
 import React from "react";
 import "./project.css";
 
-import backgroundd from "../asset/image/back.jpg";
+import { AiFillCaretRight } from "react-icons/ai";
+import { AiOutlineCheckCircle } from "react-icons/ai";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { FaRegHeart } from "react-icons/fa";
+import { useState } from "react";
+
+// import backgroundd from "../asset/image/back.jpg";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import "./experience.css"
 
 const Projects=()=>{
     const responsive = {
@@ -25,6 +32,12 @@ const Projects=()=>{
         items: 1,
       },
     };
+
+    const [toggleState, setToggleState] = useState(0);
+
+    const toggleTab = (index) => {
+      setToggleState(index);
+    };
     
     return (
       <section className="section projects">
@@ -32,8 +45,456 @@ const Projects=()=>{
           My <span style={{ color: "orange" }}>Projects.</span>
         </h2>
         <span className="section__subtitle">My work Places</span>
-        <Carousel responsive={responsive}>
-          <div className="card">
+        <Carousel responsive={responsive} >
+          <div className="experience__content">
+            <div>
+              <div className="Experience__icon">
+                <FaRegHeart />
+              </div>
+              <h3 className="experience__title">
+                UI/UX <br /> Design Intern
+              </h3>
+            </div>
+
+            <span className="experience__button" onClick={() => toggleTab(1)}>
+              View More
+              <div className="experience__button-icon">
+                <AiFillCaretRight />
+              </div>
+            </span>
+
+            <div>
+              <button
+                style={{
+                  marginRight: "0.8em",
+                  borderRadius: "5px",
+                  width: "20%",
+                  fontSize: "0.9rem",
+                }}
+              >
+                Web Link
+              </button>
+              <button
+                style={{
+                  marginRight: "0.8em",
+                  borderRadius: "5px",
+                  width: "20%",
+                  fontSize: "0.9rem",
+                }}
+              >
+                Github
+              </button>
+            </div>
+
+            <div
+              className={
+                toggleState === 1
+                  ? "experience__modal active-modal"
+                  : "experience__modal"
+              }
+            >
+              <div className="experience__modal-content">
+                <div
+                  className="experience__modal-close"
+                  onClick={() => {
+                    toggleTab(0);
+                  }}
+                >
+                  <AiOutlineCloseCircle />
+                </div>
+                <h3 className="experience__modal-title">UI/UX Designer</h3>
+                <p className="experience__modal-description">
+                  I have worked as an UI/UX Intern for 2 months at Outshade
+                  Digital Media
+                </p>
+                <ul className="experience__modal-experiences grid">
+                  <li className="experience__modal-experience">
+                    <div className="experience__modal-icon">
+                      <AiOutlineCheckCircle />
+                    </div>
+                    <p className="experience__modal-info">
+                      Contributed as UI/UX Designer
+                    </p>
+                  </li>
+
+                  <li className="experience__modal-experience">
+                    <div>
+                      <AiOutlineCheckCircle />
+                    </div>
+                    <p className="experience__modal-info">
+                      Created figma board for a cryto app using Figma,Adobe XD
+                    </p>
+                  </li>
+
+                  <li className="experience__modal-experience">
+                    <div>
+                      <AiOutlineCheckCircle />
+                    </div>
+                    <p className="experience__modal-info">
+                      <a
+                        href="https://drive.google.com/file/d/1C4g-NLiq4qdNsj2c-CnCvhUU8tFjZnFw/view?usp=sharing"
+                        target="_blank"
+                      >
+                        Letter Of Completion
+                      </a>
+                    </p>
+                  </li>
+
+                  <li className="experience__modal-experience">
+                    <div>
+                      <AiOutlineCheckCircle />
+                    </div>
+                    <p className="experience__modal-info">
+                      <a
+                        href="https://drive.google.com/file/d/1FfvoexLS4XSJS5d8KyO-CEiYa4OK6Yqn/view?usp=sharing"
+                        target="_blank"
+                      >
+                        Letter Of Recommendation
+                      </a>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="experience__content">
+            <div>
+              <div className="Experience__icon">
+                <FaRegHeart />
+              </div>
+              <h3 className="experience__title">
+                Web <br /> Development Intern
+              </h3>
+            </div>
+
+            <span className="experience__button" onClick={() => toggleTab(2)}>
+              View More
+              <div className="experience__button-icon">
+                <AiFillCaretRight />
+              </div>
+            </span>
+
+            <div>
+              <button
+                style={{
+                  marginRight: "0.8em",
+                  borderRadius: "5px",
+                  width: "20%",
+                  fontSize: "0.9rem",
+                }}
+              >
+                Web Link
+              </button>
+              <button
+                style={{
+                  marginRight: "0.8em",
+                  borderRadius: "5px",
+                  width: "20%",
+                  fontSize: "0.9rem",
+                }}
+              >
+                Github
+              </button>
+            </div>
+
+            <div
+              className={
+                toggleState === 2
+                  ? "experience__modal active-modal"
+                  : "experience__modal"
+              }
+            >
+              <div className="experience__modal-content">
+                <div
+                  className="experience__modal-close"
+                  onClick={() => {
+                    toggleTab(0);
+                  }}
+                >
+                  <AiOutlineCloseCircle />
+                </div>
+                <h3 className="experience__modal-title">Web Developer</h3>
+                <p className="experience__modal-description">
+                  I have worked as an UI/UX Intern for 2 months at Outshade
+                  Digital Media
+                </p>
+                <ul className="experience__modal-experiences grid">
+                  <li className="experience__modal-experience">
+                    <div className="experience__modal-icon">
+                      <AiOutlineCheckCircle />
+                    </div>
+                    <p className="experience__modal-info">
+                      Contributed as UI/UX Designer
+                    </p>
+                  </li>
+
+                  <li className="experience__modal-experience">
+                    <div>
+                      <AiOutlineCheckCircle />
+                    </div>
+                    <p className="experience__modal-info">
+                      Created figma board for a cryto app using Figma,Adobe XD
+                    </p>
+                  </li>
+
+                  <li className="experience__modal-experience">
+                    <div>
+                      <AiOutlineCheckCircle />
+                    </div>
+                    <p className="experience__modal-info">
+                      <a
+                        href="https://drive.google.com/file/d/1C4g-NLiq4qdNsj2c-CnCvhUU8tFjZnFw/view?usp=sharing"
+                        target="_blank"
+                      >
+                        Letter Of Completion
+                      </a>
+                    </p>
+                  </li>
+
+                  <li className="experience__modal-experience">
+                    <div>
+                      <AiOutlineCheckCircle />
+                    </div>
+                    <p className="experience__modal-info">
+                      <a
+                        href="https://drive.google.com/file/d/1FfvoexLS4XSJS5d8KyO-CEiYa4OK6Yqn/view?usp=sharing"
+                        target="_blank"
+                      >
+                        Letter Of Recommendation
+                      </a>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="experience__content">
+            <div>
+              <div className="Experience__icon">
+                <FaRegHeart />
+              </div>
+              <h3 className="experience__title">
+                Research <br /> Intern
+              </h3>
+            </div>
+
+            <span className="experience__button" onClick={() => toggleTab(3)}>
+              View More
+              <div className="experience__button-icon">
+                <AiFillCaretRight />
+              </div>
+            </span>
+
+            <div>
+              <button
+                style={{
+                  marginRight: "0.8em",
+                  borderRadius: "5px",
+                  width: "20%",
+                  fontSize: "0.9rem",
+                }}
+              >
+                Web Link
+              </button>
+              <button
+                style={{
+                  marginRight: "0.8em",
+                  borderRadius: "5px",
+                  width: "20%",
+                  fontSize: "0.9rem",
+                }}
+              >
+                Github
+              </button>
+            </div>
+
+            <div
+              className={
+                toggleState === 3
+                  ? "experience__modal active-modal"
+                  : "experience__modal"
+              }
+            >
+              <div className="experience__modal-content">
+                <div
+                  className="experience__modal-close"
+                  onClick={() => {
+                    toggleTab(0);
+                  }}
+                >
+                  <AiOutlineCloseCircle />
+                </div>
+                <h3 className="experience__modal-title">Research Intern</h3>
+                <p className="experience__modal-description">
+                  I have worked as an UI/UX Intern for 2 months at Outshade
+                  Digital Media
+                </p>
+                <ul className="experience__modal-experiences grid">
+                  <li className="experience__modal-experience">
+                    <div className="experience__modal-icon">
+                      <AiOutlineCheckCircle />
+                    </div>
+                    <p className="experience__modal-info">
+                      Contributed as UI/UX Designer
+                    </p>
+                  </li>
+
+                  <li className="experience__modal-experience">
+                    <div>
+                      <AiOutlineCheckCircle />
+                    </div>
+                    <p className="experience__modal-info">
+                      Created figma board for a cryto app using Figma,Adobe XD
+                    </p>
+                  </li>
+
+                  <li className="experience__modal-experience">
+                    <div>
+                      <AiOutlineCheckCircle />
+                    </div>
+                    <p className="experience__modal-info">
+                      <a
+                        href="https://drive.google.com/file/d/1C4g-NLiq4qdNsj2c-CnCvhUU8tFjZnFw/view?usp=sharing"
+                        target="_blank"
+                      >
+                        Letter Of Completion
+                      </a>
+                    </p>
+                  </li>
+
+                  <li className="experience__modal-experience">
+                    <div>
+                      <AiOutlineCheckCircle />
+                    </div>
+                    <p className="experience__modal-info">
+                      <a
+                        href="https://drive.google.com/file/d/1FfvoexLS4XSJS5d8KyO-CEiYa4OK6Yqn/view?usp=sharing"
+                        target="_blank"
+                      >
+                        Letter Of Recommendation
+                      </a>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="experience__content">
+            <div>
+              <div className="Experience__icon">
+                <FaRegHeart />
+              </div>
+              <h3 className="experience__title">
+                Research <br /> Intern
+              </h3>
+            </div>
+
+            <span className="experience__button" onClick={() => toggleTab(4)}>
+              View More
+              <div className="experience__button-icon">
+                <AiFillCaretRight />
+              </div>
+            </span>
+
+            <div>
+              <button
+                style={{
+                  marginRight: "0.8em",
+                  borderRadius: "5px",
+                  width: "20%",
+                  fontSize: "0.9rem",
+                }}
+              >
+                Web Link
+              </button>
+              <button
+                style={{
+                  marginRight: "0.8em",
+                  borderRadius: "5px",
+                  width: "20%",
+                  fontSize: "0.9rem",
+                }}
+              >
+                Github
+              </button>
+            </div>
+
+            <div
+              className={
+                toggleState === 4
+                  ? "experience__modal active-modal"
+                  : "experience__modal"
+              }
+            >
+              <div className="experience__modal-content">
+                <div
+                  className="experience__modal-close"
+                  onClick={() => {
+                    toggleTab(0);
+                  }}
+                >
+                  <AiOutlineCloseCircle />
+                </div>
+                <h3 className="experience__modal-title">Research Intern</h3>
+                <p className="experience__modal-description">
+                  I have worked as an UI/UX Intern for 2 months at Outshade
+                  Digital Media
+                </p>
+                <ul className="experience__modal-experiences grid">
+                  <li className="experience__modal-experience">
+                    <div className="experience__modal-icon">
+                      <AiOutlineCheckCircle />
+                    </div>
+                    <p className="experience__modal-info">
+                      Contributed as UI/UX Designer
+                    </p>
+                  </li>
+
+                  <li className="experience__modal-experience">
+                    <div>
+                      <AiOutlineCheckCircle />
+                    </div>
+                    <p className="experience__modal-info">
+                      Created figma board for a cryto app using Figma,Adobe XD
+                    </p>
+                  </li>
+
+                  <li className="experience__modal-experience">
+                    <div>
+                      <AiOutlineCheckCircle />
+                    </div>
+                    <p className="experience__modal-info">
+                      <a
+                        href="https://drive.google.com/file/d/1C4g-NLiq4qdNsj2c-CnCvhUU8tFjZnFw/view?usp=sharing"
+                        target="_blank"
+                      >
+                        Letter Of Completion
+                      </a>
+                    </p>
+                  </li>
+
+                  <li className="experience__modal-experience">
+                    <div>
+                      <AiOutlineCheckCircle />
+                    </div>
+                    <p className="experience__modal-info">
+                      <a
+                        href="https://drive.google.com/file/d/1FfvoexLS4XSJS5d8KyO-CEiYa4OK6Yqn/view?usp=sharing"
+                        target="_blank"
+                      >
+                        Letter Of Recommendation
+                      </a>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* <div className="card">
             <img className="product--iamge" src={backgroundd} alt="image" />
             <h2>Yelp-Camp</h2>
             <p style={{ color: "white" }}>
@@ -136,147 +597,8 @@ const Projects=()=>{
               </button>
               <button>Github</button>
             </p>
-          </div>
-
-          <div className="card">
-            <img className="product--iamge" src={backgroundd} alt="image" />
-            <h2>Yelp-Camp</h2>
-            <p style={{ color: "white" }}>
-              It is an application where different users can register/login to
-              create, view, update and delete campgrounds as well as to add or
-              remove reviews on any campground.
-            </p>
-            <p className="price">
-              Tech Stacks: HTML, CSS, Bootstrap, Node.js, Express.js, MongoDB,
-              Mongoose, Passport.js
-            </p>
-
-            <p style={{ marginTop: "0.6rem" }}>
-              <button style={{ marginRight: "0.6rem", marginBottom: "0.6rem" }}>
-                Web Link
-              </button>
-              <button>Github</button>
-            </p>
-          </div>
-          
+          </div> */}
         </Carousel>
-        ;
-        {/* <slider {...settings}>
-          <div className="card">
-            <div className="card-top">
-              <img src={backgroundd} />
-              <h1>YelpCamp </h1>
-            </div>
-            <div className="card-bottom">
-              <ul>
-                <li>
-                  It is an application where different users can register/login
-                  to create, view, update and delete campgrounds as well as to
-                  add or remove reviews on any campground.
-                </li>
-                <li>
-                  Tech. Stacks involved: HTML, CSS, Bootstrap, Node.js,
-                  Express.js, MongoDB, Mongoose, Passport.js
-                </li>
-              </ul>
-
-              <a>Link</a>
-              <a>Github</a>
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="card-top">
-              <img src={backgroundd} />
-              <h1>YelpCamp </h1>
-            </div>
-            <div className="card-bottom">
-              <ul>
-                <li>
-                  It is an application where different users can register/login
-                  to create, view, update and delete campgrounds as well as to
-                  add or remove reviews on any campground.
-                </li>
-                <li>
-                  Tech. Stacks involved: HTML, CSS, Bootstrap, Node.js,
-                  Express.js, MongoDB, Mongoose, Passport.js
-                </li>
-              </ul>
-
-              <a>Link</a>
-              <a>Github</a>
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="card-top">
-              <img src={backgroundd} />
-              <h1>YelpCamp </h1>
-            </div>
-            <div className="card-bottom">
-              <ul>
-                <li>
-                  It is an application where different users can register/login
-                  to create, view, update and delete campgrounds as well as to
-                  add or remove reviews on any campground.
-                </li>
-                <li>
-                  Tech. Stacks involved: HTML, CSS, Bootstrap, Node.js,
-                  Express.js, MongoDB, Mongoose, Passport.js
-                </li>
-              </ul>
-
-              <a>Link</a>
-              <a>Github</a>
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="card-top">
-              <img src={backgroundd} />
-              <h1>YelpCamp </h1>
-            </div>
-            <div className="card-bottom">
-              <ul>
-                <li>
-                  It is an application where different users can register/login
-                  to create, view, update and delete campgrounds as well as to
-                  add or remove reviews on any campground.
-                </li>
-                <li>
-                  Tech. Stacks involved: HTML, CSS, Bootstrap, Node.js,
-                  Express.js, MongoDB, Mongoose, Passport.js
-                </li>
-              </ul>
-
-              <a>Link</a>
-              <a>Github</a>
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="card-top">
-              <img src={backgroundd} />
-              <h1>YelpCamp </h1>
-            </div>
-            <div className="card-bottom">
-              <ul>
-                <li>
-                  It is an application where different users can register/login
-                  to create, view, update and delete campgrounds as well as to
-                  add or remove reviews on any campground.
-                </li>
-                <li>
-                  Tech. Stacks involved: HTML, CSS, Bootstrap, Node.js,
-                  Express.js, MongoDB, Mongoose, Passport.js
-                </li>
-              </ul>
-
-              <a>Link</a>
-              <a>Github</a>
-            </div>
-          </div>
-        </slider> */}
       </section>
     );
 }
