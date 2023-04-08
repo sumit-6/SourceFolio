@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import FlashMessage from "./FlashMessage";
 import Experience from "./Experience";
+import Projects from "./Projects";
 
 
 const Portfolio = () => {
@@ -40,6 +41,8 @@ const Portfolio = () => {
         <Aboutme />
         <hr/>
         <Experience/>
+        <hr/>
+        <Projects/>
         <hr/>
         <Skills />
         <hr/>
