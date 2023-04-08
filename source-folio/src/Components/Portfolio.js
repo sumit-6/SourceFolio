@@ -7,6 +7,7 @@ import Skills from "./Skills";
 // import "./PortFolio.module.css";
 import Achivements from "./Achivements";
 import Experience from "./Experience";
+import Projects from "./Projects";
 
 const Portfolio = () => {
   return (
@@ -18,6 +19,8 @@ const Portfolio = () => {
         <Aboutme />
         <hr/>
         <Experience/>
+        <hr/>
+        <Projects/>
         <hr/>
         <Skills />
         <hr/>
