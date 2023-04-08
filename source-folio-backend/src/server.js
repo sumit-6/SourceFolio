@@ -427,7 +427,7 @@ app.use((req, res, next) => {
 app.get('/api/portfolio/:id', async(req, res) => {
     const id = req.params.id;
     const data = await Portfolio.findById(id);
-    console.log(data.myExperience.duration);
+    
     res.json(data);
 });
 
