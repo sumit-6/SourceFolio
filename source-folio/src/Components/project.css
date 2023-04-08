@@ -1,0 +1,51 @@
+.projects {
+    max-width: 1280px;
+    margin: 0 auto;
+    /* padding: 2rem; */
+    text-align: center;
+}
+
+h1 {
+    margin: 1rem auto 4rem;
+}
+
+h2{
+    color: orange;
+}
+
+.product--image {
+    width: 100%;
+    height: 16em;
+    object-fit: cover;
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 320px;
+    margin: auto 1rem;
+    text-align: center;
+    font-family: arial;
+    background-color: rgb(54 54 54);
+
+}
+
+.price {
+    color: grey;
+    font-size: 0.8rem;
+}
+
+.card button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 40%;
+    font-size: 18px;
+    border-radius: 7px ;
+}
+
+.card button:hover {
+    color: orange;
+}

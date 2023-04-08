@@ -8,6 +8,8 @@ import dotenv from 'dotenv';
 import session from 'express-session';
 import flash from 'connect-flash';
 import MongoDBStorePackage from 'connect-mongodb-session';
+import portfolioSchema from '../JoiSchemas.js';
+import ExpressError from '../ExpressError.js';
 
 if(process.env.NODE_ENV !== 'production') {
     dotenv.config();
@@ -238,7 +240,7 @@ function convertJSON(inputJSON) {
             obj["projectName"] = inputJSON["projectName"][i];
             if(typeof(inputJSON['projectDescription_' + i]) == 'object') obj["description"] = inputJSON["projectDescription_" + i];
         else obj['description'].push(inputJSON['projectDescription_' + i]);
-            obj["gitHubLink"] = inputJSON["githubLink"][i];
+            obj["gitHubLink"] = inputJSON["gitHubLink"][i];
             obj["projectLink"] = inputJSON["projectLink"][i];
             
             outputJSON["myProjects"].push(obj);
@@ -254,7 +256,7 @@ function convertJSON(inputJSON) {
         obj["projectName"] = inputJSON["projectName"];
         if(typeof(inputJSON['projectDescription_0']) == 'object') obj["description"] = inputJSON["projectDescription_0"];
         else obj['description'].push(inputJSON['projectDescription_0']);
-        obj["gitHubLink"] = inputJSON["githubLink"];
+        obj["gitHubLink"] = inputJSON["gitHubLink"];
         obj["projectLink"] = inputJSON["projectLink"];
         
         outputJSON["myProjects"].push(obj);
@@ -358,7 +360,7 @@ ImageSchema.virtual('thumbnail').get(function() {
     return this.url.replace('/upload', '/upload/w_200')
 })
 
-const portfolioSchema = new Schema({
+const PortfolioSchema = new Schema({
     name: String,
     mainDesignations: [String],
     description: String,
@@ -374,8 +376,16 @@ const portfolioSchema = new Schema({
     telephone: Number
 });
 
-const Portfolio = mongoose.model('Portfolio', portfolioSchema);
+const Portfolio = mongoose.model('Portfolio', PortfolioSchema);
+const validatePortfolio = (doc) => {    
+    const {error} = portfolioSchema.validate(doc);
+    //console.log(result);
 
+    if(error) {
+        const msg = error.details.map(ele => ele.message).join(',')
+        throw new ExpressError(msg, 400);
+    }
+}
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
@@ -436,6 +446,7 @@ app.post('/portfolio/edit/:id', async(req, res) => {
     const updatedData = req.body;
   
     const resultantObj = convertJSON(updatedData);
+    validatePortfolio(resultantObj);
     await Portfolio.findByIdAndUpdate(id, resultantObj, {new: true});
     req.flash('success', 'Successfully Updated!');
     res.redirect(`http://localhost:3000/portfolio?success=${encodeURIComponent(req.flash('success'))}`);
@@ -454,7 +465,7 @@ app.post('/portfolio/insert', upload.single('profilePicture'), async (req, res) 
     obj.profilePicture = req.file;
     console.log(obj);
     const resultantObj = convertJSON(obj);
-    console.log(resultantObj)
+    validatePortfolio(resultantObj);
     const mongooseObj = new Portfolio(resultantObj);
     await mongooseObj.save();
     res.redirect('http://localhost:3000/portfolio');
