@@ -44,7 +44,7 @@ const Projects=()=>{
         <h2 className="section__title">
           My <span style={{ color: "orange" }}>Projects.</span>
         </h2>
-        <span className="section__subtitle">My work Places</span>
+        <span className="section__subtitle">My work</span>
         <Carousel responsive={responsive} >
           <div className="experience__content">
             <div>

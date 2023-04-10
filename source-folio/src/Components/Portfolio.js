@@ -11,7 +11,8 @@ import { useState, useEffect } from 'react';
 import FlashMessage from "./FlashMessage";
 import Experience from "./Experience";
 import Projects from "./Projects";
-
+import Contact from "./Contact";
+import Footer from "./Footer";
 
 const Portfolio = () => {
   const location = useLocation();
@@ -48,6 +49,8 @@ const Portfolio = () => {
         <hr/>
         <Achivements/>
         <hr/>
+        <Contact/>
+        <Footer/>
       </main>
     </div>
     </>
