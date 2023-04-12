@@ -40,7 +40,7 @@ const Projects=()=>{
     };
     
     return (
-      <section className="section projects">
+      <section className="section projects" id="projects">
         <div style={{marginTop : "-6rem"}}className="experience__content_like" >
         <h2 className="section__title">
           My <span style={{ color: "orange" }}>Projects.</span>

@@ -77,3 +77,85 @@ h6{
     font-size: 0.8rem;
 }
 
+@media screen and (max-width : 992px) {
+    h4{
+        font-size: 0.9rem;
+    }
+
+    .education__college{
+        font-size: 1.1rem;
+    }
+
+        span {
+            word-wrap: break-word;
+    
+        }
+
+    h6{
+        font-size: 0.7rem;
+    }
+}
+
+@media screen and (max-width : 768px) {
+    
+    h4 {
+        font-size: 0.7rem;
+    }
+
+    .education__college {
+        font-size: 1rem;
+    }
+
+        span{
+            word-wrap: break-word;
+    
+        }
+
+    h6 {
+        font-size: 0.6rem;
+    }
+}
+
+@media screen and (max-width : 576px) {
+        
+        h4 {
+            font-size: 0.6rem;
+        }
+
+        .education__college {
+            font-size: 0.8rem;
+        
+        }
+    
+                span {
+                    word-wrap: break-word;
+        
+                }
+        h6 {
+            font-size: 0.35rem;
+        }
+}
+
+/*for small device */
+@media screen and (max-width : 350px) {
+        
+        h4 {
+            font-size: 0.4rem;
+        }
+
+                span {
+                    word-wrap: break-word;
+        
+                }
+    
+        .education__college {
+            font-size: 0.7rem;
+        }
+    
+        h6 {
+            font-size: 0.3rem;
+        }
+}
+
+
+

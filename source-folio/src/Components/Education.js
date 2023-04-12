@@ -4,7 +4,7 @@ import { BiPencil } from "react-icons/bi";
 
 const Education=()=>{
     return (
-      <section className="education section ">
+      <section className="education section " id="education">
         <h2 className="section__title">
           My <span style={{ color: "orange" }}>Education.</span>
         </h2>
@@ -27,17 +27,17 @@ const Education=()=>{
                 className="education__college"
                 style={{ color: "white", marginTop: "1.4rem" }}
               >
-                Vikas Bharati Public School
+                <span>Vikas Bharati Public School</span>
               </h3>
             </div>
 
-            <h6 className="education__place" >
-              Delhi,India
-            </h6>
+            <h6 className="education__place">Delhi,India</h6>
 
             <div className="education__marks">
               <h4 style={{ color: "white" }}>
-                Aggregate:9.5 CGPA | Course pursued:12<sup>th</sup> | 2020
+                <span>
+                  Aggregate:9.5 CGPA | Course pursued:12<sup>th</sup> | 2020
+                </span>
               </h4>
             </div>
           </div>
@@ -65,9 +65,7 @@ const Education=()=>{
               </h3>
             </div>
 
-            <h6 className="education__place" >
-              Delhi,India
-            </h6>
+            <h6 className="education__place">Delhi,India</h6>
 
             <div className="education__marks">
               <h4 style={{ color: "white" }}>

@@ -14,7 +14,7 @@ const Experience=()=>{
       setToggleState(index);
     }
     return (
-      <section className="services section" id="services">
+      <section className="services section" id="experience">
         <h2 className="section__title">
           My <span style={{ color: "orange" }}>Experience.</span>
         </h2>

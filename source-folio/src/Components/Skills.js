@@ -5,7 +5,7 @@ import "./skills.css"
 
 const Skills=()=>{
     return (
-      <section className="skills section">
+      <section className="skills section"  id="skills">
         <h2 className="section__title">
           My <span style={{color:"orange"}}>Skills.</span>
         </h2>
