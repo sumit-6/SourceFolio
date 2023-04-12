@@ -47,7 +47,7 @@ const experienceSchema = Joi.object({
 const projectSchema = Joi.object({
     projectName: Joi.string().required(),
     description: Joi.array().items(Joi.string().required()).required(),
-    gitHubLink: Joi.string().required(),
+    gitHubLink: Joi.string().allow(''),
     projectLink: Joi.string().allow('')
 });
 
@@ -67,6 +67,7 @@ const imageSchema = Joi.object({
 });
 
 const portfolioSchema = Joi.object({
+    user_id: Joi.string().required(),
     name: Joi.string().required(),
     mainDesignations: Joi.array().items(Joi.string()).required(),
     description: Joi.string().required(),

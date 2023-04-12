@@ -109,7 +109,7 @@ app.use(
 );
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, authtoken");
     next();
   });
 
@@ -125,6 +125,7 @@ db.once('open', function() {
 function convertJSON(inputJSON) {
     
     const outputJSON = {
+        "user_id": "",
     	"name": "",
     
     	"mainDesignations": [],
@@ -372,6 +373,7 @@ ImageSchema.virtual('thumbnail').get(function() {
 })
 
 const PortfolioSchema = new Schema({
+    user_id: String,
     name: String,
     mainDesignations: [String],
     description: String,
@@ -405,10 +407,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(async (req, res, next) => {
     const { authtoken } = req.headers;
-    console.log(authtoken);
+    //console.log(authtoken);
     if(authtoken) {
         try {
             req.user = await admin.auth().verifyIdToken(authtoken);
+            //console.log(req.user);
         }
         catch (e) {
             return res.sendStatus(400);
@@ -452,48 +455,67 @@ app.use((req, res, next) => {
 app.get('/api/portfolio/:id', async(req, res) => {
     const id = req.params.id;
     const data = await Portfolio.findById(id);
-    
     res.json(data);
 });
 
 app.post('/edit/profilePicture/:id', upload.single('profilePicture'), async(req, res) => {
     const id = req.params.id;
     const data = await Portfolio.findById(id);
-    await cloudinary.uploader.destroy(data.profilePicture.filename)
-    const file = req.file;
-    const obj = {profilePicture: {url: file.path, filename: file.filename }};
-    await Portfolio.findByIdAndUpdate(id, obj);
-    res.redirect(`https://react-form-ten-steel.vercel.app/edit/${id}`);
+    if(req.user && data.user_id === req.user.user_id) {
+        await cloudinary.uploader.destroy(data.profilePicture.filename)
+        const file = req.file;
+        const obj = {profilePicture: {url: file.path, filename: file.filename }};
+        await Portfolio.findByIdAndUpdate(id, obj);
+        res.redirect(`https://react-form-ten-steel.vercel.app/edit/${id}`);
+    }
+    else {
+        await cloudinary.uploader.destroy(req.file.filename);
+        res.render("<h1>You are not allowed to perform this action!!</h1>");
+    }
 });
 
 app.post('/portfolio/edit/:id', async(req, res) => {
     const id = req.params.id;
     const updatedData = req.body;
-  
-    const resultantObj = convertJSON(updatedData);
-    validatePortfolio(resultantObj);
-    await Portfolio.findByIdAndUpdate(id, resultantObj, {new: true});
-    req.flash('success', 'Successfully Updated!');
-    res.redirect(`http://localhost:3000/portfolio?success=${encodeURIComponent(req.flash('success'))}`);
+    const data = await Portfolio.findById(id);
+    if(req.user && data.user_id === req.user.user_id) {
+        const resultantObj = convertJSON(updatedData);
+        validatePortfolio(resultantObj);
+        await Portfolio.findByIdAndUpdate(id, resultantObj, {new: true});
+        req.flash('success', 'Successfully Updated!');
+        res.redirect(`http://localhost:3000/portfolio?success=${encodeURIComponent(req.flash('success'))}`);
+    } else {
+        res.render("<h1>You are not allowed to perform this action!!</h1>");
+    }
 })
 
-app.get('/portfolio/delete/:id', async(req, res) => {
+app.post('/portfolio/delete/:id', async(req, res) => {
     const id = req.params.id;
     const data = await Portfolio.findById(id);
-    await cloudinary.uploader.destroy(data.profilePicture.filename)
-    await Portfolio.findByIdAndDelete(id);
-    res.redirect('http://localhost:3000')
+    if(req.user && data.user_id === req.user.user_id) {
+        await cloudinary.uploader.destroy(data.profilePicture.filename)
+        await Portfolio.findByIdAndDelete(id);
+        res.redirect('http://localhost:3000')
+    } else {
+        res.render("<h1>You are not allowed to perform this action!!</h1>");
+    }
 })
 
 app.post('/portfolio/insert', upload.single('profilePicture'), async (req, res) => {
-    const obj = req.body;
-    obj.profilePicture = req.file;
-    console.log(obj);
-    const resultantObj = convertJSON(obj);
-    validatePortfolio(resultantObj);
-    const mongooseObj = new Portfolio(resultantObj);
-    await mongooseObj.save();
-    res.redirect('http://localhost:3000/portfolio');
+    if(req.user) {
+        const obj = req.body;
+        obj.profilePicture = req.file;
+        console.log(obj);
+        const resultantObj = convertJSON(obj);
+        resultantObj.user_id = req.user.user_id;
+        validatePortfolio(resultantObj);
+        const mongooseObj = new Portfolio(resultantObj);
+        await mongooseObj.save();
+        res.redirect('http://localhost:3000/portfolio');
+    } else {
+        await cloudinary.uploader.destroy(req.file.filename);
+        res.render("<h1>You are not allowed to perform this action!!</h1>");
+    }
 });
 
 app.listen(8000, () => {
