@@ -21,7 +21,10 @@ const Experience=()=>{
         <span className="section__subtitle">My work Places</span>
 
         <div className="experience__container container grid">
-          <div className="experience__content">
+          <div
+            style={{ marginRight: "-0.7rem" }}
+            className="experience__content"
+          >
             <div>
               <div className="Experience__icon">
                 <FaRegHeart />
@@ -110,7 +113,10 @@ const Experience=()=>{
             </div>
           </div>
 
-          <div className="experience__content">
+          <div
+            style={{ marginRight: "-0.7rem" }}
+            className="experience__content"
+          >
             <div>
               <div className="Experience__icon">
                 <FaRegHeart />
@@ -199,7 +205,10 @@ const Experience=()=>{
             </div>
           </div>
 
-          <div className="experience__content">
+          <div
+            style={{ marginRight: "-0.7rem" }}
+            className="experience__content"
+          >
             <div>
               <div className="Experience__icon">
                 <FaRegHeart />

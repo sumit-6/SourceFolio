@@ -46,6 +46,13 @@
     color:var(--title-color-dark);
 }
 
+@media screen and (max-width : 992px) {
+    .container {
+        margin-left : var(--mb-1-5);
+        margin-right: var(--mb-1-5);
+    }
+}
+
 @media screen and (max-width : 768px)
 {
     .header{
@@ -59,8 +66,8 @@
 
     .nav__menu{
         position: fixed;
-        bottom: 0;
-        left: 0;
+        bottom: -100%;
+        left: 0; 
         width: 100%;
         background-color: rgb(21, 20, 19);
         padding: 2rem 1.5rem 4rem;
@@ -68,6 +75,17 @@
         border-radius: 1.5rem 1.5rem 0 0;
         transition: 0.3s;
     }
+
+    /****SHOW MENU ***/
+    .show-menu{
+        bottom:0;
+    }
+
+    .nav__toggle{
+        font-size: 1.1rem;
+        cursor : pointer;
+    }
+
 
     .nav__list{
         display: grid;
@@ -95,5 +113,15 @@
     }
 
 
+}
+
+@media screen and (max-width : 350px) {
+    .nav__menu{
+        padding : 2rem 0.25rem 4rem;
+    }
+
+    .nav__list{
+        column-gap: 0;
+    }
 }
 

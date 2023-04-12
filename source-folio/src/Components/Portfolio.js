@@ -12,7 +12,8 @@ import FlashMessage from "./FlashMessage";
 import Experience from "./Experience";
 import Projects from "./Projects";
 import Contact from "./Contact";
-import Footer from "./Footer";
+import Education from "./Education";
+// import Footer from "./Footer";
 
 const Portfolio = () => {
   const location = useLocation();
@@ -41,6 +42,8 @@ const Portfolio = () => {
         <hr/>
         <Aboutme />
         <hr/>
+        <Education/>
+        <hr/>
         <Experience/>
         <hr/>
         <Projects/>
@@ -50,7 +53,6 @@ const Portfolio = () => {
         <Achivements/>
         <hr/>
         <Contact/>
-        <Footer/>
       </main>
     </div>
     </>

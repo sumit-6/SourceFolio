@@ -50,7 +50,18 @@ h2{
     color: orange;
 } */
 
-.experience__content{
-    margin-right: 1.3rem;
+.project__content{
+    margin-right: 1.9rem;
 
+}
+
+.project__content {
+    position: relative;
+    border: 1px solid rgba(142, 64, 64, 0.1);
+    /* background-color: rgb(76, 74, 74); */
+    background-image: url("../asset/image/3.jpg");
+    background-repeat: no repeat;
+    padding: 6rem 0 2rem 2.5rem;
+    background-size: cover;
+    opacity: 3;
 }

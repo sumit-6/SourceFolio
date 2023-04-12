@@ -41,13 +41,13 @@ const Projects=()=>{
     
     return (
       <section className="section projects">
-        <div className="experience__content_like" >
+        <div style={{marginTop : "-6rem"}}className="experience__content_like" >
         <h2 className="section__title">
           My <span style={{ color: "orange" }}>Projects.</span>
         </h2>
         <span className="section__subtitle">My work</span>
         <Carousel responsive={responsive} >
-          <div className="experience__content">
+          <div className="project__content">
             <div>
               <div className="Experience__icon">
                 <FaRegHeart />
@@ -70,6 +70,7 @@ const Projects=()=>{
                   marginRight: "0.8em",
                   borderRadius: "5px",
                   width: "20%",
+                  // height : "100%",
                   fontSize: "0.9rem",
                 }}
               >
@@ -90,7 +91,7 @@ const Projects=()=>{
             
           </div>
 
-          <div className="experience__content">
+          <div className="project__content">
             <div>
               <div className="Experience__icon">
                 <FaRegHeart />
@@ -133,7 +134,7 @@ const Projects=()=>{
             
           </div>
 
-          <div className="experience__content">
+          <div className="project__content">
             <div>
               <div className="Experience__icon">
                 <FaRegHeart />
@@ -176,7 +177,7 @@ const Projects=()=>{
             
           </div>
 
-          <div className="experience__content">
+          <div className="project__content">
             <div>
               <div className="Experience__icon">
                 <FaRegHeart />
