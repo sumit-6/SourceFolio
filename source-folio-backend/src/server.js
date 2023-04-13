@@ -507,7 +507,9 @@ app.post('/portfolio/insert', upload.single('profilePicture'), async (req, res) 
         obj.profilePicture = req.file;
         console.log(obj);
         const resultantObj = convertJSON(obj);
+        console.log(req.user);
         resultantObj.user_id = req.user.user_id;
+        console.log(resultantObj);
         validatePortfolio(resultantObj);
         const mongooseObj = new Portfolio(resultantObj);
         await mongooseObj.save();
