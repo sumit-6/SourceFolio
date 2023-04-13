@@ -19,6 +19,17 @@
     opacity: 3;
 }
 
+.experience__content_like{
+    position: relative;
+    border: 1px solid rgba(142, 64, 64, 0.1);
+    /* background-color: rgb(76, 74, 74); */
+
+    background-repeat: no repeat;
+    padding: 6rem 0 2rem 2.5rem;
+    background-size: cover;
+    opacity: 3;
+}
+
 .Experience__icon{
     display: block;
     font-size: 1.5rem;

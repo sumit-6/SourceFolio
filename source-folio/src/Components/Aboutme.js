@@ -7,7 +7,7 @@ import "./aboutme.css"
 
 const About = () =>{
     return (
-      <section className="about section" id="about">
+      <section className="about section" id="aboutme">
         <h2 className="section__title" style={{ color: "white" }}>
           <span style={{color:"orange"}}>About</span> <span>Me</span>
         </h2>

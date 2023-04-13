@@ -1,0 +1,7 @@
+.Footer__copy{
+    display : block;
+    margin-top : 4.5rem;
+    color : white;
+    text-align: center;
+    font-size: var(--smaller-font-size);
+}

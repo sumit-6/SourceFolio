@@ -1,0 +1,161 @@
+.education__container{
+    display : block;
+}
+
+.education__title{
+    font-size: var(--h3-font-size);
+    margin-bottom: var(--mb-1);
+    color: white;
+    font-weight: var(--font-medium);
+}
+
+.education__heading{
+    display: block;
+    /* background-color: rgb(54 54 54); */
+    background-image: url("../asset/image/4.jpg");
+    background-repeat: no repeat;
+    background-size: cover;
+    color : white;
+    height : 11rem;
+    border-radius: 12px;
+    width:100%;
+    font-size: 1.1rem;
+    font-weight: var(--font-medium);
+}
+
+.education__marks{
+    display: flex;
+    margin-top: 3.4rem;
+    margin-left: 1.5rem;
+    font-weight: var(--font-medium);
+    font-family: 'Courier New', Courier, monospace;
+    white-space: nowrap;
+    
+}
+
+.education__name{
+    display: flex;
+    margin-left: 1.5rem;
+  
+}
+
+.education__field{
+    margin-top: 1.5rem;
+    margin-left: 1.5rem;
+    font-size: 1.9rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.education__year{
+    margin-left: 1.45rem;
+}
+
+.education__place{
+    margin-left: 3rem;
+    font-size: 0.8rem;
+    margin-top: 0;
+    
+}
+
+.education__college{
+    font-size: 1.3rem;
+    width : 28%;
+    white-space: nowrap;
+    /* white-space: nowrap; */
+    
+}
+
+h4{
+    color : rgb(101, 97, 97);
+    width: 20%;
+    font-size: 1rem;
+    
+}
+
+h6{
+    color: orange;
+    font-size: 0.8rem;
+}
+
+@media screen and (max-width : 992px) {
+    h4{
+        font-size: 0.9rem;
+    }
+
+    .education__college{
+        font-size: 1.1rem;
+    }
+
+        span {
+            word-wrap: break-word;
+    
+        }
+
+    h6{
+        font-size: 0.7rem;
+    }
+}
+
+@media screen and (max-width : 768px) {
+    
+    h4 {
+        font-size: 0.7rem;
+    }
+
+    .education__college {
+        font-size: 1rem;
+    }
+
+        span{
+            word-wrap: break-word;
+    
+        }
+
+    h6 {
+        font-size: 0.6rem;
+    }
+}
+
+@media screen and (max-width : 576px) {
+        
+        h4 {
+            font-size: 0.6rem;
+        }
+
+        .education__college {
+            font-size: 0.8rem;
+        
+        }
+    
+                span {
+                    word-wrap: break-word;
+        
+                }
+        h6 {
+            font-size: 0.35rem;
+        }
+}
+
+/*for small device */
+@media screen and (max-width : 350px) {
+        
+        h4 {
+            font-size: 0.4rem;
+        }
+
+                span {
+                    word-wrap: break-word;
+        
+                }
+    
+        .education__college {
+            font-size: 0.7rem;
+        }
+    
+        h6 {
+            font-size: 0.3rem;
+        }
+}
+
+
+

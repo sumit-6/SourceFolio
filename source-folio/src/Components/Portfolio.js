@@ -11,7 +11,9 @@ import { useState, useEffect } from 'react';
 import FlashMessage from "./FlashMessage";
 import Experience from "./Experience";
 import Projects from "./Projects";
-
+import Contact from "./Contact";
+import Education from "./Education";
+// import Footer from "./Footer";
 
 const Portfolio = () => {
   const location = useLocation();
@@ -40,6 +42,8 @@ const Portfolio = () => {
         <hr/>
         <Aboutme />
         <hr/>
+        <Education/>
+        <hr/>
         <Experience/>
         <hr/>
         <Projects/>
@@ -48,6 +52,7 @@ const Portfolio = () => {
         <hr/>
         <Achivements/>
         <hr/>
+        <Contact/>
       </main>
     </div>
     </>
