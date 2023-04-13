@@ -12,9 +12,6 @@ import portfolioSchema from '../JoiSchemas.js';
 import ExpressError from '../ExpressError.js';
 import fs from 'fs';
 import admin from 'firebase-admin';
-if(process.env.NODE_ENV !== 'production') {
-    dotenv.config();
-}
 const credentials = JSON.parse(
     fs.readFileSync('./credentials.json')
 );
@@ -47,7 +44,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express(); 
 
-const secret = 'thisisasecret';
+const secret = process.env.SECRET;
 
 app.use(helmet.crossOriginOpenerPolicy());
 app.use(helmet.crossOriginResourcePolicy());
@@ -113,7 +110,7 @@ app.use(function(req, res, next) {
     next();
   });
 
-const dbUrl = 'mongodb://localhost:27017/source-folio';
+const dbUrl = process.env.DB_URL;
 mongoose.connect(dbUrl);
 
 const db = mongoose.connection;
@@ -458,6 +455,17 @@ app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
+})
+
+app.get('/api/getID/:id', async (req, res) => {
+    if(req.user) {
+        const id = req.params.id;
+        const data = await Portfolio.findOne({"user_id": id});
+        if(data) res.status(200).send(data._id);
+        else res.status(400).send("Failure");
+    } else {
+        res.status(400).send("Failure");
+    }
 })
 
 app.get('/api/portfolio/:id', async(req, res) => {
