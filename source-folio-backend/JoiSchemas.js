@@ -51,14 +51,19 @@ const projectSchema = Joi.object({
     projectLink: Joi.string().allow('')
 });
 
-const skillElementSchema = Joi.object({
-    name: Joi.string().required(),
-    level: Joi.string().valid('Expert', 'Intermediate', 'Beginner').required()
+const skillProElementSchema = Joi.object({
+    skillName: Joi.string().required(),
+    skillLevel: Joi.string().valid('Expert', 'Intermediate', 'Beginner').required()
+});
+
+const skillToolElementSchema = Joi.object({
+    toolName: Joi.string().required(),
+    toolLevel: Joi.string().valid('Expert', 'Intermediate', 'Beginner').required()
 });
 
 const skillsSchema = Joi.object({
-    programmingSkills: Joi.array().items(skillElementSchema),
-    toolsAndFrameworks: Joi.array().items(skillElementSchema)
+    programmingSkills: Joi.array().items(skillProElementSchema),
+    toolsAndFrameworks: Joi.array().items(skillToolElementSchema)
 });
 
 const imageSchema = Joi.object({

@@ -109,7 +109,7 @@ app.use(
 );
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, authtoken");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, authtoken, file");
     next();
   });
 
@@ -277,23 +277,23 @@ function convertJSON(inputJSON) {
     if(typeof(inputJSON['skillName']) == 'object') {
         for(let i = 0; i < inputJSON['skillName'].length; i++) {
             const obj = {
-                "name": "",
-                "level": ""
+                "skillName": "",
+                "skillLevel": ""
             }
             
-            obj["name"] = inputJSON["skillName"][i];
-            obj["level"] = inputJSON["skillLevel"][i];
+            obj["skillName"] = inputJSON["skillName"][i];
+            obj["skillLevel"] = inputJSON["skillLevel"][i];
             
             outputJSON["mySkills"]["programmingSkills"].push(obj);
         }
     } else {
         const obj = {
-            "name": "",
-            "level": ""
+            "skillName": "",
+            "skillLevel": ""
         }
 
-        obj["name"] = inputJSON["skillName"];
-        obj["level"] = inputJSON["skillLevel"];
+        obj["skillName"] = inputJSON["skillName"];
+        obj["skillLevel"] = inputJSON["skillLevel"];
             
         outputJSON["mySkills"]["programmingSkills"].push(obj);
     }
@@ -301,23 +301,23 @@ function convertJSON(inputJSON) {
     if(typeof(inputJSON['toolName']) == 'object') {
         for(let i = 0; i < inputJSON['toolName'].length; i++) {
             const obj = {
-                "name": "",
-                "level": ""
+                "toolName": "",
+                "toolLevel": ""
             }
             
-            obj["name"] = inputJSON["toolName"][i];
-            obj["level"] = inputJSON["toolLevel"][i];
+            obj["toolName"] = inputJSON["toolName"][i];
+            obj["toolLevel"] = inputJSON["toolLevel"][i];
             
             outputJSON["mySkills"]["toolsAndFrameworks"].push(obj);
         }
     } else {
         const obj = {
-            "name": "",
-            "level": ""
+            "toolName": "",
+            "toolLevel": ""
         }
         
-        obj["name"] = inputJSON["toolName"];
-        obj["level"] = inputJSON["toolLevel"];
+        obj["toolName"] = inputJSON["toolName"];
+        obj["toolLevel"] = inputJSON["toolLevel"];
         
         outputJSON["mySkills"]["toolsAndFrameworks"].push(obj);
     }
@@ -354,14 +354,19 @@ const ProjectSchema = new Schema({
     projectLink: String
 });
 
-const skillElementSchema = new Schema({
-    name: String,
-    level: String
+const skillProElementSchema = new Schema({
+    skillName: String,
+    skillLevel: String
 });
 
+const skillToolElementSchema = new Schema({
+    toolName: String,
+    toolLevel: String
+})
+
 const SkillsSchema = new Schema({
-    programmingSkills: [skillElementSchema],
-    toolsAndFrameworks: [skillElementSchema]
+    programmingSkills: [skillProElementSchema],
+    toolsAndFrameworks: [skillToolElementSchema]
 });
 
 const ImageSchema = new Schema({
@@ -406,7 +411,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(async (req, res, next) => {
-    const { authtoken } = req.headers;
+    const { authtoken, file } = req.headers;
+    if(file) {
+        req.file = file;
+    }
     //console.log(authtoken);
     if(authtoken) {
         try {
@@ -459,18 +467,23 @@ app.get('/api/portfolio/:id', async(req, res) => {
 });
 
 app.post('/edit/profilePicture/:id', upload.single('profilePicture'), async(req, res) => {
-    const id = req.params.id;
-    const data = await Portfolio.findById(id);
-    if(req.user && data.user_id === req.user.user_id) {
-        await cloudinary.uploader.destroy(data.profilePicture.filename)
-        const file = req.file;
-        const obj = {profilePicture: {url: file.path, filename: file.filename }};
-        await Portfolio.findByIdAndUpdate(id, obj);
-        res.redirect(`https://react-form-ten-steel.vercel.app/edit/${id}`);
-    }
-    else {
-        await cloudinary.uploader.destroy(req.file.filename);
-        res.render("<h1>You are not allowed to perform this action!!</h1>");
+    try {
+        const id = req.params.id;
+        const data = await Portfolio.findById(id);
+        console.log(req.file);
+        if(req.user && data.user_id === req.user.user_id) {
+            await cloudinary.uploader.destroy(data.profilePicture.filename)
+            const file = req.file;
+            const obj = {profilePicture: {url: file.path, filename: file.filename }};
+            await Portfolio.findByIdAndUpdate(id, obj);
+            res.status(200).send(`Success`);
+        }
+        else {
+            await cloudinary.uploader.destroy(req.file.filename);
+            res.status(400).send("Failure");
+        }
+    } catch(err) {
+        console.log(err);
     }
 });
 
@@ -478,26 +491,28 @@ app.post('/portfolio/edit/:id', async(req, res) => {
     const id = req.params.id;
     const updatedData = req.body;
     const data = await Portfolio.findById(id);
+    console.log(updatedData)
     if(req.user && data.user_id === req.user.user_id) {
         const resultantObj = convertJSON(updatedData);
+        resultantObj.user_id = req.user.user_id;
         validatePortfolio(resultantObj);
         await Portfolio.findByIdAndUpdate(id, resultantObj, {new: true});
         req.flash('success', 'Successfully Updated!');
-        res.redirect(`http://localhost:3000/portfolio?success=${encodeURIComponent(req.flash('success'))}`);
+        res.status(200).send(`Success`);
     } else {
-        res.render("<h1>You are not allowed to perform this action!!</h1>");
+        res.status(400).send("Failure");
     }
 })
 
 app.post('/portfolio/delete/:id', async(req, res) => {
     const id = req.params.id;
     const data = await Portfolio.findById(id);
-    if(req.user && data.user_id === req.user.user_id) {
+    if(req.user && (data.user_id === req.user.user_id)) {
         await cloudinary.uploader.destroy(data.profilePicture.filename)
         await Portfolio.findByIdAndDelete(id);
-        res.redirect('http://localhost:3000')
+        res.status(200).send("Success")
     } else {
-        res.render("<h1>You are not allowed to perform this action!!</h1>");
+        res.status(400).send("Failure");
     }
 })
 
@@ -513,10 +528,10 @@ app.post('/portfolio/insert', upload.single('profilePicture'), async (req, res) 
         validatePortfolio(resultantObj);
         const mongooseObj = new Portfolio(resultantObj);
         await mongooseObj.save();
-        res.redirect('http://localhost:3000/portfolio');
+        res.status(200).send("Success");
     } else {
         await cloudinary.uploader.destroy(req.file.filename);
-        res.render("<h1>You are not allowed to perform this action!!</h1>");
+        res.status(400).send(400, "Failure");
     }
 });
 
