@@ -10,7 +10,18 @@ import flash from 'connect-flash';
 import MongoDBStorePackage from 'connect-mongodb-session';
 import portfolioSchema from '../JoiSchemas.js';
 import ExpressError from '../ExpressError.js';
+import fs from 'fs';
+import admin from 'firebase-admin';
+if(process.env.NODE_ENV !== 'production') {
+    dotenv.config();
+}
+const credentials = JSON.parse(
+    fs.readFileSync('./credentials.json')
+);
 
+admin.initializeApp({
+    credential: admin.credential.cert(credentials),
+});
 if(process.env.NODE_ENV !== 'production') {
     dotenv.config();
 }
@@ -98,7 +109,7 @@ app.use(
 );
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, authtoken, file");
     next();
   });
 
@@ -114,6 +125,7 @@ db.once('open', function() {
 function convertJSON(inputJSON) {
     
     const outputJSON = {
+        "user_id": "",
     	"name": "",
     
     	"mainDesignations": [],
@@ -265,23 +277,23 @@ function convertJSON(inputJSON) {
     if(typeof(inputJSON['skillName']) == 'object') {
         for(let i = 0; i < inputJSON['skillName'].length; i++) {
             const obj = {
-                "name": "",
-                "level": ""
+                "skillName": "",
+                "skillLevel": ""
             }
             
-            obj["name"] = inputJSON["skillName"][i];
-            obj["level"] = inputJSON["skillLevel"][i];
+            obj["skillName"] = inputJSON["skillName"][i];
+            obj["skillLevel"] = inputJSON["skillLevel"][i];
             
             outputJSON["mySkills"]["programmingSkills"].push(obj);
         }
     } else {
         const obj = {
-            "name": "",
-            "level": ""
+            "skillName": "",
+            "skillLevel": ""
         }
 
-        obj["name"] = inputJSON["skillName"];
-        obj["level"] = inputJSON["skillLevel"];
+        obj["skillName"] = inputJSON["skillName"];
+        obj["skillLevel"] = inputJSON["skillLevel"];
             
         outputJSON["mySkills"]["programmingSkills"].push(obj);
     }
@@ -289,23 +301,23 @@ function convertJSON(inputJSON) {
     if(typeof(inputJSON['toolName']) == 'object') {
         for(let i = 0; i < inputJSON['toolName'].length; i++) {
             const obj = {
-                "name": "",
-                "level": ""
+                "toolName": "",
+                "toolLevel": ""
             }
             
-            obj["name"] = inputJSON["toolName"][i];
-            obj["level"] = inputJSON["toolLevel"][i];
+            obj["toolName"] = inputJSON["toolName"][i];
+            obj["toolLevel"] = inputJSON["toolLevel"][i];
             
             outputJSON["mySkills"]["toolsAndFrameworks"].push(obj);
         }
     } else {
         const obj = {
-            "name": "",
-            "level": ""
+            "toolName": "",
+            "toolLevel": ""
         }
         
-        obj["name"] = inputJSON["toolName"];
-        obj["level"] = inputJSON["toolLevel"];
+        obj["toolName"] = inputJSON["toolName"];
+        obj["toolLevel"] = inputJSON["toolLevel"];
         
         outputJSON["mySkills"]["toolsAndFrameworks"].push(obj);
     }
@@ -342,14 +354,19 @@ const ProjectSchema = new Schema({
     projectLink: String
 });
 
-const skillElementSchema = new Schema({
-    name: String,
-    level: String
+const skillProElementSchema = new Schema({
+    skillName: String,
+    skillLevel: String
 });
 
+const skillToolElementSchema = new Schema({
+    toolName: String,
+    toolLevel: String
+})
+
 const SkillsSchema = new Schema({
-    programmingSkills: [skillElementSchema],
-    toolsAndFrameworks: [skillElementSchema]
+    programmingSkills: [skillProElementSchema],
+    toolsAndFrameworks: [skillToolElementSchema]
 });
 
 const ImageSchema = new Schema({
@@ -361,6 +378,7 @@ ImageSchema.virtual('thumbnail').get(function() {
 })
 
 const PortfolioSchema = new Schema({
+    user_id: String,
     name: String,
     mainDesignations: [String],
     description: String,
@@ -392,6 +410,24 @@ app.set('views', path.join(__dirname, '../views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
+app.use(async (req, res, next) => {
+    const { authtoken, file } = req.headers;
+    if(file) {
+        req.file = file;
+    }
+    //console.log(authtoken);
+    if(authtoken) {
+        try {
+            req.user = await admin.auth().verifyIdToken(authtoken);
+            //console.log(req.user);
+        }
+        catch (e) {
+            return res.sendStatus(400);
+        }
+    }
+    req.user = req.user || {};
+    next();
+});
 
 const MongoDBStore = MongoDBStorePackage(session);
 const store = new MongoDBStore({
@@ -427,51 +463,78 @@ app.use((req, res, next) => {
 app.get('/api/portfolio/:id', async(req, res) => {
     const id = req.params.id;
     const data = await Portfolio.findById(id);
-    
     res.json(data);
 });
 
 app.post('/edit/profilePicture/:id', upload.single('profilePicture'), async(req, res) => {
-    const id = req.params.id;
-    const data = await Portfolio.findById(id);
-    await cloudinary.uploader.destroy(data.profilePicture.filename)
-    const file = req.file;
-    const obj = {profilePicture: {url: file.path, filename: file.filename }};
-    await Portfolio.findByIdAndUpdate(id, obj);
-    res.redirect(`https://react-form-ten-steel.vercel.app/edit/${id}`);
+    try {
+        const id = req.params.id;
+        const data = await Portfolio.findById(id);
+        console.log(req.file);
+        if(req.user && data.user_id === req.user.user_id) {
+            await cloudinary.uploader.destroy(data.profilePicture.filename)
+            const file = req.file;
+            const obj = {profilePicture: {url: file.path, filename: file.filename }};
+            await Portfolio.findByIdAndUpdate(id, obj);
+            res.status(200).send(`Success`);
+        }
+        else {
+            await cloudinary.uploader.destroy(req.file.filename);
+            res.status(400).send("Failure");
+        }
+    } catch(err) {
+        console.log(err);
+    }
 });
 
 app.post('/portfolio/edit/:id', async(req, res) => {
     const id = req.params.id;
     const updatedData = req.body;
-  
-    const resultantObj = convertJSON(updatedData);
-    validatePortfolio(resultantObj);
-    await Portfolio.findByIdAndUpdate(id, resultantObj, {new: true});
-    req.flash('success', 'Successfully Updated!');
-    res.redirect(`http://localhost:3000/portfolio?success=${encodeURIComponent(req.flash('success'))}`);
+    const data = await Portfolio.findById(id);
+    console.log(updatedData)
+    if(req.user && data.user_id === req.user.user_id) {
+        const resultantObj = convertJSON(updatedData);
+        resultantObj.user_id = req.user.user_id;
+        validatePortfolio(resultantObj);
+        await Portfolio.findByIdAndUpdate(id, resultantObj, {new: true});
+        req.flash('success', 'Successfully Updated!');
+        res.status(200).send(`Success`);
+    } else {
+        res.status(400).send("Failure");
+    }
 })
 
-app.get('/portfolio/delete/:id', async(req, res) => {
+app.post('/portfolio/delete/:id', async(req, res) => {
     const id = req.params.id;
     const data = await Portfolio.findById(id);
-    await cloudinary.uploader.destroy(data.profilePicture.filename)
-    await Portfolio.findByIdAndDelete(id);
-    res.redirect('http://localhost:3000')
+    if(req.user && (data.user_id === req.user.user_id)) {
+        await cloudinary.uploader.destroy(data.profilePicture.filename)
+        await Portfolio.findByIdAndDelete(id);
+        res.status(200).send("Success")
+    } else {
+        res.status(400).send("Failure");
+    }
 })
 
 app.post('/portfolio/insert', upload.single('profilePicture'), async (req, res) => {
-    const obj = req.body;
-    obj.profilePicture = req.file;
-    console.log(obj);
-    const resultantObj = convertJSON(obj);
-    validatePortfolio(resultantObj);
-    const mongooseObj = new Portfolio(resultantObj);
-    await mongooseObj.save();
-    res.redirect('http://localhost:3000/portfolio');
+    if(req.user) {
+        const obj = req.body;
+        obj.profilePicture = req.file;
+        console.log(obj);
+        const resultantObj = convertJSON(obj);
+        console.log(req.user);
+        resultantObj.user_id = req.user.user_id;
+        console.log(resultantObj);
+        validatePortfolio(resultantObj);
+        const mongooseObj = new Portfolio(resultantObj);
+        await mongooseObj.save();
+        res.status(200).send("Success");
+    } else {
+        await cloudinary.uploader.destroy(req.file.filename);
+        res.status(400).send(400, "Failure");
+    }
 });
 
 app.listen(8000, () => {
     console.log('server is listening on http://localhost:8000');
 });
-
