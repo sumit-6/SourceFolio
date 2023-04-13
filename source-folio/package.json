@@ -15,9 +15,11 @@
     "react-multi-carousel": "^2.8.3",
     "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
+    "react-scroll": "^1.8.9",
     "react-slick": "^0.29.0",
     "sanitize-html": "^2.10.0",
     "slick-carousel": "^1.8.1",
+    "typewriter-effect": "^2.19.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

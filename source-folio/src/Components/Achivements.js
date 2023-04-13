@@ -5,7 +5,7 @@ import { SlGraduation } from "react-icons/sl";
 const Achivements=()=>{
 
     return (
-      <section className="qualification section">
+      <section className="qualification section" id="achivements">
         <h2 className="section__title">
           My <span style={{ color: "orange" }}>Achievements.</span>
         </h2>
