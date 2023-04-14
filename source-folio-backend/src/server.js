@@ -468,7 +468,7 @@ app.use((req, res, next) => {
     next();
 })
 
-app.get("/", (req, res) => {
+app.get("/",  (req, res) => {
     res.send("Hello, Welcome to My backend!!");
 })
 
