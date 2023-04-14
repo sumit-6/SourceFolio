@@ -1,6 +1,7 @@
 import React from "react";
 import "./home.css"
 import Typewriter from "typewriter-effect"
+import { Link } from "react-scroll";
 
 const Data = () => {
   return (
@@ -64,8 +65,8 @@ const Data = () => {
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores laborum
         quisquam quod similique nulla iure.
       </p>
-      <a
-        href="#contact"
+      <Link
+        to="contact"
         className="button button--flex"
         style={{ color: "white", marginTop: "1.3rem" }}
       >
@@ -87,7 +88,7 @@ const Data = () => {
             fill="#DA7328"
           ></path>
         </svg>
-      </a>
+      </Link>
     </div>
   );
 }
