@@ -468,6 +468,10 @@ app.use((req, res, next) => {
     next();
 })
 
+app.get("/", (req, res) => {
+    res.send("Hello, Welcome to My backend!!");
+})
+
 app.get('/api/getID/:id', async (req, res) => {
     if(req.user) {
         const id = req.params.id;
