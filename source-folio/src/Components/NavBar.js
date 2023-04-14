@@ -106,7 +106,7 @@ const NavBar=()=>{
               showMenu(!Toggle);
             }}
           >
-            <i style={{ color: "white" , marginLeft: "-7rem"}}>
+            <i style={{ color: "white"}}>
               <AiOutlineMenu />
             </i>
           </div>
