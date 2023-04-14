@@ -10,18 +10,28 @@ import flash from 'connect-flash';
 import MongoDBStorePackage from 'connect-mongodb-session';
 import portfolioSchema from '../JoiSchemas.js';
 import ExpressError from '../ExpressError.js';
-import fs from 'fs';
-import admin from 'firebase-admin';
-const credentials = JSON.parse(
-    fs.readFileSync('./credentials.json')
-);
 
-admin.initializeApp({
-    credential: admin.credential.cert(credentials),
-});
+import admin from 'firebase-admin';
+const credentials = {};
+
+
+
 if(process.env.NODE_ENV !== 'production') {
     dotenv.config();
 }
+credentials['type'] = process.env.TYPE;
+credentials['project_id'] = process.env.PROJECT_ID;
+credentials['private_key_id'] = process.env.PRIVATE_KEY_ID;
+credentials['private_key'] = process.env.PRIVATE_KEY;
+credentials['client_email'] = process.env.CLIENT_EMAIL;
+credentials['client_id'] = process.env.CLIENT_ID;
+credentials['auth_uri'] = process.env.AUTH_URI;
+credentials['token_uri'] = process.env.TOKEN_URI;
+credentials['auth_provider_x509_cert_url'] = process.env.AUTH_PROVIDER_X509_CERT_URL;
+credentials['client_x509_cert_url'] = process.env.CLIENT_X509_CERT_URL;
+admin.initializeApp({
+    credential: admin.credential.cert(credentials),
+});
 
 const cloudinary = cl.v2;
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
@@ -39,6 +49,7 @@ const storage = new CloudinaryStorage({
 })
 const upload = multer({storage});
 import { fileURLToPath } from 'url';
+import { createDeflate } from 'zlib';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -515,6 +526,7 @@ app.post('/portfolio/edit/:id', async(req, res) => {
 app.post('/portfolio/delete/:id', async(req, res) => {
     const id = req.params.id;
     const data = await Portfolio.findById(id);
+    console.log(data.user_id, req.user.user_id);
     if(req.user && (data.user_id === req.user.user_id)) {
         await cloudinary.uploader.destroy(data.profilePicture.filename)
         await Portfolio.findByIdAndDelete(id);
