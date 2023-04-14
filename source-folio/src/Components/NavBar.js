@@ -19,8 +19,8 @@ const NavBar=()=>{
               <li className="nav__item">
                 <Link
                   to="aboutme"
-                  smooth={true}
-                  duration={1000}
+                  // smooth={true}
+                  // duration={1000}
                   className="nav__link"
                   style={{ color: "orange" }}
                 >
@@ -31,8 +31,8 @@ const NavBar=()=>{
               <li className="nav__item">
                 <Link
                   to="education"
-                  smooth={true}
-                  duration={1000}
+                  // smooth={true}
+                  // duration={1000}
                   className="nav__link"
                   style={{ color: "white" }}
                 >
@@ -43,8 +43,8 @@ const NavBar=()=>{
               <li className="nav__item">
                 <Link
                   to="experience"
-                  smooth={true}
-                  duration={1000}
+                  // smooth={true}
+                  // duration={1000}
                   className="nav__link"
                   style={{ color: "white" }}
                 >
@@ -55,8 +55,8 @@ const NavBar=()=>{
               <li className="nav__item">
                 <Link
                   to="projects"
-                  smooth={true}
-                  duration={1000}
+                  // smooth={true}
+                  // duration={1000}
                   className="nav__link"
                   style={{ color: "white" }}
                 >
@@ -67,8 +67,8 @@ const NavBar=()=>{
               <li className="nav__item">
                 <Link
                   to="skills"
-                  smooth={true}
-                  duration={1000}
+                  // smooth={true}
+                  // duration={1000}
                   className="nav__link"
                   style={{ color: "white" }}
                 >
@@ -79,8 +79,8 @@ const NavBar=()=>{
               <li className="nav__item">
                 <Link
                   to="achivements"
-                  smooth={true}
-                  duration={1000}
+                  // smooth={true}
+                  // duration={1000}
                   className="nav__link"
                   style={{ color: "white" }}
                 >
@@ -106,7 +106,7 @@ const NavBar=()=>{
               showMenu(!Toggle);
             }}
           >
-            <i style={{ color: "white" }}>
+            <i style={{ color: "white" , marginLeft: "-1rem"}}>
               <AiOutlineMenu />
             </i>
           </div>

@@ -65,3 +65,22 @@ h2{
     background-size: cover;
     opacity: 3;
 }
+
+@media screen and (max-width : 992px) {
+    button{
+        font-size: 0.7rem;
+    }
+}
+
+@media screen and (max-width : 576px) {
+    button {
+            font-size: 0.6rem;
+        }
+}
+
+/*for small device */
+@media screen and (max-width : 350px) {
+    button {
+            font-size: 0.5rem;
+        }
+}
