@@ -23,7 +23,7 @@ const About = () =>{
               I am a Full Stack Developer and I can create web pages with UI/UX
               interfaces. Apart from that I love doing DSA and problem-solving.
             </p>
-            <a className="button button--flex" style={{ color: "white" }}>
+            <Link to="#achivements" className="button button--flex" style={{ color: "white" }}>
               {/* download="" href={CV} */}
               Read More...
               <svg
@@ -51,7 +51,7 @@ const About = () =>{
                   fill="orange"
                 ></path>
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
