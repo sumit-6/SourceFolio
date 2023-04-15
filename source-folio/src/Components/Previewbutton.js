@@ -8,7 +8,7 @@ const Previewbutton = () => {
     <div>
       <h1>Home Page</h1>
       <button
-        onClick={() => navigate("portfolio")}
+        onClick={() => navigate("portfolio/:id")}
         style={{ backgroundColor: "orange", borderRadius: "4px" }}
       >
         Preview

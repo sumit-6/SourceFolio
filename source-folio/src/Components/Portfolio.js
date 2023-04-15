@@ -40,6 +40,7 @@ const Portfolio = () => {
       const response = await axios.get(`https://source-folio-backend.onrender.com/api/portfolio/${ID}`);
       if(typeof(response.data) === 'object') {
         const dataRes = response.data;
+        console.log(dataRes);
         setData(dataRes);
         setIsReady(true);
       }
@@ -50,8 +51,8 @@ const Portfolio = () => {
     
     <div className="Portfolio">
     {successMessage && <FlashMessage msg={successMessage}/>}
-      {isReady && <NavBar >
-      <main className="main">
+      {isReady && <NavBar />}
+      {isReady && <main className="main">
         <Home name={data.name} mainDesignations={data.mainDesignations} description={data.description} profilePicture={data.profilePicture} githubProfile={data.githubProfile} linkedIn={data.linkedIn} instagram={data.instagram} />
         <hr/>
         <Aboutme bio={data.bio} yearsOfExperience={data.yearsOfExperience} numberOfProjects={data.numberOfProjects} profilePicture={data.profilePicture} />
@@ -67,8 +68,7 @@ const Portfolio = () => {
         <Achivements data={data.myAchievements}/>
         <hr/>
         <Contact linkedIn={data.linkedIn} instagram={data.instagram} telephone={data.telephone} email={data.email}/>
-      </main>
-      </NavBar>}
+      </main>}
     </div>
     </>
   );

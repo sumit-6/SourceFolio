@@ -6,7 +6,7 @@ import Info from "./Info";
 import "./aboutme.css"
 import { Link } from "react-router-dom";
 
-const About = () =>{
+const About = (props) =>{
     return (
       <section className="about section" id="aboutme">
         <h2 className="section__title" style={{ color: "white" }}>
@@ -15,14 +15,13 @@ const About = () =>{
         <span className="section__subtitle">My introduction</span>
 
         <div className="about__container container grid">
-          <img src={AboutImg} alt="" className="about__img" />
+          <img src={`${props.profilePicture.url}`} alt="" className="about__img" />
 
           <div className="about__data">
-            <Info />
+            <Info yearsOfExperience={props.yearsOfExperience} numberOfProjects={props.numberOfProjects}/>
 
             <p className="about__description">
-              I am a Full Stack Developer and I can create web pages with UI/UX
-              interfaces. Apart from that I love doing DSA and problem-solving.
+              {props.bio}
             </p>
             <Link to="#achivements" className="button button--flex" style={{ color: "white" }}>
               {/* download="" href={CV} */}
