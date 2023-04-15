@@ -135,12 +135,12 @@ function convertJSON(inputJSON) {
     const outputJSON = {
         "user_id": "",
     	"name": "",
-    
+        "bio": "",
     	"mainDesignations": [],
-    
+        "githubProfile": "",
     	"description": "",
-    	
-    
+    	"yearsOfExperience": "",
+        "numberOfProjects": "",
     	"myEducation": [],
     
     	"myExperience": [],
@@ -160,6 +160,10 @@ function convertJSON(inputJSON) {
     };
     
     outputJSON['name'] = inputJSON['name'];
+    outputJSON['bio'] = inputJSON['bio'];
+    outputJSON['githubProfile'] = inputJSON['githubProfile'];
+    outputJSON['yearsOfExperience'] = inputJSON['yearsOfExperience'];
+    outputJSON['numberOfProjects'] = inputJSON['numberOfProjects'];
     if(typeof(inputJSON['mainDesignations']) == 'object') outputJSON['mainDesignations'] = inputJSON['mainDesignations'];
     else outputJSON['mainDesignations'].push(inputJSON['mainDesignations']);
     outputJSON['description'] = inputJSON['description'];
@@ -388,6 +392,10 @@ ImageSchema.virtual('thumbnail').get(function() {
 const PortfolioSchema = new Schema({
     user_id: String,
     name: String,
+    bio: String,
+    githubProfile: String,
+    numberOfProjects: String,
+    yearsOfExperience: String,
     mainDesignations: [String],
     description: String,
     profilePicture: ImageSchema,
@@ -473,7 +481,7 @@ app.get("/",  (req, res) => {
 })
 
 app.get('/api/getID/:id', async (req, res) => {
-    if(req.user) {
+    if(req.user && (req.user.user_id === req.params.id)) {
         const id = req.params.id;
         const data = await Portfolio.findOne({"user_id": id});
         if(data) res.status(200).send(data._id);
@@ -563,3 +571,6 @@ const port = process.env.PORT || 8000;
 app.listen(port, () => {
     console.log('server is listening on http://localhost:8000');
 });
+
+
+export default app;
