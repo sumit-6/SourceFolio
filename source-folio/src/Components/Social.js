@@ -16,7 +16,7 @@ const Social=(props)=>{
         </a>
 
         <a
-          href="https://www.linkedin.com"
+          href={`${props.linkedIn}`}
           className="home__social-icon"
           target="_blank"
         >
@@ -24,7 +24,7 @@ const Social=(props)=>{
         </a>
 
         <a
-          href="https://www.github.com"
+          href={`${props.githubProfile}`}
           className="home__social-icon"
           target="_blank"
         >
