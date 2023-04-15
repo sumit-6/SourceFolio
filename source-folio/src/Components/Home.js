@@ -5,7 +5,7 @@ import Social from "./Social";
 
 const Home=(props)=>{
     function getThumbnail(url) {
-        return url.replace('/upload', '/upload/c_crop,h_300,w_300')
+        return url.replace('/upload', '/upload/c_scale,h_300,w_300')
     }
     console.log(props);
     return(
