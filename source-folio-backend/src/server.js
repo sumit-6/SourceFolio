@@ -137,7 +137,7 @@ function convertJSON(inputJSON) {
     	"name": "",
         "bio": "",
     	"mainDesignations": [],
-    
+        "githubProfile": "",
     	"description": "",
     	"yearsOfExperience": "",
         "numberOfProjects": "",
@@ -161,6 +161,7 @@ function convertJSON(inputJSON) {
     
     outputJSON['name'] = inputJSON['name'];
     outputJSON['bio'] = inputJSON['bio'];
+    outputJSON['githubProfile'] = inputJSON['githubProfile'];
     outputJSON['yearsOfExperience'] = inputJSON['yearsOfExperience'];
     outputJSON['numberOfProjects'] = inputJSON['numberOfProjects'];
     if(typeof(inputJSON['mainDesignations']) == 'object') outputJSON['mainDesignations'] = inputJSON['mainDesignations'];
@@ -392,6 +393,7 @@ const PortfolioSchema = new Schema({
     user_id: String,
     name: String,
     bio: String,
+    githubProfile: String,
     numberOfProjects: String,
     yearsOfExperience: String,
     mainDesignations: [String],

@@ -4,11 +4,11 @@ import { SiLinkedin } from "react-icons/si";
 import { SiGithub } from "react-icons/si";
 import "./home.css"
 
-const Social=()=>{
+const Social=(props)=>{
     return (
       <div className="home__social">
         <a
-          href="https://www.instagram.com"
+          href={`${props.instagram}`}
           className="home__social-icon"
           target="_blank"
         >

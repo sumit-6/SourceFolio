@@ -75,6 +75,7 @@ const portfolioSchema = Joi.object({
     user_id: Joi.string().required(),
     name: Joi.string().required(),
     bio: Joi.string().required(),
+    githubProfile: Joi.string().required(),
     numberOfProjects: Joi.string().valid('Beginner', '1-2 Projects', '3-5 Projects', '5-10 Projects', '10+ Projects').required(),
     yearsOfExperience: Joi.string().valid('Fresher', '6+ Months', '1-2 Years', '3-5 Years', '5-10 Years', '10+ Years').required(),
     mainDesignations: Joi.array().items(Joi.string()).required(),
