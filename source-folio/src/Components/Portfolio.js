@@ -12,7 +12,6 @@ import Experience from "./Experience";
 import Projects from "./Projects";
 import Contact from "./Contact";
 import Education from "./Education";
-import { useLocation } from "react-router-dom";
 import axios from 'axios';
 
 const Portfolio = () => {
