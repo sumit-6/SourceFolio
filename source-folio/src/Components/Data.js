@@ -3,11 +3,12 @@ import "./home.css"
 import Typewriter from "typewriter-effect"
 import { Link } from "react-scroll";
 
-const Data = () => {
+const Data = (props) => {
+  const listOfDesignations = props.mainDesignations.map((x) => {return `I'm ${x}`});;
   return (
     <div className="home__data">
       <h1 className="home__title" style={{ fontSize: "2rem" }}>
-        I am Vin Diesal
+        I am {`${props.name}`}
         <svg
           width="36"
           height="36"
@@ -59,11 +60,10 @@ const Data = () => {
         </svg>
       </h1>
       <h3 className="home__subtitle"><Typewriter options={{
-        autoStart : true,loop:true, delay:40,strings:["I'm a Developer","I'm a Designer", "I'm a Coder"],
+        autoStart : true,loop:true, delay:40,strings:listOfDesignations,
       }}/></h3>
       <p className="home__description">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores laborum
-        quisquam quod similique nulla iure.
+        {props.description}
       </p>
       <Link
         to="contact"
