@@ -4,7 +4,6 @@ import Home from "./Home";
 import "../App.css"
 import Aboutme from "./Aboutme.js"
 import Skills from "./Skills";
-// import "./PortFolio.module.css";
 import Achivements from "./Achivements";
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -13,10 +12,15 @@ import Experience from "./Experience";
 import Projects from "./Projects";
 import Contact from "./Contact";
 import Education from "./Education";
-// import Footer from "./Footer";
+import { useLocation } from "react-router-dom";
+import axios from 'axios';
 
 const Portfolio = () => {
+  const path = useLocation().pathname;
+  const ID = path.split('/')[2];
   const location = useLocation();
+  const [data, setData] = useState({});
+  const [isReady, setIsReady] = useState(false);
   const queryParams = new URLSearchParams(location.search);
   const [successMessage, setSuccessMessage] = useState(queryParams.get('success'));
 
@@ -31,29 +35,41 @@ const Portfolio = () => {
       clearTimeout(timeout);
     };
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      const response = await axios.get(`https://source-folio-backend.onrender.com/api/portfolio/${ID}`);
+      if(typeof(response.data) === 'object') {
+        const dataRes = response.data;
+        setData(dataRes);
+        setIsReady(true);
+      }
+    })();
+  }, [ID]);
   return (
     <>
     
     <div className="Portfolio">
     {successMessage && <FlashMessage msg={successMessage}/>}
-      <NavBar />
+      {isReady && <NavBar >
       <main className="main">
-        <Home />
+        <Home name={data.name} mainDesignations={data.mainDesignations} description={data.description} profilePicture={data.profilePicture} githubProfile={data.githubProfile} linkedIn={data.linkedIn} instagram={data.instagram} />
         <hr/>
-        <Aboutme />
+        <Aboutme bio={data.bio} yearsOfExperience={data.yearsOfExperience} numberOfProjects={data.numberOfProjects} profilePicture={data.profilePicture} />
         <hr/>
-        <Education/>
+        <Education data={data.myEducation}/>
         <hr/>
-        <Experience/>
+        <Experience data={data.myExperience}/>
         <hr/>
-        <Projects/>
+        <Projects data={data.myProjects}/>
         <hr/>
-        <Skills />
+        <Skills data={data.mySkills}/>
         <hr/>
-        <Achivements/>
+        <Achivements data={data.myAchievements}/>
         <hr/>
-        <Contact/>
+        <Contact linkedIn={data.linkedIn} instagram={data.instagram} telephone={data.telephone} email={data.email}/>
       </main>
+      </NavBar>}
     </div>
     </>
   );
