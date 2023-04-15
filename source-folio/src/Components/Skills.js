@@ -3,7 +3,7 @@ import Toolsandframework from "./ToolsAndFramework";
 import Programmingskills from "./ProgrammingSkills";
 import "./skills.css"
 
-const Skills=()=>{
+const Skills=(props)=>{
     return (
       <section className="skills section"  id="skills">
         <h2 className="section__title">
@@ -12,8 +12,8 @@ const Skills=()=>{
         <span className="section__subtitle">My Technical Skills</span>
 
         <div className="skills__container container grid">
-            <Programmingskills/>
-            <Toolsandframework/>
+            <Programmingskills data={props.data.programmingSkills}/>
+            <Toolsandframework data={props.data.toolsAndFrameworks}/>
         </div>
       </section>
     );

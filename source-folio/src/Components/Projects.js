@@ -12,7 +12,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "./experience.css"
 
-const Projects=()=>{
+const Projects=(props)=>{
     const responsive = {
       superLargeDesktop: {
         // the naming can be any, depends on you.
@@ -47,179 +47,69 @@ const Projects=()=>{
         </h2>
         <span className="section__subtitle">My work</span>
         <Carousel responsive={responsive} >
-          <div className="project__content">
-            <div>
-              <div className="Experience__icon">
-                <FaRegHeart />
+          {
+          props.data.map((x, i) => {
+            return (
+              <div className="project__content" key={i}>
+                <div>
+                  <div className="Experience__icon">
+                    <FaRegHeart />
+                  </div>
+                  <h3 className="experience__title">
+                  {x.projectName.split(' ').map((unit) => {return (
+                      <>
+                        {unit} {(i < x.projectName.split(' ').length) && <br /> }
+                      </>
+                    );})}
+                  </h3>
+                </div>
+
+                <span className="experience__button" onClick={() => toggleTab(i+1)}>
+                  View More
+                  <div className="experience__button-icon">
+                    <AiFillCaretRight />
+                  </div>
+                </span>
+
+                <div>
+                  {x.projectLink && <button
+                    style={{
+                      marginRight: "0.8em",
+                      borderRadius: "5px",
+                      width: "20%",
+                      // height : "100%",
+                      fontSize: "0.9rem",
+                    }}
+
+                    onClick={() => {window.location.href = x.projectLink}}
+                  >
+                    Web Link
+                  </button>}
+                  
+                  {x.gitHubLink && <button
+                    style={{
+                      marginRight: "0.8em",
+                      borderRadius: "5px",
+                      width: "20%",
+                      fontSize: "0.9rem",
+                    }}
+
+                    onClick={() => {window.location.href = x.gitHubLink}}
+                  >
+                    Github
+                  </button>}
+                </div>
+
+                
               </div>
-              <h3 className="experience__title">
-                UI/UX <br /> Design Intern
-              </h3>
-            </div>
-
-            <span className="experience__button" onClick={() => toggleTab(1)}>
-              View More
-              <div className="experience__button-icon">
-                <AiFillCaretRight />
-              </div>
-            </span>
-
-            <div>
-              <button
-                style={{
-                  marginRight: "0.8em",
-                  borderRadius: "5px",
-                  width: "20%",
-                  // height : "100%",
-                  fontSize: "0.9rem",
-                }}
-              >
-                Web Link
-              </button>
-              <button
-                style={{
-                  marginRight: "0.8em",
-                  borderRadius: "5px",
-                  width: "20%",
-                  fontSize: "0.9rem",
-                }}
-              >
-                Github
-              </button>
-            </div>
-
-            
-          </div>
-
-          <div className="project__content">
-            <div>
-              <div className="Experience__icon">
-                <FaRegHeart />
-              </div>
-              <h3 className="experience__title">
-                Web <br /> Development Intern
-              </h3>
-            </div>
-
-            <span className="experience__button" onClick={() => toggleTab(2)}>
-              View More
-              <div className="experience__button-icon">
-                <AiFillCaretRight />
-              </div>
-            </span>
-
-            <div>
-              <button
-                style={{
-                  marginRight: "0.8em",
-                  borderRadius: "5px",
-                  width: "20%",
-                  fontSize: "0.9rem",
-                }}
-              >
-                Web Link
-              </button>
-              <button
-                style={{
-                  marginRight: "0.8em",
-                  borderRadius: "5px",
-                  width: "20%",
-                  fontSize: "0.9rem",
-                }}
-              >
-                Github
-              </button>
-            </div>
-
-            
-          </div>
-
-          <div className="project__content">
-            <div>
-              <div className="Experience__icon">
-                <FaRegHeart />
-              </div>
-              <h3 className="experience__title">
-                Research <br /> Intern
-              </h3>
-            </div>
-
-            <span className="experience__button" onClick={() => toggleTab(3)}>
-              View More
-              <div className="experience__button-icon">
-                <AiFillCaretRight />
-              </div>
-            </span>
-
-            <div>
-              <button
-                style={{
-                  marginRight: "0.8em",
-                  borderRadius: "5px",
-                  width: "20%",
-                  fontSize: "0.9rem",
-                }}
-              >
-                Web Link
-              </button>
-              <button
-                style={{
-                  marginRight: "0.8em",
-                  borderRadius: "5px",
-                  width: "20%",
-                  fontSize: "0.9rem",
-                }}
-              >
-                Github
-              </button>
-            </div>
-
-            
-          </div>
-
-          <div className="project__content">
-            <div>
-              <div className="Experience__icon">
-                <FaRegHeart />
-              </div>
-              <h3 className="experience__title">
-                Research <br /> Intern
-              </h3>
-            </div>
-
-            <span className="experience__button" onClick={() => toggleTab(4)}>
-              View More
-              <div className="experience__button-icon">
-                <AiFillCaretRight />
-              </div>
-            </span>
-
-            <div>
-              <button
-                style={{
-                  marginRight: "0.8em",
-                  borderRadius: "5px",
-                  width: "20%",
-                  fontSize: "0.9rem",
-                }}
-              >
-                Web Link
-              </button>
-              <button
-                style={{
-                  marginRight: "0.8em",
-                  borderRadius: "5px",
-                  width: "20%",
-                  fontSize: "0.9rem",
-                }}
-              >
-                Github
-              </button>
-            </div>
-          </div>
+            );
+          })
+          
+          }
           
         </Carousel>
-        <div
+        
+        {(toggleState !== 0) && <div
               className={
                 toggleState !== 0
                   ? "experience__modal active-modal"
@@ -235,60 +125,29 @@ const Projects=()=>{
                 >
                   <AiOutlineCloseCircle />
                 </div>
-                <h3 className="experience__modal-title">UI/UX Designer</h3>
-                <p className="experience__modal-description">
-                  I have worked as an UI/UX Intern for 2 months at Outshade
-                  Digital Media
-                </p>
+                <h3 className="experience__modal-title">{props.data[toggleState-1].projectName}</h3>
+              
                 <ul className="experience__modal-experiences grid">
-                  <li className="experience__modal-experience">
-                    <div className="experience__modal-icon">
-                      <AiOutlineCheckCircle />
-                    </div>
-                    <p className="experience__modal-info">
-                      Contributed as UI/UX Designer
-                    </p>
-                  </li>
+                    {
+                      props.data[toggleState-1].description.map((desc) => {
+                        return (
+                        <li className="experience__modal-experience">
+                          <div className="experience__modal-icon">
+                            <AiOutlineCheckCircle />
+                          </div>
+                          <p className="experience__modal-info">
+                            {desc}
+                          </p>
+                        </li>
+                        );
+                      })
+                      
+                    }
 
-                  <li className="experience__modal-experience">
-                    <div>
-                      <AiOutlineCheckCircle />
-                    </div>
-                    <p className="experience__modal-info">
-                      Created figma board for a cryto app using Figma,Adobe XD
-                    </p>
-                  </li>
-
-                  <li className="experience__modal-experience">
-                    <div>
-                      <AiOutlineCheckCircle />
-                    </div>
-                    <p className="experience__modal-info">
-                      <a
-                        href="https://drive.google.com/file/d/1C4g-NLiq4qdNsj2c-CnCvhUU8tFjZnFw/view?usp=sharing"
-                        target="_blank"
-                      >
-                        Letter Of Completion
-                      </a>
-                    </p>
-                  </li>
-
-                  <li className="experience__modal-experience">
-                    <div>
-                      <AiOutlineCheckCircle />
-                    </div>
-                    <p className="experience__modal-info">
-                      <a
-                        href="https://drive.google.com/file/d/1FfvoexLS4XSJS5d8KyO-CEiYa4OK6Yqn/view?usp=sharing"
-                        target="_blank"
-                      >
-                        Letter Of Recommendation
-                      </a>
-                    </p>
-                  </li>
+                  
                 </ul>
               </div>
-            </div>
+            </div>}
           </div>
       </section>
     );

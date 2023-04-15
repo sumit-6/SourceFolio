@@ -8,6 +8,18 @@ import "./experience.css";
 
 const Experience=(props)=>{
 
+  function formatDate(dateString) {
+    const months = [
+      "January", "February", "March", "April", "May", "June", "July", "August",
+      "September", "October", "November", "December"
+    ];
+    const dateParts = dateString.split("-");
+    const day = dateParts[2];
+    const monthIndex = parseInt(dateParts[1]) - 1;
+    const monthName = months[monthIndex];
+    const year = dateParts[0];
+    return `${monthName} ${year}`;
+  }
     const [toggleState,setToggleState]=useState(0);
     
     const toggleTab=(index)=>{
@@ -65,7 +77,7 @@ const Experience=(props)=>{
                     </div>
                     <h3 className="experience__modal-title">{x.role}</h3>
                     <p className="experience__modal-description">
-                      {x.role} at <b style={{color: "orange"}}>{x.company}</b>, {x.duration.start} to {x.duration.end}
+                      {x.role} at <b style={{color: "orange"}}>{x.company}</b>, {formatDate(x.duration.start)} to {formatDate(x.duration.end)}
                     </p>
                     <ul className="experience__modal-experiences grid">
                       {
