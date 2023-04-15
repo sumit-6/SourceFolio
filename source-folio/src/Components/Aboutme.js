@@ -4,6 +4,7 @@ import AboutImg from "../asset/image/about.jpg"
 // import CV from "../asset/image/Devanshi_Resume.pdf"
 import Info from "./Info";
 import "./aboutme.css"
+import { Link } from "react-router-dom";
 
 const About = () =>{
     return (

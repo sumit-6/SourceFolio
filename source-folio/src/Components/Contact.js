@@ -3,12 +3,14 @@ import "./contact.css"
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { AiOutlineMail } from "react-icons/ai";
 import { AiOutlineWhatsApp } from "react-icons/ai";
-import { AiOutlineInstagram } from "react-icons/ai";
+import { FaLinkedin } from "react-icons/fa";
 
 const Contact=()=>{
     return (
       <section className="contact section" id="contact">
-        <h2 className="section__title" style={{color : "orange"}}>Get in touch.</h2>
+        <h2 className="section__title" style={{ color: "orange" }}>
+          Get in touch.
+        </h2>
         <span className="section__subtitle">Contact Me</span>
 
         <div className="contact__container container grid">
@@ -58,7 +60,7 @@ const Contact=()=>{
 
               <div className="contact__card">
                 <span className="contact__card-icon">
-                  <AiOutlineInstagram />
+                  <FaLinkedin />
                 </span>
 
                 <h3 className="contact__card-title">LinkedIn</h3>
@@ -128,10 +130,7 @@ const Contact=()=>{
                 ></textarea>
               </div>
 
-              <a
-                className="button button--flex"
-                style={{ color: "white"}}
-              >
+              <a className="button button--flex" style={{ color: "white" }}>
                 Send Message
                 <svg
                   class="button__icon"
