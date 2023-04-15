@@ -391,6 +391,9 @@ ImageSchema.virtual('thumbnail').get(function() {
 const PortfolioSchema = new Schema({
     user_id: String,
     name: String,
+    bio: String,
+    numberOfProjects: String,
+    yearsOfExperience: String,
     mainDesignations: [String],
     description: String,
     profilePicture: ImageSchema,
