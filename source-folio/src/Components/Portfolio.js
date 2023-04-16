@@ -51,7 +51,7 @@ const Portfolio = () => {
     
     <div className="Portfolio">
     {successMessage && <FlashMessage msg={successMessage}/>}
-      {isReady && <NavBar />}
+      {isReady && <NavBar name={data.name}/>}
       {isReady && <main className="main">
         <Home name={data.name} mainDesignations={data.mainDesignations} description={data.description} profilePicture={data.profilePicture} githubProfile={data.githubProfile} linkedIn={data.linkedIn} instagram={data.instagram} />
         <hr/>

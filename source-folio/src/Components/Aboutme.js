@@ -1,7 +1,5 @@
 import React from "react";
 import "./aboutme.css";
-import AboutImg from "../asset/image/about.jpg"
-// import CV from "../asset/image/Devanshi_Resume.pdf"
 import Info from "./Info";
 import "./aboutme.css"
 import { Link } from "react-router-dom";
@@ -23,8 +21,7 @@ const About = (props) =>{
             <p className="about__description">
               {props.bio}
             </p>
-            <Link to="#achivements" className="button button--flex" style={{ color: "white" }}>
-              {/* download="" href={CV} */}
+            <Link to="achivements" className="button button--flex" style={{ color: "white" }}>
               Read More...
               <svg
                 class="button__icon"

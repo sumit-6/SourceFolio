@@ -4,15 +4,15 @@ import { RxCross2 } from "react-icons/rx";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-scroll";
 
-const NavBar=()=>{
+const NavBar=(props)=>{
 
     const [Toggle,showMenu]=useState(false);
     return (
       <header class="header">
         <nav className="nav container">
-          <a href="index.html" className="nav__logo" style={{ color: "white" }}>
-            Vin Diesel
-          </a>
+          <Link to="aboutme" className="nav__logo" style={{ color: "white" }}>
+            {props.name}
+          </Link>
 
           <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>
             <ul className="nav__list">
