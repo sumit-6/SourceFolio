@@ -52,6 +52,9 @@ Link:hover{
 .nav__link:hover{
     color:var(--title-color-dark);
 }
+.navbar__menu__list {
+    display: none;
+}
 
 @media screen and (max-width : 992px) {
     .container {
@@ -118,8 +121,9 @@ Link:hover{
     .nav_toggle{
         display: block;
     }
-
-
+    .navbar__menu__list {
+        display: inline;
+    }
 }
 
 @media screen and (max-width : 350px) {
@@ -129,6 +133,9 @@ Link:hover{
 
     .nav__list{
         column-gap: 0;
+    }
+    .navbar__menu__list {
+        display: inline;
     }
 }
 
