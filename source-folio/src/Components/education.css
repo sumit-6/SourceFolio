@@ -64,6 +64,7 @@
     /* white-space: nowrap; */
     
 }
+
 .education__pencil {
     color: orange;
     margin-top: 1.4rem;
@@ -100,6 +101,11 @@ h6{
     h6{
         font-size: 0.7rem;
     }
+
+        .education__pencil {
+         
+            font-size: 1.4rem;
+        }
 }
 
 @media screen and (max-width : 768px) {
@@ -111,9 +117,10 @@ h6{
     .education__college {
         font-size: 1rem;
     }
-    .education__pencil {
-        font-size: 1.4rem;
-    }
+        .education__pencil {
+    
+            font-size: 1.3rem;
+        }
 
         span{
             word-wrap: break-word;
@@ -141,9 +148,10 @@ h6{
         .pipe {
             display: none;
         }
-        .education__pencil {
-            font-size: 1.3rem;
-        }
+                .education__pencil {
+        
+                    font-size: 1.2rem;
+                }
        
                 span {
                     word-wrap: break-word;
@@ -176,7 +184,8 @@ h6{
             display: none;
         }
         .education__pencil {
-            font-size: 1.2rem;
+    
+              font-size: 1rem;
         }
     
     

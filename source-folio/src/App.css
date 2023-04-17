@@ -83,7 +83,7 @@ textarea {
 }
 
 body {
-  background-color: #18162d;
+  
   color: var(--text-color);
 }
 
@@ -146,6 +146,17 @@ img {
   gap: 1.5rem;
 }
 
+/* .Portfolio{
+  background-color: #18162b;
+} */
+
+.for_light_theme{
+  --back-color : rgb(89, 192, 240);
+}
+
+.for_dark_theme{
+  --back-color : #18162b;
+}
 /*=============== BUTTONS ===============*/
 .button {
   display: inline-block;

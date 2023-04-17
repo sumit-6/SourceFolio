@@ -4,7 +4,7 @@ import AboutImg from "../asset/image/about.jpg"
 // import CV from "../asset/image/Devanshi_Resume.pdf"
 import Info from "./Info";
 import "./aboutme.css"
-import { Link } from "react-router-dom";
+import { Link } from "react-scroll";
 
 const About = (props) =>{
     return (
@@ -23,7 +23,7 @@ const About = (props) =>{
             <p className="about__description">
               {props.bio}
             </p>
-            <Link to="#achivements" className="button button--flex" style={{ color: "white" }}>
+            <Link to="achivements" className="button button--flex" style={{ color: "white" }}>
               {/* download="" href={CV} */}
               Read More...
               <svg

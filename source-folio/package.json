@@ -18,6 +18,7 @@
     "react-scripts": "5.0.1",
     "react-scroll": "^1.8.9",
     "react-slick": "^0.29.0",
+    "react-switch": "^7.0.0",
     "sanitize-html": "^2.10.0",
     "slick-carousel": "^1.8.1",
     "typewriter-effect": "^2.19.0",
