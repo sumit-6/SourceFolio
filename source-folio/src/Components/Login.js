@@ -100,7 +100,7 @@ const Login = () => {
 
   return (
     <div className="form-body">
-    <div className="main">
+    <div className="form_main">
         <input type="checkbox" id="chk" aria-hidden="true" />
         <div className="signup">
             <form>
