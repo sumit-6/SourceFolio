@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Titillium Web", sans-serif;
+}
+
+:root {
+    --mainColor: #29335c;
+    --mainColorLight: #5767aa;
+    --secondaryColor: #db2b39;
+    --textColor: #eee;
+}
+
+h3{
+    font-size: 2rem;
+    font-weight: bold;
+    color : white;
+
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    padding: 0 2rem;
+    /* background-color: var(--mainColor); */
+    color: var(--textColor);
+}
+
+.action_btn{
+    background-color: orange;
+    color: black;
+    padding: 0.5rem 1rem;
+    border: none;
+    outline : none;
+    border-radius: 18px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+
+.action_btn:hover{
+    background-color: #18162b;
+    border: 2px solid orange;
+}
+
+
+/* 
+.btns{
+    margin-left: 4rem;
+} */
+
+nav a {
+    margin: 0 1rem;
+    color: var(--textColor);
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: orange;
+}
+
+header .nav-btn {
+    padding: 5px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--textColor);
+    visibility: hidden;
+    opacity: 0;
+    font-size: 1.8rem;
+}
+
+
+
+header div,
+nav {
+    display: flex;
+    align-items: center;
+}
+
+@media only screen and (max-width: 1024px) {
+    header .nav-btn {
+        visibility: visible;
+        opacity: 2;
+        font-size: 1.2rem;
+    }
+
+    h3{
+        font-size: 1.4rem;
+    }
+
+    header nav {
+        position: fixed;
+        top: -100vh;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        background-color: var(--mainColor);
+        transition: 1s;
+        margin-top: 0;
+    }
+
+    header .responsive_nav {
+        transform: translateY(100vh);
+    }
+
+    nav .nav-close-btn {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+    }
+
+    nav a {
+        font-size: 1.5rem;
+    }
+}

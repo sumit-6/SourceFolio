@@ -1,12 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "./Dashboard-Components/DashNavbar";
+import "./dashboard.css"
+import Home from "./Dashboard-Components/DashHome";
 
-const Previewbutton = () => {
+const Dashboard = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <h1>Home Page</h1>
+    <div className="dashboard"> 
+
+      <Navbar/>
+      <Home/>
+      
       <button
         onClick={() => navigate("portfolio/:id")}
         style={{ backgroundColor: "orange", borderRadius: "4px" }}
@@ -35,4 +41,4 @@ const Previewbutton = () => {
   );
 };
 
-export default Previewbutton;
+export default Dashboard;
