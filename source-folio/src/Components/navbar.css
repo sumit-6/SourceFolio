@@ -12,10 +12,6 @@
     height : 20px;
 }
 
-Link:hover{
-    color: "orange";
-    cursor: pointer;
-}
 
 .nav{
     height : calc(var(--header-height) + 1.5rem);

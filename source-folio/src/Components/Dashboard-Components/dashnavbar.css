@@ -1,34 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap");
 
-* {
+.dashheader {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     font-family: "Titillium Web", sans-serif;
 }
 
-:root {
-    --mainColor: #29335c;
-    --mainColorLight: #5767aa;
-    --secondaryColor: #db2b39;
-    --textColor: #eee;
-}
 
-h3{
+.logo{
     font-size: 2rem;
     font-weight: bold;
     color : white;
 
 }
 
-header {
+.dashheader {
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 80px;
     padding: 0 2rem;
     /* background-color: var(--mainColor); */
-    color: var(--textColor);
+    color: white;
 }
 
 .action_btn{
@@ -55,17 +49,17 @@ header {
     margin-left: 4rem;
 } */
 
-nav a {
+.navbarrr a {
     margin: 0 1rem;
     color: var(--textColor);
     text-decoration: none;
 }
 
-nav a:hover {
+.navbarrr a:hover {
     color: orange;
 }
 
-header .nav-btn {
+.dashheader .nav-btn {
     padding: 5px;
     cursor: pointer;
     background: transparent;
@@ -79,24 +73,24 @@ header .nav-btn {
 
 
 
-header div,
-nav {
+.dashheader div,
+.navbarrr {
     display: flex;
     align-items: center;
 }
 
 @media only screen and (max-width: 1024px) {
-    header .nav-btn {
+    .dashheader .nav-btn {
         visibility: visible;
         opacity: 2;
         font-size: 1.2rem;
     }
 
-    h3{
+    .logo{
         font-size: 1.4rem;
     }
 
-    header nav {
+    .dashheader .navbarrr {
         position: fixed;
         top: -100vh;
         left: 0;
@@ -112,17 +106,17 @@ nav {
         margin-top: 0;
     }
 
-    header .responsive_nav {
+    .dashheader .responsive_nav {
         transform: translateY(100vh);
     }
 
-    nav .nav-close-btn {
+    .navbarrr .nav-close-btn {
         position: absolute;
         top: 2rem;
         right: 2rem;
     }
 
-    nav a {
+    .navbarrr a {
         font-size: 1.5rem;
     }
 }

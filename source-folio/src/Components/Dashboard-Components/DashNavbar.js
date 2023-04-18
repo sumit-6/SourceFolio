@@ -12,11 +12,11 @@ function Navbar() {
 
   return (
     
-      <header>
-        <h3>
+      <header className="dashheader">
+        <h3 className="logo">
           SourceFolio <span style={{ color: "orange" }}>.</span>
         </h3>
-        <nav ref={navRef}>
+        <nav className="navbarrr" ref={navRef}>
           <a href="/#">About us</a>
           <a href="/#">View sourcefolio</a>
           <a href="/#">Make my SourceFolio</a>
