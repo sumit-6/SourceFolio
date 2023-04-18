@@ -1,0 +1,51 @@
+.BODY {
+    margin: 0;
+    padding: 0;
+    background-color: #18162d;
+  }
+  
+  .loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .loading-bar {
+    width: 50%;
+    height: 20px;
+    background-color: #ebebeb;
+    border-radius: 10px;
+    position: relative;
+    margin-bottom: 10px;
+  }
+  
+  .loading-bar::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: orange;
+    border-radius: 10px;
+    animation: progress 2s linear infinite;
+  }
+  
+  .loading-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #f7f7f7;
+  }
+  
+  @keyframes progress {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  
