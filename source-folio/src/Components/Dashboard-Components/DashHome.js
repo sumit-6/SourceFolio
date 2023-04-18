@@ -16,14 +16,7 @@ const Home=()=>{
               }}
             />
           </h1>
-          {/* <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis
-            voluptates <br />
-            reprehenderit sint eveniet incidunt ipsa vel officia doloribus
-            cumque! <br />
-            Eum obcaecati vol uptatibus quam ea totam delectus incidunt
-            repudiandae sequi nihil!
-          </p> */}
+          
         </div>
       </main>
     );

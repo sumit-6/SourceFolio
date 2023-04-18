@@ -10,12 +10,12 @@ const NavBar = () => {
   return (
     <header class="header" id="light">
       <nav className="nav container">
-        <Link className="nav__logo" style={{ color: "white" }}>
+        <Link className="dash__logo" style={{ color: "white" }}>
           SourceFolio <span style={{ color: "orange" }}>.</span>
         </Link>
 
         <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>
-          <ul className="nav__list">
+          <ul className="nav__list ">
             <li className="nav__item">
               <Link
                 // smooth={true}

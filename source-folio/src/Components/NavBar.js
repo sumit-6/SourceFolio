@@ -13,11 +13,11 @@ const NavBar=(props)=>{
       <header class="header" id="light">
         <nav className="nav container">
           <Link to="aboutme" className="nav__logo" style={{ color: "white" }}>
-            {props.name}
+            {props.name} <span>.</span>
           </Link>
 
           <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>
-            <ul className="nav__list">
+            <ul className="nav__list ">
               <li className="nav__item">
                 <Link
                   to="aboutme"
