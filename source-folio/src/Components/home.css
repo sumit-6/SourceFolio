@@ -5,38 +5,6 @@
     align-items: center;
 }
 
-/* .change-context:after{
-    content: '';
-    animation: changetext 10s infinite;
-} */
-
-/* @keyframes changetext {
-    0%{
-        content : "Web Developer"
-    }
-
-    20%{
-        content: "Programmer"
-    }
-
-    40%{
-        content: "Designer";
-    }
-
-    60%{
-        content: "Vin Diesel";
-    }
-
-    80%{
-        content: "UX Developer";
-    }
-
-    100%{
-        content : "Problem Solver";
-    }
-
-
-} */
 
 .home__img{
     background-repeat: no-repeat;

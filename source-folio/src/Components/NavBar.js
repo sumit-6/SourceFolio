@@ -3,12 +3,14 @@ import "./navbar.css"
 import { RxCross2 } from "react-icons/rx";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-scroll";
+import ReactSwitch from "react-switch";
+import DarkMode from "./DarkMode";
 
 const NavBar=(props)=>{
 
     const [Toggle,showMenu]=useState(false);
     return (
-      <header class="header">
+      <header class="header" id="light">
         <nav className="nav container">
           <Link to="aboutme" className="nav__logo" style={{ color: "white" }}>
             {props.name}
@@ -87,6 +89,9 @@ const NavBar=(props)=>{
                   <i className="nav__icon"></i>Achivements
                 </Link>
               </li>
+
+              <DarkMode/>
+ 
             </ul>
 
             <i

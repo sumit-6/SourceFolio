@@ -143,12 +143,11 @@ const Projects=(props)=>{
                       })
                       
                     }
-
-                  
-                </ul>
+                  </ul>
               </div>
             </div>}
           </div>
+        
       </section>
     );
 }

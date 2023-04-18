@@ -13,6 +13,8 @@ import Projects from "./Projects";
 import Contact from "./Contact";
 import Education from "./Education";
 import axios from 'axios';
+import "./portfolio.css";
+import "../index.css";
 
 const Portfolio = () => {
   const path = useLocation().pathname;
