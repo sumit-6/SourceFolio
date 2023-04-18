@@ -1,14 +1,66 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./dashnavbar.css";
 import { RxCross2 } from "react-icons/rx";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-scroll";
 import ReactSwitch from "react-switch";
+import useUser from '../../hooks/useUser';
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../../index';
+import { signOut } from 'firebase/auth';
+import axios from 'axios';
+import Loading from "../Loading";
 
 const NavBar = () => {
   const [Toggle, showMenu] = useState(false);
+  const navigate = useNavigate();
+  const [sfid, setsfId] = useState(null);
+  const [isAvailable, setIsAvailable] = useState(null);
+  const {user, isLoading} = useUser();
+  const [Token, setToken] = useState(null);
+  const [data, setData] = useState(null);
+  const [isReady, setIsReady] = useState(false);
+  useEffect(() => {(async() => {
+    console.log(user);
+    const token = user && await user.getIdToken();
+    setToken(token);
+    const response = await axios.get(`https://source-folio-backend.onrender.com/api/getID/${user.uid}`, {headers: {authtoken: token}});
+    
+    if(response.data !== 'Failure') {
+      const dataRes = response.data;
+      setsfId(dataRes);
+      const userData = await axios.get(`https://source-folio-backend.onrender.com/api/portfolio/${sfid}`);
+      setData(userData.data);
+      setIsAvailable(true);
+      setIsReady(true);
+    }
+    else {
+      setIsAvailable(false);
+      setIsReady(true);
+    }
+  })();
+  }, [user, sfid]);
+
+  useEffect(() => {
+    setIsReady(false);
+    setTimeout(() => {
+      setIsReady(true);
+    }, 5000);
+  }, []);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    signOut(auth).then(() => {
+      navigate('/');
+    }).catch((err) => {
+      console.log(err.message);
+    })
+  }
+  
   return (
-    <header class="header" id="light">
+    <>
+    {!isReady && <Loading />}
+    {isReady && <header className="header" id="light">
       <nav className="nav container">
         <Link className="nav__logo" style={{ color: "white" }}>
           SourceFolio <span style={{ color: "orange" }}>.</span>
@@ -18,6 +70,7 @@ const NavBar = () => {
           <ul className="nav__list">
             <li className="nav__item">
               <Link
+                onClick={() => window.location.href = "https://react-form-ten-steel.vercel.app/about-us"}
                 // smooth={true}
                 // duration={1000}
                 className="nav__link"
@@ -27,31 +80,31 @@ const NavBar = () => {
               </Link>
             </li>
 
-            <li className="nav__item">
+            {user && sfid && <li className="nav__item">
               <Link
+                onClick={() => window.location.href=` https://source-folio-frontend.vercel.app/portfolio/${sfid}`}
                 // duration={1000}
                 className="nav__link"
                 style={{ color: "white" }}
               >
-                <i className="nav__icon"></i>View sourceFolio
+                <i className="nav__icon"></i>View My sourceFolio
               </Link>
-            </li>
+            </li>}
 
-            <li className="nav__item">
+            {user && !sfid && <li className="nav__item">
               <Link
-                to="experience"
+                onClick={() => window.location.href=`https://react-form-ten-steel.vercel.app/form?q=${Token}&where=form`}
                 // smooth={true}
                 // duration={1000}
                 className="nav__link"
                 style={{ color: "white" }}
               >
-                <i className="nav__icon"></i>View My SourceFolio
+                <i className="nav__icon"></i>Make My SourceFolio
               </Link>
-            </li>
+            </li>}
 
             <li className="nav__item">
               <Link
-                to="projects"
                 // smooth={true}
                 // duration={1000}
                 className="nav__link"
@@ -61,9 +114,9 @@ const NavBar = () => {
               </Link>
             </li>
 
-            <li className="nav__item">
+            {!user && <li className="nav__item">
               <Link
-                to="projects"
+                onClick={() => navigate(`login`)}
                 // smooth={true}
                 // duration={1000}
                 className="nav__link"
@@ -71,11 +124,11 @@ const NavBar = () => {
               >
                 <i className="nav__icon"></i>Login/Signup
               </Link>
-            </li>
+            </li>}
 
-            <li className="nav__item">
+            {user && <li className="nav__item">
               <Link
-                to="projects"
+                onClick={(e) => handleLogout(e)}
                 // smooth={true}
                 // duration={1000}
                 className="nav__link"
@@ -83,7 +136,7 @@ const NavBar = () => {
               >
                 <i className="nav__icon"></i>Logout
               </Link>
-            </li>
+            </li>}
           </ul>
 
           <i
@@ -108,7 +161,8 @@ const NavBar = () => {
           </i>
         </div>
       </nav>
-    </header>
+    </header>}
+    </>
   );
 };
 
