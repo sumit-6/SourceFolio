@@ -18,7 +18,7 @@ function Navbar() {
         </h3>
         <nav ref={navRef}>
           <a href="/#">About us</a>
-          <a href="/#">View sortfolio</a>
+          <a href="/#">View sourcefolio</a>
           <a href="/#">Make my SourceFolio</a>
           <a href="/#">Contact</a>
           <div className="btns">
