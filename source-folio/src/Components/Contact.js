@@ -5,7 +5,8 @@ import { AiOutlineMail } from "react-icons/ai";
 import { AiOutlineWhatsApp } from "react-icons/ai";
 import { FaLinkedin } from "react-icons/fa";
 
-const Contact=()=>{
+
+const Contact=(props)=>{
     return (
       <section className="contact section" id="contact">
         <h2 className="section__title" style={{ color: "orange" }}>
@@ -24,10 +25,10 @@ const Contact=()=>{
                 </span>
 
                 <h3 className="contact__card-title">Email</h3>
-                <span className="contact__card-data">useid@gmail.com</span>
+                <span className="contact__card-data">{props.email}</span>
 
                 <a
-                  href="mailto:examplemail@gmail.com"
+                  href={`mailto:${props.email}`}
                   className="contact__button"
                 >
                   Write me{" "}
@@ -44,10 +45,10 @@ const Contact=()=>{
                 </span>
 
                 <h3 className="contact__card-title">Whatsapp</h3>
-                <span className="contact__card-data">999-888-772</span>
+                <span className="contact__card-data">{props.telephone}</span>
 
                 <a
-                  href="https://api.callmebot.com/whatsapp.php?phone=+34123123123&text=This+is+a+test+from+CallMeBot&apikey=1234567890"
+                  href={`https://api.callmebot.com/whatsapp.php?phone=${props.telephone}&text=Hey!+Saw+your+source-folio+and+found+it+interesting.&apikey=1234567890`}
                   className="contact__button"
                 >
                   Write me{" "}
@@ -64,7 +65,7 @@ const Contact=()=>{
                 </span>
 
                 <h3 className="contact__card-title">LinkedIn</h3>
-                <span className="contact__card-data">useridlol</span>
+                <span className="contact__card-data">{props.linkedIn}</span>
 
                 <a
                   href="https://api.linkedin.com/v2/messages"

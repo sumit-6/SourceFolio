@@ -12,7 +12,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "./experience.css"
 
-const Projects=()=>{
+const Projects=(props)=>{
     const responsive = {
       superLargeDesktop: {
         // the naming can be any, depends on you.
@@ -41,178 +41,113 @@ const Projects=()=>{
     
     return (
       <section className="section projects" id="projects">
-        <div
-          style={{ marginTop: "-6rem" }}
-          className="experience__content_like"
-        >
-          <h2 className="section__title">
-            My <span style={{ color: "orange" }}>Projects.</span>
-          </h2>
-          <span className="section__subtitle">My work</span>
-          <Carousel responsive={responsive}>
-            <div className="project__content">
-              <div>
-                <div className="Experience__icon">
-                  <FaRegHeart />
-                </div>
-                <h3 className="experience__title">
-                  UI/UX <br /> Design Intern
-                </h3>
-              </div>
-
-              <span className="experience__button" onClick={() => toggleTab(1)}>
-                View More
-                <div className="experience__button-icon">
-                  <AiFillCaretRight />
-                </div>
-              </span>
-
-              <div>
-                <button className="button__links">Web Link</button>
-                <button className="button__links">Github</button>
-              </div>
-            </div>
-
-            <div className="project__content">
-              <div>
-                <div className="Experience__icon">
-                  <FaRegHeart />
-                </div>
-                <h3 className="experience__title">
-                  Web <br /> Development Intern
-                </h3>
-              </div>
-
-              <span className="experience__button" onClick={() => toggleTab(2)}>
-                View More
-                <div className="experience__button-icon">
-                  <AiFillCaretRight />
-                </div>
-              </span>
-
-              <div>
-                <button className="button__links">Web Link</button>
-                <button className="button__links">Github</button>
-              </div>
-            </div>
-
-            <div className="project__content">
-              <div>
-                <div className="Experience__icon">
-                  <FaRegHeart />
-                </div>
-                <h3 className="experience__title">
-                  Research <br /> Intern
-                </h3>
-              </div>
-
-              <span className="experience__button" onClick={() => toggleTab(3)}>
-                View More
-                <div className="experience__button-icon">
-                  <AiFillCaretRight />
-                </div>
-              </span>
-
-              <div>
-                <button className="button__links">Web Link</button>
-                <button className="button__links">Github</button>
-              </div>
-            </div>
-
-            <div className="project__content">
-              <div>
-                <div className="Experience__icon">
-                  <FaRegHeart />
-                </div>
-                <h3 className="experience__title">
-                  Research <br /> Intern
-                </h3>
-              </div>
-
-              <span className="experience__button" onClick={() => toggleTab(4)}>
-                View More
-                <div className="experience__button-icon">
-                  <AiFillCaretRight />
-                </div>
-              </span>
-
-              <div>
-                <button className="button__links">Web Link</button>
-                <button className="button__links">Github</button>
-              </div>
-            </div>
-          </Carousel>
-          <div
-            className={
-              toggleState !== 0
-                ? "experience__modal active-modal"
-                : "experience__modal"
-            }
-          >
-            <div className="experience__modal-content">
-              <div
-                className="experience__modal-close"
-                onClick={() => {
-                  toggleTab(0);
-                }}
-              >
-                <AiOutlineCloseCircle />
-              </div>
-              <h3 className="experience__modal-title">UI/UX Designer</h3>
-              <p className="experience__modal-description">
-                I have worked as an UI/UX Intern for 2 months at Outshade
-                Digital Media
-              </p>
-              <ul className="experience__modal-experiences grid">
-                <li className="experience__modal-experience">
-                  <div className="experience__modal-icon">
-                    <AiOutlineCheckCircle />
+        <div style={{marginTop : "-6rem"}}className="experience__content_like" >
+        <h2 className="section__title">
+          My <span style={{ color: "orange" }}>Projects.</span>
+        </h2>
+        <span className="section__subtitle">My work</span>
+        <Carousel responsive={responsive} >
+          {
+          props.data.map((x, i) => {
+            return (
+              <div className="project__content" key={i}>
+                <div>
+                  <div className="Experience__icon">
+                    <FaRegHeart />
                   </div>
-                  <p className="experience__modal-info">
-                    Contributed as UI/UX Designer
-                  </p>
-                </li>
+                  <h3 className="experience__title">
+                  {x.projectName.split(' ').map((unit) => {return (
+                      <>
+                        {unit} {(i < x.projectName.split(' ').length) && <br /> }
+                      </>
+                    );})}
+                  </h3>
+                </div>
 
-                <li className="experience__modal-experience">
-                  <div>
-                    <AiOutlineCheckCircle />
+                <span className="experience__button" onClick={() => toggleTab(i+1)}>
+                  View More
+                  <div className="experience__button-icon">
+                    <AiFillCaretRight />
                   </div>
-                  <p className="experience__modal-info">
-                    Created figma board for a cryto app using Figma,Adobe XD
-                  </p>
-                </li>
+                </span>
 
-                <li className="experience__modal-experience">
-                  <div>
-                    <AiOutlineCheckCircle />
-                  </div>
-                  <p className="experience__modal-info">
-                    <a
-                      href="https://drive.google.com/file/d/1C4g-NLiq4qdNsj2c-CnCvhUU8tFjZnFw/view?usp=sharing"
-                      target="_blank"
-                    >
-                      Letter Of Completion
-                    </a>
-                  </p>
-                </li>
+                <div>
+                  {x.projectLink && <button
+                    style={{
+                      marginRight: "0.8em",
+                      borderRadius: "5px",
+                      width: "20%",
+                      // height : "100%",
+                      fontSize: "0.9rem",
+                    }}
 
-                <li className="experience__modal-experience">
-                  <div>
-                    <AiOutlineCheckCircle />
-                  </div>
-                  <p className="experience__modal-info">
-                    <a
-                      href="https://drive.google.com/file/d/1FfvoexLS4XSJS5d8KyO-CEiYa4OK6Yqn/view?usp=sharing"
-                      target="_blank"
-                    >
-                      Letter Of Recommendation
-                    </a>
-                  </p>
-                </li>
-              </ul>
-            </div>
+                    onClick={() => {window.location.href = x.projectLink}}
+                  >
+                    Web Link
+                  </button>}
+                  
+                  {x.gitHubLink && <button
+                    style={{
+                      marginRight: "0.8em",
+                      borderRadius: "5px",
+                      width: "20%",
+                      fontSize: "0.9rem",
+                    }}
+
+                    onClick={() => {window.location.href = x.gitHubLink}}
+                  >
+                    Github
+                  </button>}
+                </div>
+
+                
+              </div>
+            );
+          })
+          
+          }
+          
+        </Carousel>
+        
+        {(toggleState !== 0) && <div
+              className={
+                toggleState !== 0
+                  ? "experience__modal active-modal"
+                  : "experience__modal"
+              }
+            >
+              <div className="experience__modal-content">
+                <div
+                  className="experience__modal-close"
+                  onClick={() => {
+                    toggleTab(0);
+                  }}
+                >
+                  <AiOutlineCloseCircle />
+                </div>
+                <h3 className="experience__modal-title">{props.data[toggleState-1].projectName}</h3>
+              
+                <ul className="experience__modal-experiences grid">
+                    {
+                      props.data[toggleState-1].description.map((desc) => {
+                        return (
+                        <li className="experience__modal-experience">
+                          <div className="experience__modal-icon">
+                            <AiOutlineCheckCircle />
+                          </div>
+                          <p className="experience__modal-info">
+                            {desc}
+                          </p>
+                        </li>
+                        );
+                      })
+                      
+                    }
+                  </ul>
+              </div>
+            </div>}
           </div>
-        </div>
+        
       </section>
     );
 }

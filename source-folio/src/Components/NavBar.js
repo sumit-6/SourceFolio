@@ -6,15 +6,15 @@ import { Link } from "react-scroll";
 import ReactSwitch from "react-switch";
 import DarkMode from "./DarkMode";
 
-const NavBar=()=>{
+const NavBar=(props)=>{
 
     const [Toggle,showMenu]=useState(false);
     return (
       <header class="header" id="light">
         <nav className="nav container">
-          <a href="index.html" className="nav__logo" style={{ color: "white" }}>
-            Vin Diesel
-          </a>
+          <Link to="aboutme" className="nav__logo" style={{ color: "white" }}>
+            {props.name}
+          </Link>
 
           <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>
             <ul className="nav__list">
@@ -111,7 +111,7 @@ const NavBar=()=>{
               showMenu(!Toggle);
             }}
           >
-            <i style={{ color: "white" }}>
+            <i style={{ color: "white"}} className="navbar__menu__list">
               <AiOutlineMenu />
             </i>
           </div>
