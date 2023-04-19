@@ -225,7 +225,9 @@ hr {
 }
 
 @media screen and (max-width : 576px) {
-
+  .footer__content, .back__home {
+    display: none;
+}
 }
 
 /*for small device */
@@ -238,6 +240,10 @@ hr {
       margin-left: var(--mb-1);
       margin-right: var(--mb-1);
     }
+
+    .footer__content, .back__home {
+      display: none;
+  }
 }
 
 /* hr {
