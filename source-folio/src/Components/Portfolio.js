@@ -89,7 +89,7 @@ const Portfolio = () => {
               telephone={data.telephone}
               email={data.email}
             />
-            <Footer />
+            <Footer id={ID} data={data}/>
           </main>
         )}
       </div>
