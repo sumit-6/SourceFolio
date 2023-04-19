@@ -1,49 +1,33 @@
-import { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import headerImg from "../..//asset/image/header-img.svg";
-import { ArrowRightCircle } from "react-bootstrap-icons";
-import "./banner.css";
-import TrackVisibility from "react-on-screen";
+import React from 'react';
+import cloud from "../../asset/image/mobilee.jpg"
+import "./banner.css"
+import Typewriter from "typewriter-effect";
 
-export const Banner = () => {
- 
-  return (
-    <div className="banner" id="home">
-      <div className="contt">
-        <Row className="aligh-items-center conn" >
-          <Col xs={12} md={6} xl={7} className="dataa">
-            <TrackVisibility>
-              {({ isVisible }) => (
-                <div
-                  className="center"
-                >
-                  
-                  <h1 className="name">
-                    Welcome to SourceFolio!
-                  </h1>
-                  <p>Create, inspire, succeed with our portfolio builder.</p>
-                  <button onClick={() => console.log("connect")}>
-                    View SourceFolio <ArrowRightCircle size={25} />
-                  </button>
-                </div>
-              )}
-            </TrackVisibility>
-          </Col>
-          <Col className="imagee" xs={12} md={6} xl={5} >
-            <TrackVisibility>
-              {({ isVisible }) => (
-                <div
-                  className={
-                    isVisible ? "animate__animated animate__zoomIn" : ""
-                  }
-                >
-                  <img src={headerImg} alt="Header Img" />
-                </div>
-              )}
-            </TrackVisibility>
-          </Col>
-        </Row>
+const DashHome=()=>{
+    return (
+      <div className="banner">
+        <div className="content">
+          {/* <img src={cloud}></img> */}
+
+          <h1 className="heading">
+            <Typewriter
+              options={{
+                autoStart: true,
+                loop: true,
+                delay: 40,
+                strings: ["Welcome to SourceFolio.", "Design Your Portfolio."],
+              }}
+            />
+          </h1>
+          <p>Create, inspire, succeed with our portfolio builder.</p>
+          <div className="content_a">
+            <a className="butt" href="#">
+              View Sourcefolio
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+}
+
+export default DashHome;
