@@ -2,8 +2,9 @@ import React from "react";
 
 import Navbar from "./Dashboard-Components/DashNavbar";
 import "./dashboard.css"
-import Home from "./Dashboard-Components/DashHome";
-
+// import Home from "./Dashboard-Components/DashHome";
+import { Banner } from "./Dashboard-Components/Banner";
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Dashboard = () => {
   
@@ -13,10 +14,8 @@ const Dashboard = () => {
     <div className="dashboard">
     
       <Navbar />
-      <Home/>
+      <Banner/>
 
-      
-      
     </div>
 
     
