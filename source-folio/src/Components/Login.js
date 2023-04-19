@@ -104,24 +104,25 @@ const Login = () => {
         <input type="checkbox" id="chk" aria-hidden="true" />
         <div className="signup">
             <form>
-                <label for="chk" aria-hidden="true" className='form__label'>Sign up</label>
+                <label for="chk" aria-hidden="true" className='form__label'>Login</label>
                 <input type="email" name="email" placeholder="myemail@gmail.com" className="form__input"
                 value={email} onChange={(e) => setEmail(e.target.value)} required />
                 <input type="password" name="password" placeholder="password" className="form__input" 
                 value={password} onChange={(e) => setPassword(e.target.value)} required />
-                <input type=" password" name="re-pswd" placeholder="re-enter password" className="form__input"
-                value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
-                <button className="form__button">Sign Up</button>
+                <button className="form__button" onClick={logIn}>Login</button>
+                
             </form>
         </div>
         <div class="login">
             <form>
-                <label for="chk" aria-hidden="true" className='form__label'>Login</label>
+                <label for="chk" aria-hidden="true" className='form__label'>Sign Up</label>
                 <input type="email" name="email" placeholder="myemail@gmail.com" className="form__input" value={email}
                   onChange={(e) => setEmail(e.target.value)} required />
                 <input type="password" name="password " placeholder="password" className="form__input" value={password}
                   onChange={(e) => setPassword(e.target.value)} required />
-                <button className="form__button" onClick={logIn}>Login</button>
+                <input type=" password" name="re-pswd" placeholder="re-enter password" className="form__input"
+                value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+                <button className="form__button" onClick={createAccount}>Sign Up</button>
             </form>
 
         </div>
