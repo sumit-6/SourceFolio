@@ -9,7 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { auth } from '../../index';
 import { signOut } from 'firebase/auth';
 import axios from 'axios';
-import Loading from "../Loading";
+import Loading from '../Loading'
+import  DashHome  from "./Banner";
 
 const NavBar = () => {
   const [Toggle, showMenu] = useState(false);
@@ -60,14 +61,15 @@ const NavBar = () => {
   return (
     <>
     {!isReady && <Loading />}
-    {isReady && <header className="header" id="light">
+    {isReady && <>
+    <header className="header" id="light">
       <nav className="nav container">
-        <Link className="dash__logo" style={{ color: "white" }}>
+        <Link className="nav__logo" style={{ color: "white" }}>
           SourceFolio <span style={{ color: "orange" }}>.</span>
         </Link>
 
         <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>
-          <ul className="nav__list ">
+          <ul className="nav__list">
             <li className="nav__item">
               <Link
                 onClick={() => window.location.href = "https://react-form-ten-steel.vercel.app/about-us"}
@@ -161,7 +163,9 @@ const NavBar = () => {
           </i>
         </div>
       </nav>
-    </header>}
+    </header>
+    <DashHome />
+    </>}
     </>
   );
 };
