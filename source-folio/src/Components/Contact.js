@@ -65,7 +65,7 @@ const Contact=(props)=>{
                 </span>
 
                 <h3 className="contact__card-title">LinkedIn</h3>
-                <span className="contact__card-data">{props.linkedIn}</span>
+                <span className="contact__card-data">{props.linkedIn.split('/')[4]}</span>
 
                 <a
                   href={props.linkedIn}
