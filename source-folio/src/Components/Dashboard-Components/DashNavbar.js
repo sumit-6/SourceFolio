@@ -60,8 +60,8 @@ const NavBar = () => {
   
   return (
     <>
-    {!isReady && <Loading />}
-    {isReady && <>
+    {(!isReady) && <Loading />}
+    {(isReady) && <>
     <header className="header" id="light">
       <nav className="nav container">
         <Link className="nav__logo" style={{ color: "white" }}>
@@ -164,7 +164,7 @@ const NavBar = () => {
         </div>
       </nav>
     </header>
-    <DashHome />
+    <DashHome id={sfid} token={Token} user={user} />
     </>}
     </>
   );

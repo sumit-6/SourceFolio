@@ -39,7 +39,7 @@ const Contact=(props)=>{
                 </a>
               </div>
 
-              <div className="contact__card">
+              {/*<div className="contact__card">
                 <span className="contact__card-icon">
                   <AiOutlineWhatsApp />
                 </span>
@@ -57,7 +57,7 @@ const Contact=(props)=>{
                     <AiOutlineArrowRight />
                   </span>
                 </a>
-              </div>
+              </div>*/}
 
               <div className="contact__card">
                 <span className="contact__card-icon">
