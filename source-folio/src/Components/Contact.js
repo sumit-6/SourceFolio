@@ -68,7 +68,7 @@ const Contact=(props)=>{
                 <span className="contact__card-data">{props.linkedIn}</span>
 
                 <a
-                  href="https://api.linkedin.com/v2/messages"
+                  href={props.linkedIn}
                   className="contact__button"
                 >
                   Write me{" "}
