@@ -121,7 +121,7 @@ const NavBar = () => {
                     <a
                       href="mailto:sourcefolio2023@gmail.com"
                       className="nav__link"
-                      style={{color : "white"}}
+                      style={{color: "white"}}
                     >
                       Contact
                     </a>

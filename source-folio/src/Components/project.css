@@ -11,7 +11,10 @@ button{
             width: 25%;
             font-size: 0.8rem;
             height: 30px;
+
+            
 }
+
 
 .project__content{
     margin-right: 1.9rem;
@@ -32,8 +35,8 @@ button{
 @media screen and (max-width : 992px) {
     .button__links {
        
-            width: 25%;
-            font-size: 0.7rem;
+            width: 31%;
+            font-size: 0.6rem;
         }
 }
 

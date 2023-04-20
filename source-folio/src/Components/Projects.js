@@ -56,15 +56,20 @@ const Projects=(props)=>{
                     <FaRegHeart />
                   </div>
                   <h3 className="experience__title">
-                  {x.projectName.split(' ').map((unit) => {return (
-                      <>
-                        {unit} {(i < x.projectName.split(' ').length) && <br /> }
-                      </>
-                    );})}
+                    {x.projectName.split(" ").map((unit) => {
+                      return (
+                        <>
+                          {unit} {i < x.projectName.split(" ").length && <br />}
+                        </>
+                      );
+                    })}
                   </h3>
                 </div>
 
-                <span className="experience__button" onClick={() => toggleTab(i+1)}>
+                <span
+                  className="experience__button"
+                  onClick={() => toggleTab(i + 1)}
+                >
                   View More
                   <div className="experience__button-icon">
                     <AiFillCaretRight />
@@ -72,35 +77,28 @@ const Projects=(props)=>{
                 </span>
 
                 <div>
-                  {x.projectLink && <button
-                    style={{
-                      marginRight: "0.8em",
-                      borderRadius: "5px",
-                      width: "20%",
-                      // height : "100%",
-                      fontSize: "0.9rem",
-                    }}
+                  {x.projectLink && (
+                    <button
+                      className="button__links"
+                      onClick={() => {
+                        window.location.href = x.projectLink;
+                      }}
+                    >
+                      Web Link
+                    </button>
+                  )}
 
-                    onClick={() => {window.location.href = x.projectLink}}
-                  >
-                    Web Link
-                  </button>}
-                  
-                  {x.gitHubLink && <button
-                    style={{
-                      marginRight: "0.8em",
-                      borderRadius: "5px",
-                      width: "20%",
-                      fontSize: "0.9rem",
-                    }}
-
-                    onClick={() => {window.location.href = x.gitHubLink}}
-                  >
-                    Github
-                  </button>}
+                  {x.gitHubLink && (
+                    <button
+                      className="button__links"
+                      onClick={() => {
+                        window.location.href = x.gitHubLink;
+                      }}
+                    >
+                      Github
+                    </button>
+                  )}
                 </div>
-
-                
               </div>
             );
           })

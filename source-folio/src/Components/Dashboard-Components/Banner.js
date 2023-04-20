@@ -3,7 +3,7 @@ import React from 'react';
 import "./banner.css"
 import Typewriter from "typewriter-effect";
 
-const DashHome=()=>{
+const DashHome=(props)=>{
     return (
       <div className="banner">
         <div className="content">
@@ -20,11 +20,25 @@ const DashHome=()=>{
             />
           </h1>
           <p>Create, inspire, succeed with our portfolio builder.</p>
-          <div className="content_a">
-            <a className="butt" href="#">
+          {props.user && props.id && <div className="content_a">
+            <a className="butt" href={`/portfolio/${props.id}`}>
               View Sourcefolio
             </a>
+          </div>}
+          {props.user && !props.id &&
+            <div className="content_a">
+            <a className="butt" href={`https://react-form-ten-steel.vercel.app/form?q=${props.token}&where=form`} >
+              Create Sourcefolio
+            </a>
           </div>
+          }
+          {!props.user &&
+            <div className="content_a">
+            <a className="butt" href="/login">
+              Create Sourcefolio
+            </a>
+          </div>
+          }
         </div>
       </div>
     );
