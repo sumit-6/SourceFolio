@@ -179,7 +179,7 @@ const NavBar = () => {
               </div>
             </nav>
           </header>
-          <DashHome />
+          <DashHome user={user} id={sfid} token={Token}/>
         </>
       )}
     </>
