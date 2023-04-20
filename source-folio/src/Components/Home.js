@@ -7,7 +7,7 @@ const Home=(props)=>{
     function getThumbnail(url) {
         return url.replace('/upload', '/upload/c_scale,h_300,w_300')
     }
-    console.log(props);
+  
     return(
         <section className="home section" id="home">
             <div className="home__container container grid">

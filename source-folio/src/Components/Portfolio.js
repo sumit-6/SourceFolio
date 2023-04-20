@@ -43,7 +43,7 @@ const Portfolio = () => {
       const response = await axios.get(`https://source-folio-backend.onrender.com/api/portfolio/${ID}`);
       if(typeof(response.data) === 'object') {
         const dataRes = response.data;
-        console.log(dataRes);
+       
         setData(dataRes);
         setIsReady(true);
       }

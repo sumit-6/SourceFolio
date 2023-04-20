@@ -22,7 +22,7 @@ const NavBar = () => {
   const [data, setData] = useState(null);
   const [isReady, setIsReady] = useState(false);
   useEffect(() => {(async() => {
-    console.log(user);
+
     const token = user && await user.getIdToken();
     setToken(token);
     const response = await axios.get(`https://source-folio-backend.onrender.com/api/getID/${user.uid}`, {headers: {authtoken: token}});

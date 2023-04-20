@@ -413,7 +413,6 @@ const PortfolioSchema = new Schema({
 const Portfolio = mongoose.model('Portfolio', PortfolioSchema);
 const validatePortfolio = (doc) => {    
     const {error} = portfolioSchema.validate(doc);
-    //console.log(result);
 
     if(error) {
         const msg = error.details.map(ele => ele.message).join(',')
@@ -431,11 +430,9 @@ app.use(async (req, res, next) => {
     if(file) {
         req.file = file;
     }
-    //console.log(authtoken);
     if(authtoken) {
         try {
             req.user = await admin.auth().verifyIdToken(authtoken);
-            //console.log(req.user);
         }
         catch (e) {
             return res.sendStatus(400);
@@ -501,7 +498,6 @@ app.post('/edit/profilePicture/:id', upload.single('profilePicture'), async(req,
     try {
         const id = req.params.id;
         const data = await Portfolio.findById(id);
-        console.log(req.file);
         if(req.user && data.user_id === req.user.user_id) {
             await cloudinary.uploader.destroy(data.profilePicture.filename)
             const file = req.file;
@@ -522,7 +518,7 @@ app.post('/portfolio/edit/:id', async(req, res) => {
     const id = req.params.id;
     const updatedData = req.body;
     const data = await Portfolio.findById(id);
-    console.log(updatedData)
+
     if(req.user && data.user_id === req.user.user_id) {
         const resultantObj = convertJSON(updatedData);
         resultantObj.user_id = req.user.user_id;
@@ -538,7 +534,7 @@ app.post('/portfolio/edit/:id', async(req, res) => {
 app.post('/portfolio/delete/:id', async(req, res) => {
     const id = req.params.id;
     const data = await Portfolio.findById(id);
-    console.log(data.user_id, req.user.user_id);
+    
     if(req.user && (data.user_id === req.user.user_id)) {
         await cloudinary.uploader.destroy(data.profilePicture.filename)
         await Portfolio.findByIdAndDelete(id);
@@ -552,11 +548,11 @@ app.post('/portfolio/insert', upload.single('profilePicture'), async (req, res) 
     if(req.user) {
         const obj = req.body;
         obj.profilePicture = req.file;
-        console.log(obj);
+      
         const resultantObj = convertJSON(obj);
-        console.log(req.user);
+       
         resultantObj.user_id = req.user.user_id;
-        console.log(resultantObj);
+       
         validatePortfolio(resultantObj);
         const mongooseObj = new Portfolio(resultantObj);
         await mongooseObj.save();
