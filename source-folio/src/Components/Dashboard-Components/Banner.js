@@ -1,5 +1,5 @@
 import React from 'react';
-import cloud from "../../asset/image/mobilee.jpg"
+// import cloud from "../../asset/image/mobilee.jpg"
 import "./banner.css"
 import Typewriter from "typewriter-effect";
 

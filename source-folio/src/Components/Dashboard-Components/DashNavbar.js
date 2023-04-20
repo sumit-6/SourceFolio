@@ -60,112 +60,128 @@ const NavBar = () => {
   
   return (
     <>
-    {!isReady && <Loading />}
-    {isReady && <>
-    <header className="header" id="light">
-      <nav className="nav container">
-        <Link className="nav__logo" style={{ color: "white" }}>
-          SourceFolio <span style={{ color: "orange" }}>.</span>
-        </Link>
-
-        <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>
-          <ul className="nav__list">
-            <li className="nav__item">
-              <Link
-                onClick={() => window.location.href = "https://react-form-ten-steel.vercel.app/about-us"}
-                // smooth={true}
-                // duration={1000}
-                className="nav__link"
-                style={{ color: "orange" }}
-              >
-                <i className="nav__icon"></i>About us
+      {!isReady && <Loading />}
+      {isReady && (
+        <>
+          <header className="header" id="light">
+            <nav className="nav container">
+              <Link className="nav__logo" style={{ color: "white" }}>
+                SourceFolio <span style={{ color: "orange" }}>.</span>
               </Link>
-            </li>
 
-            {user && sfid && <li className="nav__item">
-              <Link
-                onClick={() => window.location.href=` https://source-folio-frontend.vercel.app/portfolio/${sfid}`}
-                // duration={1000}
-                className="nav__link"
-                style={{ color: "white" }}
+              <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>
+                <ul className="nav__list">
+                  <li className="nav__item">
+                    <Link
+                      onClick={() =>
+                        (window.location.href =
+                          "https://react-form-ten-steel.vercel.app/about-us")
+                      }
+                      // smooth={true}
+                      // duration={1000}
+                      className="nav__link"
+                      style={{ color: "orange" }}
+                    >
+                      <i className="nav__icon"></i>About us
+                    </Link>
+                  </li>
+
+                  {user && sfid && (
+                    <li className="nav__item">
+                      <Link
+                        onClick={() =>
+                          (window.location.href = ` https://source-folio-frontend.vercel.app/portfolio/${sfid}`)
+                        }
+                        // duration={1000}
+                        className="nav__link"
+                        style={{ color: "white" }}
+                      >
+                        <i className="nav__icon"></i>View My sourceFolio
+                      </Link>
+                    </li>
+                  )}
+
+                  {user && !sfid && (
+                    <li className="nav__item">
+                      <Link
+                        onClick={() =>
+                          (window.location.href = `https://react-form-ten-steel.vercel.app/form?q=${Token}&where=form`)
+                        }
+                        // smooth={true}
+                        // duration={1000}
+                        className="nav__link"
+                        style={{ color: "white" }}
+                      >
+                        <i className="nav__icon"></i>Make My SourceFolio
+                      </Link>
+                    </li>
+                  )}
+
+                  <li className="nav__item">
+                    <a
+                      href="mailto:sourcefolio2023@gmail.com"
+                      className="nav__link"
+                      style={{color : "white"}}
+                    >
+                      Contact
+                    </a>
+                  </li>
+
+                  {!user && (
+                    <li className="nav__item">
+                      <Link
+                        onClick={() => navigate(`login`)}
+                        // smooth={true}
+                        // duration={1000}
+                        className="nav__link"
+                        style={{ color: "white" }}
+                      >
+                        <i className="nav__icon"></i>Login/Signup
+                      </Link>
+                    </li>
+                  )}
+                   
+                  {user && (
+                    <li className="nav__item">
+                      <Link
+                        onClick={(e) => handleLogout(e)}
+                        // smooth={true}
+                        // duration={1000}
+                        className="nav__link"
+                        style={{ color: "white" }}
+                      >
+                        <i className="nav__icon"></i>Logout
+                      </Link>
+                    </li>
+                  )}
+                </ul>
+
+                <i
+                  style={{ color: "white" }}
+                  className="nav__close"
+                  onClick={() => {
+                    showMenu(!Toggle);
+                  }}
+                >
+                  <RxCross2 />
+                </i>
+              </div>
+
+              <div
+                className="nav__toggle"
+                onClick={() => {
+                  showMenu(!Toggle);
+                }}
               >
-                <i className="nav__icon"></i>View My sourceFolio
-              </Link>
-            </li>}
-
-            {user && !sfid && <li className="nav__item">
-              <Link
-                onClick={() => window.location.href=`https://react-form-ten-steel.vercel.app/form?q=${Token}&where=form`}
-                // smooth={true}
-                // duration={1000}
-                className="nav__link"
-                style={{ color: "white" }}
-              >
-                <i className="nav__icon"></i>Make My SourceFolio
-              </Link>
-            </li>}
-
-            <li className="nav__item">
-              <Link
-                // smooth={true}
-                // duration={1000}
-                className="nav__link"
-                style={{ color: "white" }}
-              >
-                <i className="nav__icon"></i>Contact
-              </Link>
-            </li>
-
-            {!user && <li className="nav__item">
-              <Link
-                onClick={() => navigate(`login`)}
-                // smooth={true}
-                // duration={1000}
-                className="nav__link"
-                style={{ color: "white" }}
-              >
-                <i className="nav__icon"></i>Login/Signup
-              </Link>
-            </li>}
-
-            {user && <li className="nav__item">
-              <Link
-                onClick={(e) => handleLogout(e)}
-                // smooth={true}
-                // duration={1000}
-                className="nav__link"
-                style={{ color: "white" }}
-              >
-                <i className="nav__icon"></i>Logout
-              </Link>
-            </li>}
-          </ul>
-
-          <i
-            style={{ color: "white" }}
-            className="nav__close"
-            onClick={() => {
-              showMenu(!Toggle);
-            }}
-          >
-            <RxCross2 />
-          </i>
-        </div>
-
-        <div
-          className="nav__toggle"
-          onClick={() => {
-            showMenu(!Toggle);
-          }}
-        >
-          <i style={{ color: "white" }} className="navbar__menu__list">
-            <AiOutlineMenu />
-          </i>
-        </div>
-      </nav>
-    </header>
-    <DashHome />
-    </>}
+                <i style={{ color: "white" }} className="navbar__menu__list">
+                  <AiOutlineMenu />
+                </i>
+              </div>
+            </nav>
+          </header>
+          <DashHome />
+        </>
+      )}
     </>
   );
 };
