@@ -39,7 +39,7 @@ const Footer=(props)=>{
           {!isLoading && user && token && (user.uid == props.data.user_id) && <a className="buttonn" onClick={()=>{window.location.href=`https://react-form-ten-steel.vercel.app/form?q=${token}&sfid=${props.id}&where=edit`}}>Edit SourceFolio</a>}
           {!isLoading && user && token && (user.uid == props.data.user_id) && <a className="delete buttonn" onClick={handleDelete}>Delete SourceFolio</a>}
         </div>
-        {!isLoading && user && <div className="back__home ">
+          {!isLoading && user && token && (user.uid == props.data.user_id) && <div className="back__home ">
           <a className="buttonn" onClick={() => {navigate("/")}}>Back to home</a>
           {" "}
           <span className="home__icon">
