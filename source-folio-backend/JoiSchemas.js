@@ -41,14 +41,14 @@ const experienceSchema = Joi.object({
     duration: durationSchema.required(),
     company: Joi.string().required(),
     workDescription: Joi.array().items(Joi.string().required()).required(),
-    certificate: Joi.string().allow('')
+    certificate: Joi.string().default('')
 });
 
 const projectSchema = Joi.object({
     projectName: Joi.string().required(),
     description: Joi.array().items(Joi.string().required()).required(),
-    gitHubLink: Joi.string().allow(''),
-    projectLink: Joi.string().allow('')
+    gitHubLink: Joi.string().default(''),
+    projectLink: Joi.string().default('')
 });
 
 const skillProElementSchema = Joi.object({
