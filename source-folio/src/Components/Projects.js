@@ -56,10 +56,10 @@ const Projects=(props)=>{
                     <FaRegHeart />
                   </div>
                   <h3 className="experience__title">
-                    {x.projectName.split(" ").map((unit) => {
+                    {x.projectName.split(" ").map((unit, j) => {
                       return (
                         <>
-                          {unit} {i < x.projectName.split(" ").length && <br />}
+                          {unit} {j < x.projectName.split(" ").length && <br />}
                         </>
                       );
                     })}
