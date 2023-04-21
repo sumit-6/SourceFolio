@@ -45,6 +45,7 @@ const Portfolio = () => {
         const dataRes = response.data;
        
         setData(dataRes);
+        console.log(data.myExperience)
         setIsReady(true);
       }
     })();
@@ -75,8 +76,10 @@ const Portfolio = () => {
             <hr />
             <Education data={data.myEducation} />
             <hr />
-            {data.myExperience !== [] && <Experience data={data.myExperience} />}
+            {data.myExperience.length ? <>
+            <Experience data={data.myExperience} />
             <hr />
+            </> : ""}
             <Projects data={data.myProjects} />
             <hr />
             <Skills data={data.mySkills} />

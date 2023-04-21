@@ -27,10 +27,10 @@ const Experience=(props)=>{
     }
     return (
       <section className="services section" id="experience">
-        <h2 className="section__title">
+        {props.data.length ? <h2 className="section__title">
           My <span style={{ color: "orange" }}>Experience.</span>
-        </h2>
-        <span className="section__subtitle">My work Places</span>
+        </h2> : ""}
+        {props.data.length ? <span className="section__subtitle">My work Places</span> : ""}
 
         <div className="experience__container container grid">
           {props.data.map((x, i) => {
