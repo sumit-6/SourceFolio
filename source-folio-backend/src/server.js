@@ -244,7 +244,7 @@ function convertJSON(inputJSON) {
 
         obj["role"] = inputJSON["role"];
         obj["company"] = inputJSON["company"];
-        if(inputJSON["certificate"]) obj["certificate"] = inputJSON["certificate"];
+        if(inputJSON["certificate"])obj["certificate"] = inputJSON["certificate"];
         obj["duration"]["start"] = inputJSON["start"];
         obj["duration"]["end"] = inputJSON["end"];
         if(typeof(inputJSON['workDescription_0']) == 'object') obj["workDescription"] = inputJSON["workDescription_0"];
