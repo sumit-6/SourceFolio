@@ -82,7 +82,7 @@ const portfolioSchema = Joi.object({
     description: Joi.string().required(),
     profilePicture: imageSchema,
     myEducation: Joi.array().items(educationSchema).required(),
-    myExperience: Joi.array().items(experienceSchema).allow([]),
+    myExperience: Joi.array().items(experienceSchema).default([]),
     myProjects: Joi.array().items(projectSchema).required(),
     mySkills: skillsSchema,
     myAchievements: Joi.array().items(Joi.string()).required(),
