@@ -42,7 +42,7 @@ const NavBar=(props)=>{
                 </Link>
               </li>
 
-              {props.myExperience ? <li className="nav__item">
+              {props.myExperience.length ? <li className="nav__item">
                 <Link
                   to="experience"
                   // smooth={true}
