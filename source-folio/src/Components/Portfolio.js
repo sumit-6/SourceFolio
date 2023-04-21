@@ -45,7 +45,6 @@ const Portfolio = () => {
         const dataRes = response.data;
        
         setData(dataRes);
-        console.log(data.myExperience)
         setIsReady(true);
       }
     })();

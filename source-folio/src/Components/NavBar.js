@@ -42,7 +42,7 @@ const NavBar=(props)=>{
                 </Link>
               </li>
 
-              {props.myExperience && <li className="nav__item">
+              {props.myExperience ? <li className="nav__item">
                 <Link
                   to="experience"
                   // smooth={true}
@@ -52,7 +52,7 @@ const NavBar=(props)=>{
                 >
                   <i className="nav__icon"></i>Experience
                 </Link>
-              </li>}
+              </li> : ""}
 
               <li className="nav__item">
                 <Link
