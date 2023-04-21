@@ -16,6 +16,7 @@ import axios from 'axios';
 import "./portfolio.css";
 import "../index.css";
 import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
 
 const Portfolio = () => {
   const path = useLocation().pathname;
@@ -25,6 +26,7 @@ const Portfolio = () => {
   const [isReady, setIsReady] = useState(false);
   const queryParams = new URLSearchParams(location.search);
   const [successMessage, setSuccessMessage] = useState(queryParams.get('success'));
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Set a timeout to remove the flash message after 3 seconds
@@ -46,6 +48,10 @@ const Portfolio = () => {
        
         setData(dataRes);
         setIsReady(true);
+      }
+      else {
+        console.log("a")
+        navigate("/error");
       }
     })();
   }, [ID]);

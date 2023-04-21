@@ -490,8 +490,13 @@ app.get('/api/getID/:id', async (req, res) => {
 
 app.get('/api/portfolio/:id', async(req, res) => {
     const id = req.params.id;
-    const data = await Portfolio.findById(id);
-    res.json(data);
+    try {
+        const data = await Portfolio.findById(id);
+        res.json(data);
+    }
+    catch(e) {
+        res.status(404).send("error");
+    }
 });
 
 app.post('/edit/profilePicture/:id', upload.single('profilePicture'), async(req, res) => {
