@@ -230,7 +230,7 @@ function convertJSON(inputJSON) {
             else obj['workDescription'].push(inputJSON['workDescription_'+i]);
             outputJSON["myExperience"].push(obj);
         }
-    } else {
+    } else if(inputJSON['role']) {
         const obj = {
             "role": "",
             "duration": {

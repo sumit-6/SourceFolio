@@ -53,7 +53,7 @@ const Portfolio = () => {
     <>
       <div className="Portfolio">
         {successMessage && <FlashMessage msg={successMessage} />}
-        {isReady && <NavBar name={data.name} />}
+        {isReady && <NavBar name={data.name} myExperience={data.myExperience} />}
         {isReady && (
           <main className="main">
             <Home
@@ -75,7 +75,7 @@ const Portfolio = () => {
             <hr />
             <Education data={data.myEducation} />
             <hr />
-            <Experience data={data.myExperience} />
+            {data.myExperience !== [] && <Experience data={data.myExperience} />}
             <hr />
             <Projects data={data.myProjects} />
             <hr />
