@@ -223,7 +223,7 @@ function convertJSON(inputJSON) {
             
             obj["role"] = inputJSON["role"][i];
             obj["company"] = inputJSON["company"][i];
-            obj["certificate"] = inputJSON["certificate"][i];
+            if(inputJSON["certificate"][i])obj["certificate"] = inputJSON["certificate"][i];
             obj["duration"]["start"] = inputJSON["start"][i];
             obj["duration"]["end"] = inputJSON["end"][i];
             if(typeof(inputJSON['workDescription_'+i]) == 'object') obj["workDescription"] = inputJSON["workDescription_" + i];
@@ -244,7 +244,7 @@ function convertJSON(inputJSON) {
 
         obj["role"] = inputJSON["role"];
         obj["company"] = inputJSON["company"];
-        obj["certificate"] = inputJSON["certificate"];
+        if(inputJSON["certificate"]) obj["certificate"] = inputJSON["certificate"];
         obj["duration"]["start"] = inputJSON["start"];
         obj["duration"]["end"] = inputJSON["end"];
         if(typeof(inputJSON['workDescription_0']) == 'object') obj["workDescription"] = inputJSON["workDescription_0"];
@@ -264,8 +264,8 @@ function convertJSON(inputJSON) {
             obj["projectName"] = inputJSON["projectName"][i];
             if(typeof(inputJSON['projectDescription_' + i]) == 'object') obj["description"] = inputJSON["projectDescription_" + i];
         else obj['description'].push(inputJSON['projectDescription_' + i]);
-            obj["gitHubLink"] = inputJSON["gitHubLink"][i];
-            obj["projectLink"] = inputJSON["projectLink"][i];
+        if(inputJSON["gitHubLink"][i])obj["gitHubLink"] = inputJSON["gitHubLink"][i];
+        if(inputJSON["projectLink"][i]) obj["projectLink"] = inputJSON["projectLink"][i];
             
             outputJSON["myProjects"].push(obj);
         }
@@ -280,8 +280,8 @@ function convertJSON(inputJSON) {
         obj["projectName"] = inputJSON["projectName"];
         if(typeof(inputJSON['projectDescription_0']) == 'object') obj["description"] = inputJSON["projectDescription_0"];
         else obj['description'].push(inputJSON['projectDescription_0']);
-        obj["gitHubLink"] = inputJSON["gitHubLink"];
-        obj["projectLink"] = inputJSON["projectLink"];
+        if(inputJSON["gitHubLink"])obj["gitHubLink"] = inputJSON["gitHubLink"];
+        if(inputJSON["projectLink"])obj["projectLink"] = inputJSON["projectLink"];
         
         outputJSON["myProjects"].push(obj);
     }
