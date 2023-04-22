@@ -27,7 +27,7 @@ Sourcefolio is built using a variety of languages and frameworks, including:
 **Support:**
 If you encounter any issues or have any questions about Sourcefolio, please email sourcefolio2023@gmail.com
 
-**Folow:**
+**Follow:**
 You can follow SourceFolio on [instagram](https://www.instagram.com/sourcefolio2023/).
 
 Thank you for using [Sourcefolio](https://source-folio-frontend.vercel.app/)!
