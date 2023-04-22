@@ -59,7 +59,7 @@ const Projects=(props)=>{
                     {x.projectName.split(" ").map((unit, j) => {
                       return (
                         <>
-                          {unit} {j < x.projectName.split(" ").length && <br />}
+                          {unit} {j % 2 === 1 && j < x.projectName.split(" ").length && <br />}
                         </>
                       );
                     })}
