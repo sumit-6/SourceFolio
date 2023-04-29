@@ -461,8 +461,8 @@ app.use(session({
     cookie: {
         httpOnly: true,
         //secure: true,
-        expires: Date.now() + 60 * 60,
-        maxAge: 60 * 60
+        expires: Date.now() + 60 * 60 * 30,
+        maxAge: 60 * 60 * 30
     }
 }));
 
