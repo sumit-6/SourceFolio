@@ -44,9 +44,9 @@ const Experience=(props)=>{
                     <FaRegHeart />
                   </div>
                   <h3 className="experience__title">
-                    {x.role.split(' ').map((unit) => {return (
+                    {x.role.split(' ').map((unit, j) => {return (
                       <>
-                        {unit} {(i < x.role.split(' ').length) && <br /> }
+                        {unit} {(j < x.role.split(' ').length) && <br /> }
                       </>
                     );})}
                   </h3>
