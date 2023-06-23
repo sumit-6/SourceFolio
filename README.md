@@ -1,5 +1,5 @@
 # SourceFolio
-Welcome to the README page for [Sourcefolio]([https://source-folio-frontend.vercel.app/](https://source-folio.vercel.app/))!
+Welcome to the README page for [Sourcefolio](https://source-folio.vercel.app/)!
 
 Sourcefolio is a web application that allows users to create and showcase their portfolio. It is designed to help developers to share their work with others, and potentially attract job opportunities.
                                                                                                                                                                                                     
