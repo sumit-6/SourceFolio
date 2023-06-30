@@ -17,11 +17,6 @@ const Info=(props)=>{
           <span className="about__subtitle">{props.numberOfProjects}</span>
         </div>
 
-        {/* <div className="about__box">
-          <BiSupport/>
-          <h3 className="about__title">Support</h3>
-          <span className="about__subtitle">Online 24/7</span>
-        </div> */}
       </div>
     );
 }
