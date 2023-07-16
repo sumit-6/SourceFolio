@@ -339,6 +339,11 @@ hr {
   border-radius: 10px;
   box-shadow: 5px 20px 50px #000;
 }
+.error {
+  color: rgb(199, 82, 150);
+  text-align: center;
+  font-style: italic;
+}
 
 #chk{
   display: none;
