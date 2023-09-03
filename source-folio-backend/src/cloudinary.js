@@ -1,5 +1,5 @@
 import cl from "cloudinary";
-import credentials from "./auth";
+import credentials from "./auth.js";
 import multer from "multer";
 
 const cloudinary_val = credentials["cloud_name"];
