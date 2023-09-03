@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+.navButton:hover{
+  background-color:rgb(219, 144, 5) ;
+}
+
+.navButton:active{
+  background-color: rgb(219, 144, 5);
+}
 :root{
   --back-color : #82daee;
 }
