@@ -5,7 +5,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-scroll";
 import ReactSwitch from "react-switch";
 import useUser from '../../hooks/useUser';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from "react-router-dom";
 import { auth } from '../../index';
 import { signOut } from 'firebase/auth';
 import axios from 'axios';
@@ -13,6 +13,9 @@ import Loading from '../Loading'
 import  DashHome  from "./Banner";
 
 const NavBar = () => {
+
+  // const location=useLocation();
+  // console.log(location,"location");
   const [Toggle, showMenu] = useState(false);
   const navigate = useNavigate();
   const [sfid, setsfId] = useState(null);
@@ -57,6 +60,7 @@ const NavBar = () => {
       console.log(err.message);
     })
   }
+
   
   return (
     <>
@@ -90,7 +94,7 @@ const NavBar = () => {
                     <li className="nav__item">
                       <Link
                         onClick={() =>
-                          (window.location.href = ` https://source-folio-frontend.vercel.app/portfolio/${sfid}`)
+                          {navigate(`/portfolio/${sfid}`)}
                         }
                         // duration={1000}
                         className="nav__link"
@@ -117,12 +121,11 @@ const NavBar = () => {
                     </li>
                   )}
 
-
                   <li className="nav__item">
                     <a
                       href="mailto:sourcefolio2023@gmail.com"
                       className="nav__link"
-                      style={{color: "white"}}
+                      style={{ color: "white" }}
                     >
                       Contact
                     </a>
@@ -141,7 +144,7 @@ const NavBar = () => {
                       </Link>
                     </li>
                   )}
-                   
+
                   {user && (
                     <li className="nav__item">
                       <Link
@@ -180,7 +183,7 @@ const NavBar = () => {
               </div>
             </nav>
           </header>
-          <DashHome user={user} id={sfid} token={Token}/>
+          <DashHome user={user} id={sfid} token={Token} />
         </>
       )}
     </>
