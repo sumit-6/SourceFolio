@@ -117,6 +117,7 @@ const NavBar = () => {
                     </li>
                   )}
 
+
                   <li className="nav__item">
                     <a
                       href="mailto:sourcefolio2023@gmail.com"
