@@ -90,7 +90,7 @@ const NavBar = () => {
                     <li className="nav__item">
                       <Link
                         onClick={() =>
-                          (window.location.href = ` https://source-folio-frontend.vercel.app/portfolio/${sfid}`)
+                          (window.location.href = `https://source-folio.vercel.app/portfolio/${sfid}`)
                         }
                         // duration={1000}
                         className="nav__link"
