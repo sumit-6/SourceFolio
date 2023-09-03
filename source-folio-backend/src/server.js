@@ -10,6 +10,7 @@ import flash from 'connect-flash';
 import MongoDBStorePackage from 'connect-mongodb-session';
 import portfolioSchema from '../JoiSchemas.js';
 import ExpressError from '../ExpressError.js';
+import mongoSanitize from 'express-mongo-sanitize';
 
 import admin from 'firebase-admin';
 const credentials = {};
@@ -55,7 +56,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express(); 
 
-const secret = process.env.SECRET;
+
 
 app.use(helmet.crossOriginOpenerPolicy());
 app.use(helmet.crossOriginResourcePolicy());
@@ -441,7 +442,8 @@ app.use(async (req, res, next) => {
     req.user = req.user || {};
     next();
 });
-
+app.use(mongoSanitize());
+const secret = process.env.SECRET;
 const MongoDBStore = MongoDBStorePackage(session);
 const store = new MongoDBStore({
     uri : dbUrl,
@@ -461,8 +463,8 @@ app.use(session({
     cookie: {
         httpOnly: true,
         //secure: true,
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7
+        expires: Date.now() + 1000 * 60 * 60,
+        maxAge: 1000 * 60 * 60
     }
 }));
 

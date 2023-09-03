@@ -25,12 +25,12 @@ const NavBar = () => {
 
     const token = user && await user.getIdToken();
     setToken(token);
-    const response = await axios.get(`https://source-folio-backend.onrender.com/api/getID/${user.uid}`, {headers: {authtoken: token}});
+    const response = await axios.get(`https://source-folio-woad.vercel.app/api/getID/${user.uid}`, {headers: {authtoken: token}});
     
     if(response.data !== 'Failure') {
       const dataRes = response.data;
       setsfId(dataRes);
-      const userData = await axios.get(`https://source-folio-backend.onrender.com/api/portfolio/${sfid}`);
+      const userData = await axios.get(`https://source-folio-woad.vercel.app/api/portfolio/${sfid}`);
       setData(userData.data);
       setIsAvailable(true);
       setIsReady(true);

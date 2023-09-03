@@ -26,7 +26,7 @@ const Footer=(props)=>{
         }
       }
     
-      const response = await axios.post(`https://source-folio-backend.onrender.com/portfolio/delete/${props.id}`, {}, config);
+      const response = await axios.post(`https://source-folio-woad.vercel.app/portfolio/delete/${props.id}`, {}, config);
       if(response.data === "Success") {
         window.location.href = `https://source-folio-frontend.vercel.app/`;
       } else {
