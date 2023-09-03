@@ -2,9 +2,7 @@ import express from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
 import helmet from 'helmet';
-import cl from 'cloudinary';
-import multer from 'multer';
-import dotenv from 'dotenv';
+import upload from './cloudinary.js';
 import session from 'express-session';
 import flash from 'connect-flash';
 import MongoDBStorePackage from 'connect-mongodb-session';
@@ -13,42 +11,7 @@ import ExpressError from '../ExpressError.js';
 import mongoSanitize from 'express-mongo-sanitize';
 
 import admin from 'firebase-admin';
-const credentials = {};
 
-
-
-if(process.env.NODE_ENV !== 'production') {
-    dotenv.config();
-}
-credentials['type'] = process.env.TYPE;
-credentials['project_id'] = process.env.PROJECT_ID;
-credentials['private_key_id'] = process.env.PRIVATE_KEY_ID;
-credentials['private_key'] = process.env.PRIVATE_KEY;
-credentials['client_email'] = process.env.CLIENT_EMAIL;
-credentials['client_id'] = process.env.CLIENT_ID;
-credentials['auth_uri'] = process.env.AUTH_URI;
-credentials['token_uri'] = process.env.TOKEN_URI;
-credentials['auth_provider_x509_cert_url'] = process.env.AUTH_PROVIDER_X509_CERT_URL;
-credentials['client_x509_cert_url'] = process.env.CLIENT_X509_CERT_URL;
-admin.initializeApp({
-    credential: admin.credential.cert(credentials),
-});
-
-const cloudinary = cl.v2;
-import { CloudinaryStorage } from 'multer-storage-cloudinary';
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_KEY,
-    api_secret: process.env.CLOUDINARY_SECRET
-})
-const storage = new CloudinaryStorage({
-    cloudinary,
-    params: {
-        folder: 'SourceFolio',
-        allowedFormats: ['jpeg', 'jpg', 'png']
-    }
-})
-const upload = multer({storage});
 import { fileURLToPath } from 'url';
 import { createDeflate } from 'zlib';
 const __filename = fileURLToPath(import.meta.url);
