@@ -1,77 +1,19 @@
 import React from "react";
+import InputBox from "./InputBox";
+import CustomSelect from "./CustomSelect";
+import TextArea from "./TextArea";
 
 const BioForm=()=>{
+ 
+
     return (
       <div className="bg-gradient-to-r from-slate-300 to-slate-500 p-4 mt-6">
         <div>Bio Details</div>
-        <div class="md:flex md:items-center mb-6">
-          <div class="md:w-1/3">
-            <label
-              class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-              for="inline-full-name"
-            >
-              Full Name
-            </label>
-          </div>
-          <div class="md:w-2/3">
-            <input
-              class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-              id="inline-full-name"
-              type="text"
-            />
-          </div>
-        </div>
-        <div class="md:flex md:items-center mb-6">
-          <div class="md:w-1/3">
-            <label
-              class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-              for="inline-full-name"
-            >
-              Instagram
-            </label>
-          </div>
-          <div class="md:w-2/3">
-            <input
-              class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-              id="inline-full-name"
-              type="text"
-            />
-          </div>
-        </div>
-        <div class="md:flex md:items-center mb-6">
-          <div class="md:w-1/3">
-            <label
-              class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-              for="inline-full-name"
-            >
-              Linked In
-            </label>
-          </div>
-          <div class="md:w-2/3">
-            <input
-              class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-              id="inline-full-name"
-              type="text"
-            />
-          </div>
-        </div>
-        <div class="md:flex md:items-center mb-6">
-          <div class="md:w-1/3">
-            <label
-              class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-              for="inline-full-name"
-            >
-              Mobile Number
-            </label>
-          </div>
-          <div class="md:w-2/3">
-            <input
-              class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-              id="inline-full-name"
-              type="number"
-            />
-          </div>
-        </div>
+        <InputBox field="Full Name" type="text" id="name" placeholder="Enter name"></InputBox>
+        <InputBox field="Instagram" type="text" id="instagram" placeholder="Enter instagram profile url"></InputBox>
+        <InputBox field="LinkedIn" type="text" id="linkedIn" placeholder="Enter linkedIn profile url"></InputBox>
+        <InputBox field="Github" type="text" id="githubProfile" placeholder="Enter github profile url"></InputBox>
+        <TextArea field="Bio" id="bio" placeholder="Enter a brief description of yours, your hobby, your birthdate, and likings..."></TextArea>
       </div>
     );
 }
