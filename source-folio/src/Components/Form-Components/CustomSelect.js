@@ -1,7 +1,7 @@
 import React from "react";
 
 const CustomSelect = (props) => {
-    const {field, id, placeholder="", value="", array=[]} = props;
+    const {field, id, value="", array=[], name, handleChange, index=0} = props;
     return (
         <div class="md:flex md:items-center mb-6">
            <div class="md:w-1/3">
@@ -14,7 +14,7 @@ const CustomSelect = (props) => {
            </div>
            <div class="inline-block relative w-64">
                 <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                 name={id} id={id}>
+                 name={name} id={id} value={value} onChange={(e) => handleChange(e, index)}>
                     <option value="">{field} Options</option>
                     {array.map(option => (
                       <option key={option} value={option}>{option}</option>

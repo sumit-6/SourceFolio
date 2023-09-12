@@ -11,12 +11,50 @@ import ContactForm from "./ContactForm";
 
 const Form=(props)=>{
     const [isVisible, setIsVisible] = useState([true, false, false, false, false, false, false, false]);
+    const [inputData, setInputData] = useState({name: "", instagram: "", 
+    linkedIn: "", githubProfile: "", bio: "", yearsOfExperience: "", numberOfProjects: "", 
+    description: "", email: "", telephone: "", profilePicture:{url: null, filename: null}, mainDesignations:[""]});
+    const [inputExperienceList, setInputExperienceList] = useState([]);
+    const [inputProjectList, setInputProjectList] = useState([]);
+    const [inputEducationList, setInputEducationList] = useState([{institutionName: "", place: "", year: "", aggregate: "", coursePursuied: ""}]);
+    const [inputSkills, setInputSkills] = useState({programmingSkills: [{skillName: "", skillLevel: ""}], toolsAndFrameworks: [{toolName: "", toolLevel: ""}]});
+    const [inputAchievement, setInputAchievement] = useState([""]);
+    function handleFileChange(e) {
+      const file=e.target.files[0];
+      setInputData({...inputData, profilePicture: file});
+
+    }
+    function handleMainDesignations(list) {
+      const obj = {...inputData};
+      obj["mainDesignations"] = list;
+      setInputData(obj);
+    }
+    function handleAchievement(list) {
+      setInputAchievement(list);
+    }
+    function handleSkills(obj) {
+      setInputSkills(obj);
+    }
+    function handleExperience(list) {
+      setInputExperienceList(list);
+    }
+    function handleProject(list) {
+      setInputProjectList(list);
+    }
+    function handleEducation(list) {
+      setInputEducationList(list);
+    }
     const handleNavButtonClick = (e, index) => {
       e.preventDefault();
       let array = Array.apply(null, Array(5)).map(function (y) {return false});
-      
       array[index] = true;
       setIsVisible(array);
+    }
+    function handleDataChange(e) { 
+      const {name, value} = e.target;
+      const obj = {...inputData};
+      obj[name] = value;
+      setInputData(obj);
     }
     return (
       <div className="lol p-8">
@@ -51,14 +89,14 @@ const Form=(props)=>{
             </div>
           </div>
           
-          {isVisible[0] && <BioForm/>}
-          {isVisible[1] && <AboutMe/>}
-          {isVisible[2] && <EducationForm/>}
-          {isVisible[3] && <ExperienceForm/>}
-          {isVisible[4] && <ProjectsForm/>}
-          {isVisible[5] && <SkillsForm/>}
-          {isVisible[6] && <AchievementsForm/>}
-          {isVisible[7] && <ContactForm/>}
+          {isVisible[0] && <BioForm data={{name: inputData.name, instagram: inputData.instagram, linkedIn: inputData.linkedIn, githubProfile: inputData.githubProfile, bio: inputData.bio, profilePicture: inputData.profilePicture, mainDesignations: inputData.mainDesignations}} handleChange={handleDataChange} handleMainDesignations={handleMainDesignations} handleFileChange={handleFileChange}/>}
+          {isVisible[1] && <AboutMe data={{yearsOfExperience: inputData.yearsOfExperience, numberOfProjects: inputData.numberOfProjects, description: inputData.description}} handleChange={handleDataChange}/>}
+          {isVisible[2] && <EducationForm data={inputEducationList} handleChange={handleEducation}/>}
+          {isVisible[3] && <ExperienceForm data={inputExperienceList} handleChange={handleExperience}/>}
+          {isVisible[4] && <ProjectsForm data={inputProjectList} handleChange={handleProject}/>}
+          {isVisible[5] && <SkillsForm data={inputSkills} handleChange={handleSkills}/>}
+          {isVisible[6] && <AchievementsForm data={inputAchievement} handleChange={handleAchievement}/>}
+          {isVisible[7] && <ContactForm data={{email: inputData.email, telephone: inputData.telephone}} handleChange={handleDataChange}/>}
         </div>
       </div>
     );

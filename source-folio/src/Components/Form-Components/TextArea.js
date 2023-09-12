@@ -1,7 +1,7 @@
 import React from "react";
 
 const TextArea = (props) => {
-    const {field, type, id, placeholder="", value=""} = props;
+    const {field, id, name, handleChange, placeholder="", value="", index=0} = props;
     return (
         <div class="md:flex md:items-center mb-6">
           <div >
@@ -16,10 +16,10 @@ const TextArea = (props) => {
             <textarea 
               rows="4" class="w-full block p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
               id={id}
-              type={type}
-              name={id}
+              name={name}
               placeholder={placeholder}
               value={value}
+              onChange={(e) => {handleChange(e, index)}}
             />
           </div>
         </div>
