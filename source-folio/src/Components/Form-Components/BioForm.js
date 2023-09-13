@@ -16,9 +16,9 @@ const BioForm=(props)=>{
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    console.log(file);
+    console.log(file)
     setinputObj({...inputObj, profilePicture: file})
-    props.handleFileChange(e);
+    props.handleFileChange(file);
   }
 
 
@@ -29,10 +29,10 @@ const BioForm=(props)=>{
     props.handleMainDesignations(list);
   }
     return (
-      <div className="bg-gradient-to-r from-slate-300 to-slate-500 p-4 mt-6">
+      <div className="bg-gradient-to-r from-slate-300 to-slate-500 p-4 mt-6" style={{display: props.isSelected?"":"none"}}>
         <div>Bio Details</div>
         <InputBox field="Full Name" type="text" id="name" name="name" placeholder="Enter name" value={inputObj.name} handleChange={handleinputchange}></InputBox>
-        <InputBox field="Profile Picture" type="file" name="profilePicture" id="profilePicture" placeholder="Enter Profile Picture" handleChange={handleFileChange}></InputBox>
+        <InputBox field="Profile Picture" type="file" name="profilePicture" id="profilePicture" placeholder="Enter Profile Picture" handleChange={handleFileChange} value={inputObj.profilePicture}></InputBox>
         <InputBox field="Instagram" type="text" id="instagram" name="instagram" placeholder="Enter instagram profile url" value={inputObj.instagram} handleChange={handleinputchange}></InputBox>
         <InputBox field="LinkedIn" type="text" id="linkedIn" name="linkedIn" placeholder="Enter linkedIn profile url" value={inputObj.linkedIn} handleChange={handleinputchange}></InputBox>
         <InputBox field="Github" type="text" id="githubProfile" name="githubProfile" placeholder="Enter github profile url" value={inputObj.githubProfile} handleChange={handleinputchange}></InputBox>

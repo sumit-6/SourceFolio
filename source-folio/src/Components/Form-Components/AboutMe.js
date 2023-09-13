@@ -16,7 +16,7 @@ const AboutMe = (props) => {
     const projectNumberOptions = ['Beginner', '1-2 Projects', '3-5 Projects', '5-10 Projects', '10+ Projects'];
 
     return (
-        <div className="bg-gradient-to-r from-slate-300 to-slate-500 p-4 mt-6">
+        <div className="bg-gradient-to-r from-slate-300 to-slate-500 p-4 mt-6" style={{display: props.isSelected?"":"none"}}>
             <div>About Me Details</div>
             <CustomSelect field="Work Experience" id="yearsOfExperience" name="yearsOfExperience" value={inputObj.yearsOfExperience} handleChange={handleinputchange} array={experienceLevelOptions}></CustomSelect>
             <CustomSelect field="Project Experience" id="numberOfProjects" name="numberOfProjects" value={inputObj.numberOfProjects} handleChange={handleinputchange} array={projectNumberOptions}></CustomSelect>

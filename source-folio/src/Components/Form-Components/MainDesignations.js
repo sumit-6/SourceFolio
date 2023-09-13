@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import TextArea from "./TextArea";
+import InputBox from "./InputBox";
 import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io";
 
 function MainDesignations(props) {
@@ -31,8 +31,8 @@ function MainDesignations(props) {
             {inputList.map((x, index) => {
                 return (
                     <>
-                    <TextArea field="Designation" id={`mainDesignation_${index}`} name="mainDesignations" placeholder="Full Stack Developer/Coder/App Developer/..." handleChange={handleinputchange} value={x} index={index}></TextArea>
-                    <div>
+                    <InputBox field="Designation" type="text" id={`mainDesignation_${index}`} name="mainDesignations" placeholder="Full Stack Developer/Coder/App Developer/..." handleChange={handleinputchange} value={x} index={index}></InputBox>
+                    <div className="flex justify-center">
                         {
                             inputList.length - 1 === index && 
                             <IoIosAddCircleOutline className="h-8 w-8 text-black" onClick={(e)=> handleAddClick(e)}/>

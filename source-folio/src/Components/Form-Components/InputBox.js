@@ -29,7 +29,8 @@ const InputBox = (props) => {
               type={type}
               name={name}
               placeholder={placeholder}
-              onChange={(e) => {handleChange(e, index)}}
+              
+              onChange={(e) => {handleChange(e)}}
             />
           </div> }
         </div>

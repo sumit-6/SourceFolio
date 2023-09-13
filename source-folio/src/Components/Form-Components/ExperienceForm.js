@@ -57,7 +57,7 @@ const ExperienceForm=(props)=>{
     props.handleChange([...inputList, {role: "", company: "", certificate: "", workDescription: [""], duration: {start: "", end: ""}}]);
   }
     return (
-      <div className="bg-gradient-to-r from-slate-300 to-slate-500 p-4 mt-6">
+      <div className="bg-gradient-to-r from-slate-300 to-slate-500 p-4 mt-6" style={{display: props.isSelected?"":"none"}}>
         <div>Experience Details</div>
         {inputList.map((x, index) => {
           return (

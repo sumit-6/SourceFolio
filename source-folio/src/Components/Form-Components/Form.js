@@ -13,16 +13,16 @@ const Form=(props)=>{
     const [isVisible, setIsVisible] = useState([true, false, false, false, false, false, false, false]);
     const [inputData, setInputData] = useState({name: "", instagram: "", 
     linkedIn: "", githubProfile: "", bio: "", yearsOfExperience: "", numberOfProjects: "", 
-    description: "", email: "", telephone: "", profilePicture:{url: null, filename: null}, mainDesignations:[""]});
+    description: "", email: "", telephone: "", profilePicture: {url: null, filename: null}, mainDesignations:[""]});
+    
+    
     const [inputExperienceList, setInputExperienceList] = useState([]);
     const [inputProjectList, setInputProjectList] = useState([]);
     const [inputEducationList, setInputEducationList] = useState([{institutionName: "", place: "", year: "", aggregate: "", coursePursuied: ""}]);
     const [inputSkills, setInputSkills] = useState({programmingSkills: [{skillName: "", skillLevel: ""}], toolsAndFrameworks: [{toolName: "", toolLevel: ""}]});
     const [inputAchievement, setInputAchievement] = useState([""]);
-    function handleFileChange(e) {
-      const file=e.target.files[0];
+    function handlePictureChange(file) {
       setInputData({...inputData, profilePicture: file});
-
     }
     function handleMainDesignations(list) {
       const obj = {...inputData};
@@ -89,14 +89,22 @@ const Form=(props)=>{
             </div>
           </div>
           
-          {isVisible[0] && <BioForm data={{name: inputData.name, instagram: inputData.instagram, linkedIn: inputData.linkedIn, githubProfile: inputData.githubProfile, bio: inputData.bio, profilePicture: inputData.profilePicture, mainDesignations: inputData.mainDesignations}} handleChange={handleDataChange} handleMainDesignations={handleMainDesignations} handleFileChange={handleFileChange}/>}
-          {isVisible[1] && <AboutMe data={{yearsOfExperience: inputData.yearsOfExperience, numberOfProjects: inputData.numberOfProjects, description: inputData.description}} handleChange={handleDataChange}/>}
-          {isVisible[2] && <EducationForm data={inputEducationList} handleChange={handleEducation}/>}
-          {isVisible[3] && <ExperienceForm data={inputExperienceList} handleChange={handleExperience}/>}
-          {isVisible[4] && <ProjectsForm data={inputProjectList} handleChange={handleProject}/>}
-          {isVisible[5] && <SkillsForm data={inputSkills} handleChange={handleSkills}/>}
-          {isVisible[6] && <AchievementsForm data={inputAchievement} handleChange={handleAchievement}/>}
-          {isVisible[7] && <ContactForm data={{email: inputData.email, telephone: inputData.telephone}} handleChange={handleDataChange}/>}
+          {isVisible[0] ? <BioForm isSelected={true} data={{name: inputData.name, instagram: inputData.instagram, linkedIn: inputData.linkedIn, githubProfile: inputData.githubProfile, bio: inputData.bio, profilePicture: inputData.profilePicture, mainDesignations: inputData.mainDesignations}} handleChange={handleDataChange} handleMainDesignations={handleMainDesignations} handleFileChange={handlePictureChange}/>
+           : <BioForm isSelected={false} data={{name: inputData.name, instagram: inputData.instagram, linkedIn: inputData.linkedIn, githubProfile: inputData.githubProfile, bio: inputData.bio, profilePicture: inputData.profilePicture, mainDesignations: inputData.mainDesignations}} handleChange={handleDataChange} handleMainDesignations={handleMainDesignations} handleFileChange={handlePictureChange}/>}
+          {isVisible[1] ? <AboutMe isSelected={true} data={{yearsOfExperience: inputData.yearsOfExperience, numberOfProjects: inputData.numberOfProjects, description: inputData.description}} handleChange={handleDataChange}/>
+           : <AboutMe isSelected={false} data={{yearsOfExperience: inputData.yearsOfExperience, numberOfProjects: inputData.numberOfProjects, description: inputData.description}} handleChange={handleDataChange}/>}
+          {isVisible[2] ? <EducationForm isSelected={true} data={inputEducationList} handleChange={handleEducation}/>
+           : <EducationForm isSelected={false} data={inputEducationList} handleChange={handleEducation}/>}
+          {isVisible[3] ? <ExperienceForm isSelected={true} data={inputExperienceList} handleChange={handleExperience}/>
+           : <ExperienceForm isSelected={false} data={inputExperienceList} handleChange={handleExperience}/>}
+          {isVisible[4] ? <ProjectsForm isSelected={true} data={inputProjectList} handleChange={handleProject}/>
+           : <ProjectsForm isSelected={false} data={inputProjectList} handleChange={handleProject}/>}
+          {isVisible[5] ? <SkillsForm isSelected={true} data={inputSkills} handleChange={handleSkills}/>
+           : <SkillsForm isSelected={false} data={inputSkills} handleChange={handleSkills}/>}
+          {isVisible[6] ? <AchievementsForm isSelected={true} data={inputAchievement} handleChange={handleAchievement}/>
+           : <AchievementsForm isSelected={false} data={inputAchievement} handleChange={handleAchievement}/>}
+          {isVisible[7] ? <ContactForm isSelected={true} data={{email: inputData.email, telephone: inputData.telephone}} handleChange={handleDataChange}/>
+           : <ContactForm isSelected={false} data={{email: inputData.email, telephone: inputData.telephone}} handleChange={handleDataChange}/>}
         </div>
       </div>
     );

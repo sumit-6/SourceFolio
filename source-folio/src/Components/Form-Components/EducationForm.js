@@ -26,7 +26,7 @@ const EducationForm=(props)=>{
     props.handleChange([...inputList, {institutionName: "", place: "", year: "", aggregate: "", coursePursuied: ""}]);
   }
     return (
-      <div className="bg-gradient-to-r from-slate-300 to-slate-500 p-4 mt-6">
+      <div className="bg-gradient-to-r from-slate-300 to-slate-500 p-4 mt-6" style={{display: props.isSelected?"":"none"}}>
         <div>Education Details</div>
         { inputList.map((x, index) => {
             return (

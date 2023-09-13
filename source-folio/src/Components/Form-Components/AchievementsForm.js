@@ -28,7 +28,7 @@ const AchievementsForm = (props) => {
     }    
 
     return (
-      <div className="bg-gradient-to-r from-slate-300 to-slate-500 p-4 mt-6">
+      <div className="bg-gradient-to-r from-slate-300 to-slate-500 p-4 mt-6" style={{display: props.isSelected?"":"none"}}>
         <div className=" w-2/3">Achievements Details</div>
         
         {
