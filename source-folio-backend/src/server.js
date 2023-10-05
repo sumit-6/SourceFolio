@@ -123,6 +123,7 @@ app.use(async (req, res, next) => {
         }
     }
     req.user = req.user || {};
+    
     next();
 });
 app.use(mongoSanitize());
@@ -235,7 +236,9 @@ app.post('/portfolio/delete/:id', async(req, res) => {
 })
 
 app.post('/portfolio/insert', upload.single('profilePicture'), async (req, res) => {
+    console.log("getting request")
     if(req.user) {
+        console.log("getting request")
         const obj = req.body;
         obj.profilePicture = req.file;
       
@@ -248,6 +251,7 @@ app.post('/portfolio/insert', upload.single('profilePicture'), async (req, res) 
         await mongooseObj.save();
         res.status(200).send("Success");
     } else {
+        console.log("rejecting portfolio creation")
         await cloudinary.uploader.destroy(req.file.filename);
         res.status(400).send("Failure");
     }

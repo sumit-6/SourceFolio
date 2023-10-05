@@ -1,6 +1,6 @@
 import React from "react";
 import BioForm from "./BioForm";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EducationForm from "./EducationForm";
 import ExperienceForm from "./ExperienceForm";
 import AboutMe from "./AboutMe";
@@ -8,19 +8,32 @@ import ProjectsForm from "./ProjectsForm";
 import SkillsForm from "./SkillsForm";
 import AchievementsForm from "./AchievementsForm";
 import ContactForm from "./ContactForm";
+import axios from 'axios';
+import useUser from "../../hooks/useUser";
 
 const Form=(props)=>{
     const [isVisible, setIsVisible] = useState([true, false, false, false, false, false, false, false]);
     const [inputData, setInputData] = useState({name: "", instagram: "", 
     linkedIn: "", githubProfile: "", bio: "", yearsOfExperience: "", numberOfProjects: "", 
     description: "", email: "", telephone: "", profilePicture: {url: null, filename: null}, mainDesignations:[""]});
-    
+    const [sfid, setsfId] = useState(null);
+  const [isAvailable, setIsAvailable] = useState(null);
+  const {user, isLoading} = useUser();
+  const [Token, setToken] = useState(null);
+  const [data, setData] = useState(null);
+  const [isReady, setIsReady] = useState(false);
     
     const [inputExperienceList, setInputExperienceList] = useState([]);
     const [inputProjectList, setInputProjectList] = useState([]);
     const [inputEducationList, setInputEducationList] = useState([{institutionName: "", place: "", year: "", aggregate: "", coursePursuied: ""}]);
     const [inputSkills, setInputSkills] = useState({programmingSkills: [{skillName: "", skillLevel: ""}], toolsAndFrameworks: [{toolName: "", toolLevel: ""}]});
     const [inputAchievement, setInputAchievement] = useState([""]);
+    useEffect(() => {(async() => {
+
+      const token = user && await user.getIdToken();
+      setToken(token);
+    })();
+    }, [user, sfid]);
     function handlePictureChange(file) {
       setInputData({...inputData, profilePicture: file});
     }
@@ -56,12 +69,46 @@ const Form=(props)=>{
       obj[name] = value;
       setInputData(obj);
     }
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      const form = document.querySelector('.form');
+      const formData_empty = new FormData(form);
+      const formData = {};
+      for (const key of formData_empty.entries()) {
+        
+          if(!formData[key[0]]) formData[key[0]] = key[1];
+          else if(typeof(formData[key[0]]) !== 'object') {
+            formData[key[0]] = [formData[key[0]]];
+            formData[key[0]].push(key[1]);
+          } else {
+            formData[key[0]].push(key[1]);
+          }
+      }
+      console.log(formData)
+      console.log(Token)
+    
+      const config = {
+        headers: {
+          'authtoken': Token,
+          'Content-Type': 'multipart/form-data'
+        },
+        enctype: 'multipart/form-data'
+      }
+    
+      const response = await axios.post('http://localhost:8000/portfolio/insert', formData, config);
+      console.log(response)
+      if(response.data === "Success") {
+        window.location.href = `http://localhost:3000/`;
+      } else {
+        window.location.href = 'http://localhost:3000/';
+      }
+    }
     return (
       <div className="lol p-8">
         <div className="text-2xl text-center text-white">
           Fill your details below!!
         </div>
-        <div className="bg-grey-200 border-gray-500 border h-full w-full mt-10 rounded-lg p-8">
+        <form encType='multipart/form-data' className="form bg-grey-200 border-gray-500 border h-full w-full mt-10 rounded-lg p-8" onSubmit={(e) => handleSubmit(e)}>
           <div className="flex">
             <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 0)}}>
               Bio
@@ -105,7 +152,8 @@ const Form=(props)=>{
            : <AchievementsForm isSelected={false} data={inputAchievement} handleChange={handleAchievement}/>}
           {isVisible[7] ? <ContactForm isSelected={true} data={{email: inputData.email, telephone: inputData.telephone}} handleChange={handleDataChange}/>
            : <ContactForm isSelected={false} data={{email: inputData.email, telephone: inputData.telephone}} handleChange={handleDataChange}/>}
-        </div>
+           <button type="submit" className="btn btn-warning btn-lg m-3">Submit</button>
+        </form>
       </div>
     );
 }
