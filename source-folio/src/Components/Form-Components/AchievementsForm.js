@@ -36,6 +36,7 @@ const AchievementsForm = (props) => {
             return (
               <div className="w-full grid grid-flow-col">
               <TextArea
+              name={`myAchievements`}
                 field="Achievement"
                 id={`myAchievements_${index}`}
                 placeholder="Enter your achievement"

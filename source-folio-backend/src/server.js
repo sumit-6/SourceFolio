@@ -2,7 +2,9 @@ import express from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
 import helmet from 'helmet';
-import upload from './cloudinary.js';
+import cl from 'cloudinary';
+import multer from 'multer';
+import dotenv from 'dotenv';
 import session from 'express-session';
 import flash from 'connect-flash';
 import MongoDBStorePackage from 'connect-mongodb-session';
@@ -10,17 +12,50 @@ import portfolioSchema from '../JoiSchemas.js';
 import ExpressError from '../ExpressError.js';
 import mongoSanitize from 'express-mongo-sanitize';
 import convertJSON from './utilityMethod.js';
-import Portfolio from './schema.js';
-import admin from 'firebase-admin';
 
+import admin from 'firebase-admin';
+const credentials = {};
+
+
+
+if(process.env.NODE_ENV !== 'production') {
+    dotenv.config();
+}
+credentials['type'] = process.env.TYPE;
+credentials['project_id'] = process.env.PROJECT_ID;
+credentials['private_key_id'] = process.env.PRIVATE_KEY_ID;
+credentials['private_key'] = process.env.PRIVATE_KEY;
+credentials['client_email'] = process.env.CLIENT_EMAIL;
+credentials['client_id'] = process.env.CLIENT_ID;
+credentials['auth_uri'] = process.env.AUTH_URI;
+credentials['token_uri'] = process.env.TOKEN_URI;
+credentials['auth_provider_x509_cert_url'] = process.env.AUTH_PROVIDER_X509_CERT_URL;
+credentials['client_x509_cert_url'] = process.env.CLIENT_X509_CERT_URL;
+admin.initializeApp({
+    credential: admin.credential.cert(credentials),
+});
+
+const cloudinary = cl.v2;
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET
+})
+const storage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+        folder: 'SourceFolio',
+        allowedFormats: ['jpeg', 'jpg', 'png']
+    }
+})
+const upload = multer({storage});
 import { fileURLToPath } from 'url';
 import { createDeflate } from 'zlib';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express(); 
-
-
 
 app.use(helmet.crossOriginOpenerPolicy());
 app.use(helmet.crossOriginResourcePolicy());
@@ -95,6 +130,80 @@ db.once('open', function() {
     console.log("connection open");
 });
 
+const Schema = mongoose.Schema;
+const EducationSchema = new Schema({
+    institutionName: String,
+    place: String,
+    year: Number,
+    aggregate: Number,
+    coursePursuied: String
+});
+
+const DurationSchema = new Schema({
+    start: { type: String },
+    end: { type: String }
+});
+
+const ExperienceSchema = new Schema({
+    role: String,
+    duration: DurationSchema,
+    company: String,
+    workDescription: [String],
+    certificate: String
+})
+
+const ProjectSchema = new Schema({
+    projectName: String,
+    description: [String],
+    gitHubLink: String,
+    projectLink: String
+});
+
+const skillProElementSchema = new Schema({
+    skillName: String,
+    skillLevel: String
+});
+
+const skillToolElementSchema = new Schema({
+    toolName: String,
+    toolLevel: String
+})
+
+const SkillsSchema = new Schema({
+    programmingSkills: [skillProElementSchema],
+    toolsAndFrameworks: [skillToolElementSchema]
+});
+
+const ImageSchema = new Schema({
+    url: String, filename: String
+})
+
+ImageSchema.virtual('thumbnail').get(function() {
+    return this.url.replace('/upload', '/upload/w_200')
+})
+
+const PortfolioSchema = new Schema({
+    user_id: String,
+    name: String,
+    bio: String,
+    githubProfile: String,
+    numberOfProjects: String,
+    yearsOfExperience: String,
+    mainDesignations: [String],
+    description: String,
+    profilePicture: ImageSchema,
+    myEducation: [EducationSchema],
+    myExperience: [ExperienceSchema],
+    myProjects: [ProjectSchema],
+    mySkills: SkillsSchema,
+    myAchievements: [String],
+    linkedIn: String,
+    email: String,
+    instagram: String,
+    telephone: Number
+});
+
+const Portfolio = mongoose.model('Portfolio', PortfolioSchema);
 const validatePortfolio = (doc) => {    
     const {error} = portfolioSchema.validate(doc);
 
@@ -123,7 +232,6 @@ app.use(async (req, res, next) => {
         }
     }
     req.user = req.user || {};
-    
     next();
 });
 app.use(mongoSanitize());
@@ -236,9 +344,7 @@ app.post('/portfolio/delete/:id', async(req, res) => {
 })
 
 app.post('/portfolio/insert', upload.single('profilePicture'), async (req, res) => {
-    console.log("getting request")
     if(req.user) {
-        console.log("getting request")
         const obj = req.body;
         obj.profilePicture = req.file;
       
@@ -251,7 +357,6 @@ app.post('/portfolio/insert', upload.single('profilePicture'), async (req, res) 
         await mongooseObj.save();
         res.status(200).send("Success");
     } else {
-        console.log("rejecting portfolio creation")
         await cloudinary.uploader.destroy(req.file.filename);
         res.status(400).send("Failure");
     }
@@ -264,3 +369,4 @@ app.listen(port, () => {
 
 
 export default app;
+
