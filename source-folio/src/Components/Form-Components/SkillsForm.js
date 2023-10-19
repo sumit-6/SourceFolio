@@ -39,11 +39,24 @@ const SkillsForm = (props) => {
     props.handleChange(obj);
   }
     return (
-        <div className="bg-gradient-to-r from-slate-300 to-slate-500 p-4 mt-6" style={{display: props.isSelected?"":"none"}}>
-            <div>Skills Details</div>
-            <ProgrammingSkills data={inputObj.programmingSkills} onChange={handleProgrammingSkills} onRemove={handleProgrammingSkillsRemove} onObjChange={handleObjChange}></ProgrammingSkills>
-            <ToolsAndFrameworks data={inputObj.toolsAndFrameworks} onChange={handleToolsAndFramework} onRemove={handleToolsAndFrameworkRemove} onObjChange={handleObjChange}></ToolsAndFrameworks>
-        </div>
+      <div
+        className="p-4 mt-6"
+        style={{ display: props.isSelected ? "" : "none" }}
+      >
+        <div className="text-xl text-white text-center">Skills Details</div>
+        <ProgrammingSkills
+          data={inputObj.programmingSkills}
+          onChange={handleProgrammingSkills}
+          onRemove={handleProgrammingSkillsRemove}
+          onObjChange={handleObjChange}
+        ></ProgrammingSkills>
+        <ToolsAndFrameworks
+          data={inputObj.toolsAndFrameworks}
+          onChange={handleToolsAndFramework}
+          onRemove={handleToolsAndFrameworkRemove}
+          onObjChange={handleObjChange}
+        ></ToolsAndFrameworks>
+      </div>
     );
 }
 

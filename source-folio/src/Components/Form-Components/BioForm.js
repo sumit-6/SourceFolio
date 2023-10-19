@@ -28,17 +28,81 @@ const BioForm=(props)=>{
     setinputObj(obj);
     props.handleMainDesignations(list);
   }
+    
     return (
-      <div className="bg-gradient-to-r from-slate-300 to-slate-500 p-4 mt-6" style={{display: props.isSelected?"":"none"}}>
-        <div>Bio Details</div>
-        <InputBox field="Full Name" type="text" id="name" name="name" placeholder="Enter name" value={inputObj.name} handleChange={handleinputchange}></InputBox>
-        <InputBox field="Profile Picture" type="file" name="profilePicture" id="profilePicture" placeholder="Enter Profile Picture" handleChange={handleFileChange} value={inputObj.profilePicture}></InputBox>
-        <InputBox field="Instagram" type="text" id="instagram" name="instagram" placeholder="Enter instagram profile url" value={inputObj.instagram} handleChange={handleinputchange}></InputBox>
-        <InputBox field="LinkedIn" type="text" id="linkedIn" name="linkedIn" placeholder="Enter linkedIn profile url" value={inputObj.linkedIn} handleChange={handleinputchange}></InputBox>
-        <InputBox field="Github" type="text" id="githubProfile" name="githubProfile" placeholder="Enter github profile url" value={inputObj.githubProfile} handleChange={handleinputchange}></InputBox>
-        <TextArea field="Bio" id="bio" name="bio" placeholder="Enter a brief description of yours, your hobby, your birthdate, and likings..." value={inputObj.bio} handleChange={handleinputchange}></TextArea>
-        <div className="border border-gray-900 rounded-lg p-2">
-          <MainDesignations mainDesignations={inputObj.mainDesignations} handleChange={handleMainDesignations}></MainDesignations>
+      <div
+        className=" p-4 mt-6 rounded-lg flex "
+        style={{ display: props.isSelected ? "" : "none" }}
+      >
+        <div className="border border-gray-700 w-2/4 rounded-lg p-4">
+          <div className="text-xl text-white text-center">Bio Details</div>
+          <div className="mt-8">
+            <InputBox
+              field="Full Name"
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter name"
+              value={inputObj.name}
+              handleChange={handleinputchange}
+            ></InputBox>
+            <InputBox
+              field="Profile Picture"
+              type="file"
+              name="profilePicture"
+              id="profilePicture"
+              placeholder="Enter Profile Picture"
+              handleChange={handleFileChange}
+              value={inputObj.profilePicture}
+            ></InputBox>
+            <div className="border border-gray-900 rounded-lg w-full">
+              <MainDesignations
+                mainDesignations={inputObj.mainDesignations}
+                handleChange={handleMainDesignations}
+              ></MainDesignations>
+            </div>
+            <TextArea
+              field="Bio"
+              id="bio"
+              name="bio"
+              placeholder="Enter a brief description of yours, your hobby, your birthdate, and likings..."
+              value={inputObj.bio}
+              handleChange={handleinputchange}
+            ></TextArea>
+          </div>
+        </div>
+
+        <div className="border border-gray-700 w-2/4 rounded-lg ml-6 p-4">
+          <div className="text-xl text-white text-center">Social Handles!</div>
+          <div className="mt-8">
+            <InputBox
+              field="Instagram"
+              type="text"
+              id="instagram"
+              name="instagram"
+              placeholder="Enter instagram profile url"
+              value={inputObj.instagram}
+              handleChange={handleinputchange}
+            ></InputBox>
+            <InputBox
+              field="LinkedIn"
+              type="text"
+              id="linkedIn"
+              name="linkedIn"
+              placeholder="Enter linkedIn profile url"
+              value={inputObj.linkedIn}
+              handleChange={handleinputchange}
+            ></InputBox>
+            <InputBox
+              field="Github"
+              type="text"
+              id="githubProfile"
+              name="githubProfile"
+              placeholder="Enter github profile url"
+              value={inputObj.githubProfile}
+              handleChange={handleinputchange}
+            ></InputBox>
+          </div>
         </div>
       </div>
     );

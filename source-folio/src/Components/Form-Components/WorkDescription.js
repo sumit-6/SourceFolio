@@ -44,14 +44,14 @@ const WorkDescription = (props) => {
                             handleChange={handleinputchange}
                             name={`workDescription_${props.index}`}
                             index = {i}></TextArea>
-            <div>
+            <div className="flex">
               {
                 inputList.length - 1 === i && 
-                <IoIosAddCircleOutline className="h-8 w-8 text-black" onClick={(e)=> handleaddclick(e)}/>
+                <IoIosAddCircleOutline className="h-8 w-8 text-white mt-12" onClick={(e)=> handleaddclick(e)}/>
               }
               {
                 inputList.length !== 1 &&
-                <IoIosRemoveCircleOutline className="h-8 w-8 text-black" onClick={(e)=> handleremove(e, i)}/> 
+                <IoIosRemoveCircleOutline className="h-8 w-8 text-white mt-12" onClick={(e)=> handleremove(e, i)}/> 
               }
               
             </div>
