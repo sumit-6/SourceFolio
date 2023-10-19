@@ -4,7 +4,7 @@ const CustomSelect = (props) => {
     const {field, id, value="", array=[], name, handleChange, index=0} = props;
     return (
         <div class="md:flex md:items-center mb-6">
-           <div class="md:w-1/3">
+           <div >
                 <label
                 class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                 htmlFor={id}
@@ -12,7 +12,7 @@ const CustomSelect = (props) => {
                     {field}
                 </label>
            </div>
-           <div class="inline-block relative w-64">
+           <div class="inline-block relative w-64 ml-[4.5rem]">
                 <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
                  name={name} id={id} value={value} onChange={(e) => handleChange(e, index)}>
                     <option value="">{field} Options</option>

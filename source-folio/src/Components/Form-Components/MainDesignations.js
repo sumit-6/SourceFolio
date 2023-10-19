@@ -30,20 +30,19 @@ function MainDesignations(props) {
         <>
             {inputList.map((x, index) => {
                 return (
-                    <>
+                    <div className="flex justify-between">
                     <InputBox field="Designation" type="text" id={`mainDesignation_${index}`} name="mainDesignations" placeholder="Full Stack Developer/Coder/App Developer/..." handleChange={handleinputchange} value={x} index={index}></InputBox>
                     <div className="flex justify-center">
                         {
                             inputList.length - 1 === index && 
-                            <IoIosAddCircleOutline className="h-8 w-8 text-black" onClick={(e)=> handleAddClick(e)}/>
+                            <IoIosAddCircleOutline className="h-8 w-8 text-white" onClick={(e)=> handleAddClick(e)}/>
                         }
                         {
                             inputList.length !== 1 &&
-                            <IoIosRemoveCircleOutline className="h-8 w-8 text-black" onClick={(e)=> handleRemove(e, index)}/> 
+                            <IoIosRemoveCircleOutline className="h-8 w-8 text-white" onClick={(e)=> handleRemove(e, index)}/> 
                         }
-                    
                     </div>
-                 </>
+                 </div>
                 );
             })
             }

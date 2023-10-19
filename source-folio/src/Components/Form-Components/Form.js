@@ -28,6 +28,8 @@ const Form=(props)=>{
     const [inputEducationList, setInputEducationList] = useState([{institutionName: "", place: "", year: "", aggregate: "", coursePursuied: ""}]);
     const [inputSkills, setInputSkills] = useState({programmingSkills: [{skillName: "", skillLevel: ""}], toolsAndFrameworks: [{toolName: "", toolLevel: ""}]});
     const [inputAchievement, setInputAchievement] = useState([""]);
+    const [isContact,setIsContact]=useState(false)
+    
     useEffect(() => {(async() => {
 
       const token = user && await user.getIdToken();
@@ -48,27 +50,40 @@ const Form=(props)=>{
     function handleSkills(obj) {
       setInputSkills(obj);
     }
+
     function handleExperience(list) {
       setInputExperienceList(list);
     }
+
     function handleProject(list) {
       setInputProjectList(list);
     }
+
     function handleEducation(list) {
       setInputEducationList(list);
     }
+
     const handleNavButtonClick = (e, index) => {
       e.preventDefault();
       let array = Array.apply(null, Array(5)).map(function (y) {return false});
       array[index] = true;
       setIsVisible(array);
+      if(index==7)
+      {
+        setIsContact(!isContact);
+      }
+      else{
+        setIsContact(false)
+      }
     }
+    
     function handleDataChange(e) { 
       const {name, value} = e.target;
       const obj = {...inputData};
       obj[name] = value;
       setInputData(obj);
     }
+
     const handleSubmit = async (e) => {
       e.preventDefault();
       const form = document.querySelector('.form');
@@ -84,75 +99,245 @@ const Form=(props)=>{
             formData[key[0]].push(key[1]);
           }
       }
+
       console.log(formData)
       console.log(Token)
-    
+      
       const config = {
         headers: {
-          'authtoken': Token,
+          'Authtoken': Token,
           'Content-Type': 'multipart/form-data'
         },
         enctype: 'multipart/form-data'
       }
-    
-      const response = await axios.post('http://localhost:8000/portfolio/insert', formData, config);
-      console.log(response)
+      
+      console.log(config,"config")
+      const response = await axios.post('http://localhost:8000/portfolio/insert',formData,config);
+      console.log(response,"response")
       if(response.data === "Success") {
         window.location.href = `http://localhost:3000/`;
       } else {
         window.location.href = 'http://localhost:3000/';
       }
     }
+    
     return (
-      <div className="lol p-8">
+      <div className="p-8">
         <div className="text-2xl text-center text-white">
           Fill your details below!!
         </div>
-        <form encType='multipart/form-data' className="form bg-grey-200 border-gray-500 border h-full w-full mt-10 rounded-lg p-8" onSubmit={(e) => handleSubmit(e)}>
+        <form
+          encType="multipart/form-data"
+          className="form bg-grey-200 border-gray-500 border h-full w-full mt-10 rounded-lg p-8"
+          onSubmit={(e) => handleSubmit(e)}
+        >
           <div className="flex">
-            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 0)}}>
+            <div
+              className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center rounded-2xl cursor-pointer"
+              onClick={(e) => {
+                handleNavButtonClick(e, 0);
+              }}
+            >
               Bio
             </div>
-            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer " onClick={e => {handleNavButtonClick(e, 1)}}>
+            <div
+              className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer "
+              onClick={(e) => {
+                handleNavButtonClick(e, 1);
+              }}
+            >
               About me
             </div>
-            <div className="navButton text-xs border h-8 w-32 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 2)}}>
+            <div
+              className="navButton text-xs border h-8 w-32 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer"
+              onClick={(e) => {
+                handleNavButtonClick(e, 2);
+              }}
+            >
               My Education
             </div>
-            <div className="navButton text-xs border h-8 w-32 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 3)}}>
+            <div
+              className="navButton text-xs border h-8 w-32 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer"
+              onClick={(e) => {
+                handleNavButtonClick(e, 3);
+              }}
+            >
               My Experience
             </div>
-            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 4)}}>
+            <div
+              className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer"
+              onClick={(e) => {
+                handleNavButtonClick(e, 4);
+              }}
+            >
               My Projects
             </div>
-            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer " onClick={e => {handleNavButtonClick(e, 5)}}>
+            <div
+              className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer "
+              onClick={(e) => {
+                handleNavButtonClick(e, 5);
+              }}
+            >
               My Skills
             </div>
-            <div className="navButton text-xs border h-8 w-36 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer " onClick={e => {handleNavButtonClick(e, 6)}}>
+            <div
+              className="navButton text-xs border h-8 w-36 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer "
+              onClick={(e) => {
+                handleNavButtonClick(e, 6);
+              }}
+            >
               My Achivements
             </div>
-            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 7)}}>
+            <div
+              className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer"
+              onClick={(e) => {
+                handleNavButtonClick(e, 7);
+              }}
+            >
               Contact
             </div>
           </div>
-          
-          {isVisible[0] ? <BioForm isSelected={true} data={{name: inputData.name, instagram: inputData.instagram, linkedIn: inputData.linkedIn, githubProfile: inputData.githubProfile, bio: inputData.bio, profilePicture: inputData.profilePicture, mainDesignations: inputData.mainDesignations}} handleChange={handleDataChange} handleMainDesignations={handleMainDesignations} handleFileChange={handlePictureChange}/>
-           : <BioForm isSelected={false} data={{name: inputData.name, instagram: inputData.instagram, linkedIn: inputData.linkedIn, githubProfile: inputData.githubProfile, bio: inputData.bio, profilePicture: inputData.profilePicture, mainDesignations: inputData.mainDesignations}} handleChange={handleDataChange} handleMainDesignations={handleMainDesignations} handleFileChange={handlePictureChange}/>}
-          {isVisible[1] ? <AboutMe isSelected={true} data={{yearsOfExperience: inputData.yearsOfExperience, numberOfProjects: inputData.numberOfProjects, description: inputData.description}} handleChange={handleDataChange}/>
-           : <AboutMe isSelected={false} data={{yearsOfExperience: inputData.yearsOfExperience, numberOfProjects: inputData.numberOfProjects, description: inputData.description}} handleChange={handleDataChange}/>}
-          {isVisible[2] ? <EducationForm isSelected={true} data={inputEducationList} handleChange={handleEducation}/>
-           : <EducationForm isSelected={false} data={inputEducationList} handleChange={handleEducation}/>}
-          {isVisible[3] ? <ExperienceForm isSelected={true} data={inputExperienceList} handleChange={handleExperience}/>
-           : <ExperienceForm isSelected={false} data={inputExperienceList} handleChange={handleExperience}/>}
-          {isVisible[4] ? <ProjectsForm isSelected={true} data={inputProjectList} handleChange={handleProject}/>
-           : <ProjectsForm isSelected={false} data={inputProjectList} handleChange={handleProject}/>}
-          {isVisible[5] ? <SkillsForm isSelected={true} data={inputSkills} handleChange={handleSkills}/>
-           : <SkillsForm isSelected={false} data={inputSkills} handleChange={handleSkills}/>}
-          {isVisible[6] ? <AchievementsForm isSelected={true} data={inputAchievement} handleChange={handleAchievement}/>
-           : <AchievementsForm isSelected={false} data={inputAchievement} handleChange={handleAchievement}/>}
-          {isVisible[7] ? <ContactForm isSelected={true} data={{email: inputData.email, telephone: inputData.telephone}} handleChange={handleDataChange}/>
-           : <ContactForm isSelected={false} data={{email: inputData.email, telephone: inputData.telephone}} handleChange={handleDataChange}/>}
-           <button type="submit" className="btn btn-warning btn-lg m-3">Submit</button>
+
+          {isVisible[0] ? (
+            <BioForm
+              isSelected={true}
+              data={{
+                name: inputData.name,
+                instagram: inputData.instagram,
+                linkedIn: inputData.linkedIn,
+                githubProfile: inputData.githubProfile,
+                bio: inputData.bio,
+                profilePicture: inputData.profilePicture,
+                mainDesignations: inputData.mainDesignations,
+              }}
+              handleChange={handleDataChange}
+              handleMainDesignations={handleMainDesignations}
+              handleFileChange={handlePictureChange}
+            />
+          ) : (
+            <BioForm
+              isSelected={false}
+              data={{
+                name: inputData.name,
+                instagram: inputData.instagram,
+                linkedIn: inputData.linkedIn,
+                githubProfile: inputData.githubProfile,
+                bio: inputData.bio,
+                profilePicture: inputData.profilePicture,
+                mainDesignations: inputData.mainDesignations,
+              }}
+              handleChange={handleDataChange}
+              handleMainDesignations={handleMainDesignations}
+              handleFileChange={handlePictureChange}
+            />
+          )}
+          {isVisible[1] ? (
+            <AboutMe
+              isSelected={true}
+              data={{
+                yearsOfExperience: inputData.yearsOfExperience,
+                numberOfProjects: inputData.numberOfProjects,
+                description: inputData.description,
+              }}
+              handleChange={handleDataChange}
+            />
+          ) : (
+            <AboutMe
+              isSelected={false}
+              data={{
+                yearsOfExperience: inputData.yearsOfExperience,
+                numberOfProjects: inputData.numberOfProjects,
+                description: inputData.description,
+              }}
+              handleChange={handleDataChange}
+            />
+          )}
+          {isVisible[2] ? (
+            <EducationForm
+              isSelected={true}
+              data={inputEducationList}
+              handleChange={handleEducation}
+            />
+          ) : (
+            <EducationForm
+              isSelected={false}
+              data={inputEducationList}
+              handleChange={handleEducation}
+            />
+          )}
+          {isVisible[3] ? (
+            <ExperienceForm
+              isSelected={true}
+              data={inputExperienceList}
+              handleChange={handleExperience}
+            />
+          ) : (
+            <ExperienceForm
+              isSelected={false}
+              data={inputExperienceList}
+              handleChange={handleExperience}
+            />
+          )}
+          {isVisible[4] ? (
+            <ProjectsForm
+              isSelected={true}
+              data={inputProjectList}
+              handleChange={handleProject}
+            />
+          ) : (
+            <ProjectsForm
+              isSelected={false}
+              data={inputProjectList}
+              handleChange={handleProject}
+            />
+          )}
+          {isVisible[5] ? (
+            <SkillsForm
+              isSelected={true}
+              data={inputSkills}
+              handleChange={handleSkills}
+            />
+          ) : (
+            <SkillsForm
+              isSelected={false}
+              data={inputSkills}
+              handleChange={handleSkills}
+            />
+          )}
+          {isVisible[6] ? (
+            <AchievementsForm
+              isSelected={true}
+              data={inputAchievement}
+              handleChange={handleAchievement}
+            />
+          ) : (
+            <AchievementsForm
+              isSelected={false}
+              data={inputAchievement}
+              handleChange={handleAchievement}
+            />
+          )}
+          {isVisible[7] ? (
+            <ContactForm
+              isSelected={true}
+              data={{ email: inputData.email, telephone: inputData.telephone }}
+              handleChange={handleDataChange}
+            />
+          ) : (
+            <ContactForm
+              isSelected={false}
+              data={{ email: inputData.email, telephone: inputData.telephone }}
+              handleChange={handleDataChange}
+            />
+          )}
+          <button
+            type="submit"
+            className={`btn btn-lg flex items-center justify-center m-5 ${
+              isContact ? "text-orange-400 " : "hidden"
+            }`}
+          >
+            Submit Form
+          </button>
         </form>
       </div>
     );

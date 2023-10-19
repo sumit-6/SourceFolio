@@ -28,37 +28,44 @@ const AchievementsForm = (props) => {
     }    
 
     return (
-      <div className="bg-gradient-to-r from-slate-300 to-slate-500 p-4 mt-6" style={{display: props.isSelected?"":"none"}}>
-        <div className=" w-2/3">Achievements Details</div>
-        
-        {
-          inputList.map((box, index) => {
-            return (
-              <div className="w-full grid grid-flow-col">
+      <div
+        className="border border-gray-700 rounded-lg  p-4 mt-6"
+        style={{ display: props.isSelected ? "" : "none" }}
+      >
+        <div className="text-xl text-white text-center">
+          Achievements Details!
+        </div>
+
+        {inputList.map((box, index) => {
+          return (
+            <div className="w-full grid grid-flow-col mt-6">
               <TextArea
+                name={`myAchievements`}
                 field="Achievement"
                 id={`myAchievements_${index}`}
                 placeholder="Enter your achievement"
                 value={box}
                 handleChange={handleInputChange}
-                index = {index}
+                index={index}
               ></TextArea>
-              <div>
-              {
-                inputList.length - 1 === index && 
-                <IoIosAddCircleOutline className="h-8 w-8 text-black" onClick={(e)=> handleAddClick(e)}/>
-              }
-              {
-                inputList.length !== 1 &&
-                <IoIosRemoveCircleOutline className="h-8 w-8 text-black" onClick={(e)=> handleRemove(e, index)}/> 
-              }
-              
+              <div className="flex">
+                {inputList.length - 1 === index && (
+                  <IoIosAddCircleOutline
+                    className="h-8 w-8 text-white mt-14"
+                    onClick={(e) => handleAddClick(e)}
+                  />
+                )}
+
+                {inputList.length !== 1 && (
+                  <IoIosRemoveCircleOutline
+                    className="h-8 w-8 text-white mt-14"
+                    onClick={(e) => handleRemove(e, index)}
+                  />
+                )}
               </div>
             </div>
-            );
-          })
-        }
-       
+          );
+        })}
       </div>
     );
 };
