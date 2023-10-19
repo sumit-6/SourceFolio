@@ -67,64 +67,60 @@ const NavBar = () => {
       {!isReady && <Loading />}
       {isReady && (
         <>
-          <header className="header" id="light">
-            <nav className="nav container">
-              <Link className="nav__logo" style={{ color: "white" }}>
+          <header className="nav__Header" id="light">
+            <nav className="nav__Nav container">
+              <Link className="nav__Logo " style={{ color: "white" }}>
                 SourceFolio <span style={{ color: "orange" }}>.</span>
               </Link>
 
-              <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>
-                <ul className="nav__list">
-                  <li className="nav__item">
+              <div className={Toggle ? "nav__Menu show-menu" : "nav__Menu"}>
+                <ul className="nav__List">
+                  <li className="nav__Item">
                     <Link
                       onClick={() =>
                         (window.location.href =
                           "https://react-form-ten-steel.vercel.app/about-us")
                       }
-                      // smooth={true}
-                      // duration={1000}
-                      className="nav__link"
+                      className="nav__Link"
                       style={{ color: "orange" }}
                     >
-                      <i className="nav__icon"></i>About us
+                      <i className="nav__Icon"></i>About us
                     </Link>
                   </li>
 
                   {user && sfid && (
-                    <li className="nav__item">
+                    <li className="nav__Item">
                       <Link
                         onClick={() =>
                           {navigate(`/portfolio/${sfid}`)}
                         }
                         // duration={1000}
-                        className="nav__link"
+                        className="nav__Link"
                         style={{ color: "white" }}
                       >
-                        <i className="nav__icon"></i>View My sourceFolio
+                        <i className="nav__Icon"></i>View My sourceFolio
                       </Link>
                     </li>
                   )}
 
                   {user && !sfid && (
-                    <li className="nav__item">
+                    <li className="nav__Item">
                       <Link
                         onClick={() =>
-                          (window.location.href = `https://react-form-ten-steel.vercel.app/form?q=${Token}&where=form`)
+                          {navigate(`/portfolio/form`)}
                         }
-                        // smooth={true}
-                        // duration={1000}
-                        className="nav__link"
+                        className="nav__Link"
                         style={{ color: "white" }}
                       >
-                        <i className="nav__icon"></i>Make My SourceFolio
+                        <i className="nav__Icon"></i>Make My SourceFolio
                       </Link>
                     </li>
                   )}
 
-                  <li className="nav__item">
+                  <li className="nav__Item">
                     <a
                       href="mailto:sourcefolio2023@gmail.com"
-                      className="nav__link"
+                      className="nav__Link"
                       style={{ color: "white" }}
                     >
                       Contact
@@ -132,29 +128,29 @@ const NavBar = () => {
                   </li>
 
                   {!user && (
-                    <li className="nav__item">
+                    <li className="nav__Item">
                       <Link
                         onClick={() => navigate(`login`)}
                         // smooth={true}
                         // duration={1000}
-                        className="nav__link"
+                        className="nav__Link"
                         style={{ color: "white" }}
                       >
-                        <i className="nav__icon"></i>Login/Signup
+                        <i className="nav__Icon"></i>Login/Signup
                       </Link>
                     </li>
                   )}
 
                   {user && (
-                    <li className="nav__item">
+                    <li className="nav__Item">
                       <Link
                         onClick={(e) => handleLogout(e)}
                         // smooth={true}
                         // duration={1000}
-                        className="nav__link"
+                        className="nav__Link"
                         style={{ color: "white" }}
                       >
-                        <i className="nav__icon"></i>Logout
+                        <i className="nav__Icon"></i>Logout
                       </Link>
                     </li>
                   )}
@@ -162,7 +158,7 @@ const NavBar = () => {
 
                 <i
                   style={{ color: "white" }}
-                  className="nav__close"
+                  className="nav__Close"
                   onClick={() => {
                     showMenu(!Toggle);
                   }}
@@ -172,12 +168,12 @@ const NavBar = () => {
               </div>
 
               <div
-                className="nav__toggle"
+                className="nav__Toggle"
                 onClick={() => {
                   showMenu(!Toggle);
                 }}
               >
-                <i style={{ color: "white" }} className="navbar__menu__list">
+                <i style={{ color: "white" }} className="navbar__Menu__List">
                   <AiOutlineMenu />
                 </i>
               </div>

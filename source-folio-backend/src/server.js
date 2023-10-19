@@ -213,6 +213,8 @@ const validatePortfolio = (doc) => {
     }
 }
 
+
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
 app.use(express.urlencoded({ extended: true }));
@@ -292,6 +294,93 @@ app.get('/api/portfolio/:id', async(req, res) => {
         res.status(404).send("error");
     }
 });
+
+app.get('/api/search/name/:q', async(req, res) => {
+    const query = req.params.q;
+    try {
+        const portfolios = await Portfolio.find(
+            {name: { $regex: new RegExp(query, 'i') }}
+        );
+        res.send(portfolios);
+    } catch(e) {
+        res.status(404).send(e);
+    }
+})
+
+app.get('/api/search/skills/:q', async(req, res) => {
+    const query = req.params.q;
+    try {
+        const portfolios = await Portfolio.find(
+            {
+                $or: [
+                    {
+                      'mySkills.programmingSkills': {
+                        $elemMatch: { skillName: { $regex: new RegExp(query, 'i') } }
+                      }
+                    },
+                    {
+                      'mySkills.toolsAndFrameworks': {
+                        $elemMatch: { toolName: { $regex: new RegExp(query, 'i') } }
+                      }
+                    }
+                ]
+            }
+        );
+        res.send(portfolios);
+    } catch(e) {
+        res.status(404).send(e);
+    }
+})
+
+app.get('/api/search/experience/:q', async(req, res) => {
+    const query = req.params.q;
+    try {
+        const portfolios = await Portfolio.find(
+            {
+                $or: [
+                    {
+                      'myExperience': {
+                        $elemMatch: {
+                          $or: [
+                            { 'company': { $regex: new RegExp(query, 'i') } },
+                            { 'role': { $regex: new RegExp(query, 'i') } },
+                          ],
+                        },
+                      },
+                    },
+                    { 'mainDesignations': { $regex: new RegExp(query, 'i') } },
+                    { 'yearsOfExperience': { $regex: new RegExp(query, 'i') } }
+                  ],
+          
+            }
+        );
+        res.send(portfolios);
+    } catch(e) {
+        res.status(404).send(e);
+    }
+})
+
+app.get('/api/search/education/:q', async(req, res) => {
+    const query = req.params.q;
+    try {
+        const portfolios = await Portfolio.find(
+            {
+                $or: [
+                    {
+                      'myEducation.institutionName': { $regex: new RegExp(query, 'i') }
+                    },
+                    {
+                      'myEducation.coursePursuied': { $regex: new RegExp(query, 'i') }
+                    }
+                  ]
+          
+            }
+        );
+        res.send(portfolios);
+    } catch(e) {
+        res.status(404).send(e);
+    }
+})
 
 app.post('/edit/profilePicture/:id', upload.single('profilePicture'), async(req, res) => {
     try {

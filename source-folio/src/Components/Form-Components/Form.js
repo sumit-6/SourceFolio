@@ -62,6 +62,7 @@ const Form=(props)=>{
       let array = Array.apply(null, Array(5)).map(function (y) {return false});
       array[index] = true;
       setIsVisible(array);
+
     }
     function handleDataChange(e) { 
       const {name, value} = e.target;
@@ -110,28 +111,28 @@ const Form=(props)=>{
         </div>
         <form encType='multipart/form-data' className="form bg-grey-200 border-gray-500 border h-full w-full mt-10 rounded-lg p-8" onSubmit={(e) => handleSubmit(e)}>
           <div className="flex">
-            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 0)}}>
+            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 0)}} style={{backgroundColor: (isVisible[0] ? "rgb(219, 144, 5)" : "")}}>
               Bio
             </div>
-            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer " onClick={e => {handleNavButtonClick(e, 1)}}>
+            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer " onClick={e => {handleNavButtonClick(e, 1)}} style={{backgroundColor: (isVisible[1] ? "rgb(219, 144, 5)" : "")}}>
               About me
             </div>
-            <div className="navButton text-xs border h-8 w-32 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 2)}}>
+            <div className="navButton text-xs border h-8 w-32 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 2)}} style={{backgroundColor: (isVisible[2] ? "rgb(219, 144, 5)" : "")}}>
               My Education
             </div>
-            <div className="navButton text-xs border h-8 w-32 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 3)}}>
+            <div className="navButton text-xs border h-8 w-32 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 3)}} style={{backgroundColor: (isVisible[3] ? "rgb(219, 144, 5)" : "")}}>
               My Experience
             </div>
-            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 4)}}>
+            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 4)}} style={{backgroundColor: (isVisible[4] ? "rgb(219, 144, 5)" : "")}}>
               My Projects
             </div>
-            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer " onClick={e => {handleNavButtonClick(e, 5)}}>
+            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer " onClick={e => {handleNavButtonClick(e, 5)}} style={{backgroundColor: (isVisible[5] ? "rgb(219, 144, 5)" : "")}}>
               My Skills
             </div>
-            <div className="navButton text-xs border h-8 w-36 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer " onClick={e => {handleNavButtonClick(e, 6)}}>
+            <div className="navButton text-xs border h-8 w-36 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer " onClick={e => {handleNavButtonClick(e, 6)}} style={{backgroundColor: (isVisible[6] ? "rgb(219, 144, 5)" : "")}}>
               My Achivements
             </div>
-            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 7)}}>
+            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 7)}} style={{backgroundColor: (isVisible[7] ? "rgb(219, 144, 5)" : "")}}>
               Contact
             </div>
           </div>
