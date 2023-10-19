@@ -5,7 +5,7 @@ const InputBox = (props) => {
     return (
       <div class="md:flex md:items-center mb-6">
         <div>
-          <label class="block text-gray-500 font-bold mb" htmlFor={id}>
+          <label class="block text-gray-300 font-bold mb" htmlFor={id}>
             {field}:
           </label>
         </div>
