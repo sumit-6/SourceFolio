@@ -114,6 +114,10 @@ img {
   max-width: 100%;
   height: auto;
 }
+/* 
+svg{
+  display: block;
+} */
 
 /*=============== REUSABLE CSS CLASSES ===============*/
 .section {

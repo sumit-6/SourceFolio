@@ -36,16 +36,39 @@ const Footer=(props)=>{
     return (
       <section className="footer__copy">
         <div className="footer__content">
-          {!isLoading && user && token && (user.uid == props.data.user_id) && <a className="buttonn" onClick={() => {navigate(`/edit/${props.id}`)}}>Edit SourceFolio</a>}
-          {!isLoading && user && token && (user.uid == props.data.user_id) && <a className="delete buttonn" onClick={handleDelete}>Delete SourceFolio</a>}
+          {!isLoading && user && token && user.uid == props.data.user_id && (
+            <a
+              className="buttonn"
+              onClick={() => {
+                navigate(`/edit/${props.id}`);
+              }}
+            >
+              Edit SourceFolio
+            </a>
+          )}
+          {!isLoading && user && token && user.uid == props.data.user_id && (
+            <a className="delete buttonn" onClick={handleDelete}>
+              Delete SourceFolio
+            </a>
+          )}
         </div>
-          {!isLoading && user && token && (user.uid == props.data.user_id) && <div className="back__home ">
-          <a className="buttonn" onClick={() => {navigate("/")}}>Back to home</a>
-          {" "}
-          <span className="home__icon">
-            <AiOutlineHome />
-          </span>
-        </div>}
+        {!isLoading && user && token && user.uid == props.data.user_id && (
+          <div className="back__home ">
+            <div style={{ display: "flex" }}>
+              <a
+                className="buttonn"
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
+                Back to home
+              </a>{" "}
+              <span>
+                <AiOutlineHome className="home__icon" />
+              </span>
+            </div>
+          </div>
+        )}
       </section>
     );
 }
