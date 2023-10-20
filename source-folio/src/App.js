@@ -6,6 +6,8 @@ import Dashboard from './Components/DashBoard';
 import Login from './Components/Login';
 import ErrorPage from './Components/ErrorPage';
 import Form from './Components/Form-Components/Form';
+import EditForm from './Components/Form-Components/EditForm';
+import ProfilePictureEditForm from './Components/Form-Components/ProfilePictureEditForm';
 
 function App() {
 
@@ -18,6 +20,8 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="*" element={<ErrorPage />} />
         <Route path="form" element={<Form/>}/>
+        <Route path="edit/:id" element={<EditForm/>}/>
+        <Route path="edit/profilePicture/:id" element={<ProfilePictureEditForm/>}/>
       </Routes>
     </div>
   );

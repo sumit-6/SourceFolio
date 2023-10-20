@@ -10,14 +10,18 @@ import AchievementsForm from "./AchievementsForm";
 import ContactForm from "./ContactForm";
 import axios from 'axios';
 import useUser from "../../hooks/useUser";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Form=(props)=>{
+const EditForm=(props)=>{
+    const path = useLocation().pathname;
+    const navigate = useNavigate();
+    const ID = path.split("/")[2];
     const [isVisible, setIsVisible] = useState([true, false, false, false, false, false, false, false]);
     const [inputData, setInputData] = useState({name: "", instagram: "", 
     linkedIn: "", githubProfile: "", bio: "", yearsOfExperience: "", numberOfProjects: "", 
     description: "", email: "", telephone: "", profilePicture: {url: null, filename: null}, mainDesignations:[""]});
-    const [sfid, setsfId] = useState(null);
-
+    const [data, setData] = useState({});
     const {user, isLoading} = useUser();
     const [Token, setToken] = useState(null);
 
@@ -32,10 +36,39 @@ const Form=(props)=>{
     
     useEffect(() => {(async() => {
 
-      const token = user && await user.getIdToken();
-      setToken(token);
+        const token = user && await user.getIdToken();
+        setToken(token);
+        //console.log(token)
+        const response = await axios.get(`https://source-folio-woad.vercel.app/api/portfolio/${ID}`, {headers: {authtoken: token}});
+        if(typeof(response.data) === 'object') {
+            const dataRes = response.data;
+            setData(dataRes);
+            
+            setInputData({
+                ...inputData, 
+                name: dataRes.name, 
+                instagram: dataRes.instagram, 
+                linkedIn: dataRes.linkedIn, 
+                githubProfile: dataRes.githubProfile, 
+                bio: dataRes.bio, 
+                yearsOfExperience: dataRes.yearsOfExperience, 
+                numberOfProjects: dataRes.numberOfProjects, 
+                description: dataRes.description, 
+                email: dataRes.email, 
+                telephone: dataRes.telephone, 
+                profilePicture: dataRes.profilePicture,
+                mainDesignations: dataRes.mainDesignations
+            })
+            setInputExperienceList(dataRes.myExperience)
+            setInputProjectList(dataRes.myProjects)
+            setInputEducationList(dataRes.myEducation)
+            setInputSkills(dataRes.mySkills)
+            setInputAchievement(dataRes.myAchievements)
+            console.log(inputData)
+        }
+        
     })();
-    }, [user, sfid]);
+    }, [ID, user]);
     function handlePictureChange(file) {
       setInputData({...inputData, profilePicture: file});
     }
@@ -100,27 +133,26 @@ const Form=(props)=>{
           }
       }
 
-      
+      console.log(formData)
       
       const config = {
         headers: {
-          'Authtoken': Token,
-          'Content-Type': 'multipart/form-data'
-        },
-        enctype: 'multipart/form-data'
+          'authtoken': Token
+        }
       }
+
       
       console.log(config,"config")
-      const response = await axios.post('http://localhost:8000/portfolio/insert',formData,config);
+      const response = await axios.post(`http://localhost:8000/portfolio/edit/${ID}`,formData,config);
       console.log(response,"response")
       if(response.data === "Success") {
-        window.location.href = `http://localhost:3000/`;
+        navigate("/")
       } else {
-        window.location.href = 'http://localhost:3000/';
+        navigate("/pageDoesn'tExist")
       }
     }
     
-    return (
+    return ( (data["name"]) && 
       <div className="p-8">
         <div className="text-2xl text-center text-white">
           Fill your details below!!
@@ -166,9 +198,9 @@ const Form=(props)=>{
                 linkedIn: inputData.linkedIn,
                 githubProfile: inputData.githubProfile,
                 bio: inputData.bio,
-                profilePicture: inputData.profilePicture,
                 mainDesignations: inputData.mainDesignations,
               }}
+              id={ID}
               handleChange={handleDataChange}
               handleMainDesignations={handleMainDesignations}
               handleFileChange={handlePictureChange}
@@ -185,6 +217,7 @@ const Form=(props)=>{
                 profilePicture: inputData.profilePicture,
                 mainDesignations: inputData.mainDesignations,
               }}
+              id={ID}
               handleChange={handleDataChange}
               handleMainDesignations={handleMainDesignations}
               handleFileChange={handlePictureChange}
@@ -302,4 +335,4 @@ const Form=(props)=>{
     );
 }
 
-export default Form;
+export default EditForm;

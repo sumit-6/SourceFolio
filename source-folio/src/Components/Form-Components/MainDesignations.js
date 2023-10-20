@@ -4,7 +4,7 @@ import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io"
 
 function MainDesignations(props) {
     const [inputList, setinputList]= useState(props.mainDesignations);
-
+  
   const handleinputchange=(e, index)=>{
     const {value}= e.target;
     const list= [...inputList];

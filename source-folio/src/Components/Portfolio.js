@@ -94,8 +94,13 @@ const Portfolio = () => {
             ) : (
               ""
             )}
-            <Projects data={data.myProjects} />
-            <hr />
+            {data.myProjects.length ? (<>
+                <Projects data={data.myProjects} />
+                <hr />
+              </>
+            ) : (
+              ""
+            )}
             <Skills data={data.mySkills} />
             <hr />
             <Achivements data={data.myAchievements} />

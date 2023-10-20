@@ -136,7 +136,7 @@ function convertJSON(inputJSON) {
             
             outputJSON["myProjects"].push(obj);
         }
-    } else {
+    } else if(inputJSON['projectName']) {
         const obj = {
             "projectName": "",
             "description": [],
