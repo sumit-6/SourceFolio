@@ -1,5 +1,4 @@
-
-.nav__Header {
+.header {
     width: 100%;
     position: fixed;
     top: 0;
@@ -13,13 +12,13 @@
     height: 20px;
 }
 
-.nav__Item :hover{
+.nav__item :hover{
     color : orange ;
     font-size: 1.2rem;
     cursor: pointer;
 }
 
-.nav__Nav {
+.nav {
     height: calc(var(--header-height) + 1.5rem);
     display: flex;
     justify-content: space-between;
@@ -34,18 +33,18 @@
 }
 
 .dash__logo,
-.nav__Toggle {
+.nav_toggle {
     font-weight: var(--font-medium);
     color: var(--title-color)
 }
 
-.nav__List {
+.nav__list {
     display: flex;
     column-gap: 2rem;
     
 }
 
-.nav__Link {
+.nav__link {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,18 +56,18 @@
 
 
 
-.nav__Icon,
-.nav__Close,
-.nav__Toggle {
+.nav__icon,
+.nav__close,
+.nav_toggle {
     display: none;
 }
 
 .active-link,
-.nav__Link:hover {
+.nav__link:hover {
     color: var(--title-color-dark);
 }
 
-.navbar__Menu__List {
+.navbar__menu__list {
     display: none;
 }
 
@@ -80,16 +79,16 @@
 }
 
 @media screen and (max-width : 768px) {
-    .nav__Header {
+    .header {
         top: initial;
         bottom: 0;
     }
 
-    .nav__Nav {
+    .nav {
         height: var(--header-height);
     }
 
-    .nav__Menu {
+    .nav__menu {
         position: fixed;
         bottom: -100%;
         left: 0;
@@ -106,23 +105,23 @@
         bottom: 0;
     }
 
-    .nav__Toggle {
+    .nav__toggle {
         font-size: 1.1rem;
         cursor: pointer;
     }
 
 
-    .nav__List {
+    .nav__list {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 2rem;
     }
 
-    .nav__Icon {
+    .nav__icon {
         font-size: 1.2rem;
     }
 
-    .nav__Close {
+    .nav__close {
         position: absolute;
         right: 1.3rem;
         bottom: .5rem;
@@ -131,31 +130,31 @@
         color: var(--title-color);
     }
 
-    .nav__Icon,
-    .nav__Close,
-    .nav__Toggle {
+    .nav__icon,
+    .nav__close,
+    .nav_toggle {
         display: block;
     }
 
-    .navbar__Menu__List {
+    .navbar__menu__list {
         display: inline;
     }
 }
 
 @media screen and (max-width : 350px) {
-    .nav__Menu {
+    .nav__menu {
         padding: 2rem 0.25rem 4rem;
     }
 
-    .nav__List {
+    .nav__list {
         column-gap: 0;
     }
 
-    .navbar__Menu__List {
+    .navbar__menu__list {
         display: inline;
     }
 
-    .nav__Icon{
+    .nav__icon{
         font-size: 1rem;
     }
 }
