@@ -12,7 +12,7 @@ const About = (props) => {
       </h2>
       <span className="section__subtitle">My introduction</span>
 
-      <div className="about__container container grid">
+      <div className="about__container nav__container grid">
         <img
           src={`${props.profilePicture.url}`}
           alt=""

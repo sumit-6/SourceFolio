@@ -6,13 +6,13 @@ const Info=(props)=>{
     return (
       <div className="about__info grid">
         <div className="about__box">
-          <BiAward/>
+          <BiAward className="about__icon" />
           <h3 className="about__title">Experience</h3>
           <span className="about__subtitle">{props.yearsOfExperience}</span>
         </div>
 
         <div className="about__box">
-          <BiBriefcase/>
+          <BiBriefcase className="about__icon"/>
           <h3 className="about__title">Completed</h3>
           <span className="about__subtitle">{props.numberOfProjects}</span>
         </div>

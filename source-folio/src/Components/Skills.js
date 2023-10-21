@@ -11,7 +11,7 @@ const Skills=(props)=>{
         </h2>
         <span className="section__subtitle">My Technical Skills</span>
 
-        <div className="skills__container container grid">
+        <div className="skills__container nav__container grid">
             <Programmingskills data={props.data.programmingSkills}/>
             <Toolsandframework data={props.data.toolsAndFrameworks}/>
         </div>

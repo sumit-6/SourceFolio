@@ -15,7 +15,9 @@
 
 .home__icon{
     color : orange;
-    font-size: 1rem;
+    font-size: 1.3rem;
+    margin-left: 0.4rem;
+    margin-top: 0.2rem;
 }
 
 .delete{

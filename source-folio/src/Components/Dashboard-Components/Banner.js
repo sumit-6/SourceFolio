@@ -27,7 +27,7 @@ const DashHome=(props)=>{
           </div>}
           {props.user && !props.id &&
             <div className="content_a">
-            <a className="butt" href={`https://react-form-ten-steel.vercel.app/form?q=${props.token}&where=form`} >
+            <a className="butt" href={`/form`} >
               Create Sourcefolio
             </a>
           </div>

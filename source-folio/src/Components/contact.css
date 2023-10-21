@@ -38,6 +38,8 @@
     font-size: 2rem;
     color: orange;
     margin-bottom: 0.2rem;
+    display: flex;
+    justify-content: center;
 }
 
 .contact__card-title,

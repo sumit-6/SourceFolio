@@ -11,7 +11,7 @@ const NavBar=(props)=>{
     const [Toggle,showMenu]=useState(false);
     return (
       <header class="header" id="light">
-        <nav className="nav container">
+        <nav className="nav nav__container">
           <Link to="aboutme" className="nav__logo" style={{ color: "white" }}>
             {props.name} <span>.</span>
           </Link>

@@ -64,7 +64,7 @@ const NavBar = () => {
       {isReady && (
         <>
           <header className="header" id="light">
-            <nav className="nav container">
+            <nav className="nav nav__container">
               <Link className="nav__logo" style={{ color: "white" }}>
                 SourceFolio <span style={{ color: "orange" }}>.</span>
               </Link>

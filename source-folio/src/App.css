@@ -1,6 +1,8 @@
 /* custom fonts */
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300&family=Poppins:wght@400;500;600&display=swap');
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /*=============== VARIABLES CSS ===============*/
 :root {
   --header-height: 3rem;
@@ -112,6 +114,10 @@ img {
   max-width: 100%;
   height: auto;
 }
+/* 
+svg{
+  display: block;
+} */
 
 /*=============== REUSABLE CSS CLASSES ===============*/
 .section {
@@ -135,7 +141,7 @@ img {
 }
 
 /*=============== LAYOUT ===============*/
-.container {
+.nav__container {
   max-width: 968px;
   margin-left: auto;
   margin-right: auto;
@@ -199,7 +205,7 @@ hr {
 /*=============== BREAKPOINTS ===============*/
 /*for large device */
 @media screen and (max-width : 992px){
-  .container {
+  .nav__container {
       margin-left: var(--mb-1-5);
       margin-right: var(--mb-1-5);
     }
@@ -240,7 +246,7 @@ hr {
       --big-font-size: 2.25rem;
     }
   
-    .container {
+    .nav__container {
       margin-left: var(--mb-1);
       margin-right: var(--mb-1);
     }

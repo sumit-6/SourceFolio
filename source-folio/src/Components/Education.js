@@ -10,7 +10,7 @@ const Education=(props)=>{
         </h2>
         <span className="section__subtitle">My education places</span>
 
-        <div className="education__container container">
+        <div className="education__container nav__container">
           {
             props.data.map((x, i) => {
               return (
@@ -20,7 +20,7 @@ const Education=(props)=>{
                     className="education__pencil"
                   >
                     <BiPencil />
-                  </i>
+                  </i>{" "}
                   <h3
                     className="education__college"
                     style={{ color: "white", marginTop: "1.4rem" }}

@@ -32,7 +32,7 @@ const Experience=(props)=>{
         </h2> : ""}
         {props.data.length ? <span className="section__subtitle">My work Places</span> : ""}
 
-        <div className="experience__container container grid">
+        <div className="experience__container nav__container grid">
           {props.data.map((x, i) => {
             return (
               <div

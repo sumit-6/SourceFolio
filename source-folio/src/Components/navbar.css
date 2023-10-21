@@ -60,7 +60,7 @@
 }
 
 @media screen and (max-width : 992px) {
-    .container {
+    .nav__container {
         margin-left : var(--mb-1-5);
         margin-right: var(--mb-1-5);
     }

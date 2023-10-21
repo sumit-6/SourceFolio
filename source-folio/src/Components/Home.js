@@ -10,7 +10,7 @@ const Home=(props)=>{
   
     return(
         <section className="home section" id="home">
-            <div className="home__container container grid">
+            <div className="home__container nav__container grid">
                 <div className="home__content grid">
                     <Social instagram={props.instagram} linkedIn={props.linkedIn} githubProfile={props.githubProfile}/>
 

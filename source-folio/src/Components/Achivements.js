@@ -11,7 +11,7 @@ const Achivements=(props)=>{
         </h2>
         <span className="section__subtitle">What are my accomplishments!!</span>
 
-        <div className="qualification__container container">
+        <div className="qualification__container nav__container">
           <div className="qualification__tabs">
             <div className="qualification__button qualification__active button--flex">
               <div className="qualification__icon">

@@ -1,3 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.navButton:hover, .navButton:focus{
+  background-color:rgb(219, 144, 5) ;
+}
+
+.navButton:visited{
+  background-color: rgb(219, 144, 5);
+}
+
+.navButton:active{
+  background-color: rgb(219, 144, 5);
+}
 :root{
   --back-color : #82daee;
 }
