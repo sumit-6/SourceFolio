@@ -27,7 +27,7 @@
     display: flex;
     margin-top: 3.4rem;
     margin-left: 1.5rem;
-    font-weight: var(--font-medium);
+    font-weight: var(--font-semi-bold);
     font-family: 'Courier New', Courier, monospace;
     white-space: nowrap;
     

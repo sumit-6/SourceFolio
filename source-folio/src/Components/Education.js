@@ -20,7 +20,7 @@ const Education=(props)=>{
                     className="education__pencil"
                   >
                     <BiPencil />
-                  </i>
+                  </i>{" "}
                   <h3
                     className="education__college"
                     style={{ color: "white", marginTop: "1.4rem" }}

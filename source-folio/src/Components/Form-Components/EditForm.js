@@ -143,7 +143,7 @@ const EditForm=(props)=>{
 
       
       console.log(config,"config")
-      const response = await axios.post(`http://localhost:8000/portfolio/edit/${ID}`,formData,config);
+      const response = await axios.post(`https://source-folio-woad.vercel.app/portfolio/edit/${ID}`,formData,config);
       console.log(response,"response")
       if(response.data === "Success") {
         navigate("/")
