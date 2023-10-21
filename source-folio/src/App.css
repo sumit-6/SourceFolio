@@ -141,7 +141,7 @@ svg{
 }
 
 /*=============== LAYOUT ===============*/
-.container {
+.nav__container {
   max-width: 968px;
   margin-left: auto;
   margin-right: auto;
@@ -205,7 +205,7 @@ hr {
 /*=============== BREAKPOINTS ===============*/
 /*for large device */
 @media screen and (max-width : 992px){
-  .container {
+  .nav__container {
       margin-left: var(--mb-1-5);
       margin-right: var(--mb-1-5);
     }
@@ -246,7 +246,7 @@ hr {
       --big-font-size: 2.25rem;
     }
   
-    .container {
+    .nav__container {
       margin-left: var(--mb-1);
       margin-right: var(--mb-1);
     }

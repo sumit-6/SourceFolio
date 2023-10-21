@@ -10,7 +10,7 @@ const Education=(props)=>{
         </h2>
         <span className="section__subtitle">My education places</span>
 
-        <div className="education__container container">
+        <div className="education__container nav__container">
           {
             props.data.map((x, i) => {
               return (
