@@ -5,7 +5,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-scroll";
 import ReactSwitch from "react-switch";
 import useUser from '../../hooks/useUser';
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { auth } from '../../index';
 import { signOut } from 'firebase/auth';
 import axios from 'axios';
@@ -13,9 +13,6 @@ import Loading from '../Loading'
 import  DashHome  from "./Banner";
 
 const NavBar = () => {
-
-  // const location=useLocation();
-  // console.log(location,"location");
   const [Toggle, showMenu] = useState(false);
   const navigate = useNavigate();
   const [sfid, setsfId] = useState(null);
@@ -60,7 +57,6 @@ const NavBar = () => {
       console.log(err.message);
     })
   }
-
   
   return (
     <>
@@ -68,8 +64,8 @@ const NavBar = () => {
       {isReady && (
         <>
           <header className="header" id="light">
-            <nav className="nav container">
-              <Link className="nav__logo " style={{ color: "white" }}>
+            <nav className="nav nav__container">
+              <Link className="nav__logo" style={{ color: "white" }}>
                 SourceFolio <span style={{ color: "orange" }}>.</span>
               </Link>
 
@@ -81,6 +77,8 @@ const NavBar = () => {
                         (window.location.href =
                           "https://react-form-ten-steel.vercel.app/about-us")
                       }
+                      // smooth={true}
+                      // duration={1000}
                       className="nav__link"
                       style={{ color: "orange" }}
                     >
@@ -92,7 +90,7 @@ const NavBar = () => {
                     <li className="nav__item">
                       <Link
                         onClick={() =>
-                          {navigate(`/portfolio/${sfid}`)}
+                          (window.location.href = ` https://source-folio-frontend.vercel.app/portfolio/${sfid}`)
                         }
                         // duration={1000}
                         className="nav__link"
@@ -107,8 +105,10 @@ const NavBar = () => {
                     <li className="nav__item">
                       <Link
                         onClick={() =>
-                          {navigate(`/portfolio/form`)}
+                          (window.location.href = `https://react-form-ten-steel.vercel.app/form?q=${Token}&where=form`)
                         }
+                        // smooth={true}
+                        // duration={1000}
                         className="nav__link"
                         style={{ color: "white" }}
                       >
@@ -117,11 +117,12 @@ const NavBar = () => {
                     </li>
                   )}
 
+
                   <li className="nav__item">
                     <a
                       href="mailto:sourcefolio2023@gmail.com"
                       className="nav__link"
-                      style={{ color: "white" }}
+                      style={{color: "white"}}
                     >
                       Contact
                     </a>
@@ -136,11 +137,11 @@ const NavBar = () => {
                         className="nav__link"
                         style={{ color: "white" }}
                       >
-                        <i className="nav__Icon"></i>Login/Signup
+                        <i className="nav__icon"></i>Login/Signup
                       </Link>
                     </li>
                   )}
-
+                   
                   {user && (
                     <li className="nav__item">
                       <Link
@@ -179,7 +180,7 @@ const NavBar = () => {
               </div>
             </nav>
           </header>
-          <DashHome user={user} id={sfid} token={Token} />
+          <DashHome user={user} id={sfid} token={Token}/>
         </>
       )}
     </>
