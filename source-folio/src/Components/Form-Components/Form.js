@@ -109,10 +109,8 @@ const Form=(props)=>{
         },
         enctype: 'multipart/form-data'
       }
-      
-      console.log(config,"config")
+  
       const response = await axios.post('https://source-folio-woad.vercel.app/portfolio/insert',formData,config);
-      console.log(response,"response")
       if(response.data === "Success") {
         window.location.href = `https://source-folio.vercel.app/`;
       } else {

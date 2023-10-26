@@ -38,7 +38,6 @@ const EditForm=(props)=>{
 
         const token = user && await user.getIdToken();
         setToken(token);
-        //console.log(token)
         const response = await axios.get(`https://source-folio-woad.vercel.app/api/portfolio/${ID}`, {headers: {authtoken: token}});
         if(typeof(response.data) === 'object') {
             const dataRes = response.data;
@@ -64,7 +63,6 @@ const EditForm=(props)=>{
             setInputEducationList(dataRes.myEducation)
             setInputSkills(dataRes.mySkills)
             setInputAchievement(dataRes.myAchievements)
-            console.log(inputData)
         }
         
     })();
@@ -132,8 +130,6 @@ const EditForm=(props)=>{
             formData[key[0]].push(key[1]);
           }
       }
-
-      console.log(formData)
       
       const config = {
         headers: {
@@ -141,10 +137,7 @@ const EditForm=(props)=>{
         }
       }
 
-      
-      console.log(config,"config")
       const response = await axios.post(`https://source-folio-woad.vercel.app/portfolio/edit/${ID}`,formData,config);
-      console.log(response,"response")
       if(response.data === "Success") {
         navigate("/")
       } else {

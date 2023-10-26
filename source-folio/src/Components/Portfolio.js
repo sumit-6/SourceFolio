@@ -49,12 +49,10 @@ const Portfolio = () => {
         const dataRes = response.data;
 
         setData(dataRes);
-        // console.log(data.myExperience)
         setIsReady(true);
       }
       else {
-        console.log("a")
-        navigate("/error");
+        navigate("error");
       }
     })();
   }, [ID]);

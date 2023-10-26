@@ -17,7 +17,6 @@ const BioForm=(props)=>{
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    console.log(file)
     setinputObj({...inputObj, profilePicture: file})
     props.handleFileChange(file);
   }
