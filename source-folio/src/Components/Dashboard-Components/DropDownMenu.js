@@ -14,7 +14,7 @@ function DropdownMenu(props) {
 
   return (
     <div class="md:flex md:items-center mb-6">
-           <div class="inline-block relative w-30 ml-[4.5rem]">
+           <div class="inline-block relative w-30">
                 <select class="block appearance-none w-30 h-8 bg-white border border-gray-400 hover:border-gray-500 px-4 py-1 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
                   id="searchBox" value={filter} onChange={(e) => handleChange(e)}>
                     <option key="name" value="name">name</option>

@@ -12,8 +12,8 @@ function SearchBox(props) {
         <>
             <form className="relative w-max mx-auto">
                 <input type="search" name="search" id="search"
-                 className="relative peer z-10 bg-transparent w-12 h-8 rounded-full border focus:w-full
-                  focus:border-orange-300 focus:cursor-text focus:pl-16 focus:pr-4
+                 className="relative peer z-10 bg-transparent w-12 h-8 rounded-full border 
+                 focus:w-full focus:border-orange-300 focus:cursor-text focus:pl-16 focus:pr-4
                   pl-12
                   cursor-pointer outline-none" value={searchText}
                   onChange={(e) => {handleChange(e)}}></input>
