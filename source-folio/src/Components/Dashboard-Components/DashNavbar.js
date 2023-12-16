@@ -3,7 +3,6 @@ import "./dashnavbar.css";
 import { RxCross2 } from "react-icons/rx";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-scroll";
-import ReactSwitch from "react-switch";
 import useUser from '../../hooks/useUser';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../index';
@@ -11,6 +10,8 @@ import { signOut } from 'firebase/auth';
 import axios from 'axios';
 import Loading from '../Loading'
 import  DashHome  from "./Banner";
+import SearchBox from "./SearchBox";
+import DropdownMenu from "./DropDownMenu";
 
 const NavBar = () => {
   const [Toggle, showMenu] = useState(false);
@@ -21,6 +22,39 @@ const NavBar = () => {
   const [Token, setToken] = useState(null);
   const [data, setData] = useState(null);
   const [isReady, setIsReady] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [filter, setFilter] = useState("name");
+  const [list, setList] = useState([])
+  function handleSearchText(text) {
+    setFilter(text);
+  }
+
+  function handleSearchInput(text) {
+    setSearchText(text);
+  }
+
+  useEffect(() => {(async() => {
+    if(searchText === "") {
+      setList([]);
+      return new Promise((resolve,reject) => {
+        reject();
+      });
+    }
+    const config = {
+      headers: {
+        'authtoken': Token
+      }
+    }
+    const portfolios = axios.get(`https://source-folio-woad.vercel.app/api/search/${filter}/${searchText}`, config);
+    portfolios.then((data) => {
+      console.log(data.data);
+      setList(data.data);
+    }).catch((error) => {
+      setList([]);
+    });
+  })()
+  }, [searchText])
+
   useEffect(() => {(async() => {
 
     const token = user && await user.getIdToken();
@@ -155,6 +189,37 @@ const NavBar = () => {
                       </Link>
                     </li>
                   )}
+                
+                <li>
+                  <SearchBox handleInputChange={handleSearchInput} />
+                  <div style={{display: list.length > 0 ? "" : "none", maxHeight: "300px", overflowY: "scroll"}}>
+                    <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
+                      {list.map((x, index) => {
+                        return (<li className="pb-3 sm:pb-4 cursor-pointer" onClick={() => {navigate(`/portfolio/${x._id}`)}}>
+                                    <div class="flex items-center space-x-4">
+                                      <div class="flex-shrink-0">
+                                          <img className="w-8 h-8 rounded-full" src={x.profilePicture.url} alt={x.name} />
+                                      </div>
+                                      <div class="flex-1 min-w-0">
+                                          <p class="text-sm font-medium text-white truncate dark:text-white">
+                                            {x.name}
+                                          </p>
+                                          <p class="text-sm text-gray-400 truncate dark:text-gray-500">
+                                            {x.email}
+                                          </p>
+                                      </div>
+                                    </div>
+                                </li>);
+                      
+                      })}
+                    </ul>
+                  </div>
+                </li>
+
+                <li>
+                <DropdownMenu handleSearchChange={handleSearchText}/>
+                </li>
+
                 </ul>
 
                 <i
