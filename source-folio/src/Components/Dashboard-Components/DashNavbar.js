@@ -15,6 +15,7 @@ import DropdownMenu from "./DropDownMenu";
 
 const NavBar = () => {
   const [Toggle, showMenu] = useState(false);
+  const [focused, setFocused] = useState(false);
   const navigate = useNavigate();
   const [sfid, setsfId] = useState(null);
   const [isAvailable, setIsAvailable] = useState(null);
@@ -25,6 +26,10 @@ const NavBar = () => {
   const [searchText, setSearchText] = useState("");
   const [filter, setFilter] = useState("name");
   const [list, setList] = useState([])
+
+  function HandleSetFocused(focus) {
+    setFocused(focus);
+  }
   function handleSearchText(text) {
     setFilter(text);
   }
@@ -191,26 +196,27 @@ const NavBar = () => {
                   )}
                 
                 <li>
-                  <SearchBox handleInputChange={handleSearchInput} />
-                  <div style={{display: list.length > 0 ? "" : "none", maxHeight: "300px", overflowY: "scroll"}}>
+                  <SearchBox handleInputChange={handleSearchInput} handleSetFocused={HandleSetFocused} />
+                  <div style={{display: (list.length > 0 && focused) ? "" : "none", maxHeight: "300px", overflowY: "scroll"}}>
                     <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
                       {list.map((x, index) => {
-                        return (<li className="pb-3 sm:pb-4 cursor-pointer" onClick={() => {navigate(`/portfolio/${x._id}`)}}>
-                                    <div class="flex items-center space-x-4">
-                                      <div class="flex-shrink-0">
-                                          <img className="w-8 h-8 rounded-full" src={x.profilePicture.url} alt={x.name} />
-                                      </div>
-                                      <div class="flex-1 min-w-0">
-                                          <p class="text-sm font-medium text-white truncate dark:text-white">
-                                            {x.name}
-                                          </p>
-                                          <p class="text-sm text-gray-400 truncate dark:text-gray-500">
-                                            {x.email}
-                                          </p>
-                                      </div>
-                                    </div>
-                                </li>);
-                      
+                        return (
+                        <li className="pb-3 sm:pb-4 cursor-pointer" onClick={() => {navigate(`/portfolio/${x._id}`)}}>
+                            <div class="flex items-center space-x-4">
+                              <div class="flex-shrink-0">
+                                  <img className="w-8 h-8 rounded-full" src={x.profilePicture.url} alt={x.name} />
+                              </div>
+                              <div class="flex-1 min-w-0">
+                                  <p class="text-sm font-medium text-white truncate dark:text-white">
+                                    {x.name}
+                                  </p>
+                                  <p class="text-sm text-gray-400 truncate dark:text-gray-500">
+                                    {x.email}
+                                  </p>
+                              </div>
+                            </div>
+                        </li>);
+
                       })}
                     </ul>
                   </div>
