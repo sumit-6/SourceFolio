@@ -198,7 +198,7 @@ const NavBar = () => {
                 <li>
                   <div onFocus={() => {HandleSetFocused(true)}} onBlur={() => {HandleSetFocused(false)}} tabIndex={0}>
                   <SearchBox handleInputChange={handleSearchInput}/>
-                  <div style={{display: (list.length > 0 && focused) ? "" : "none", maxHeight: "300px", overflowY: "scroll"}}>
+                  <div className="md:w-15 lg:w-15" style={{display: (list.length > 0 && focused) ? "" : "none", maxHeight: "300px", overflowY: "scroll"}}>
                     <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
                       {list.map((x, index) => {
                         return (
