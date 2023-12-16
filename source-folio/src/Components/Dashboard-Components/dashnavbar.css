@@ -22,7 +22,7 @@
     height: calc(var(--header-height) + 1.5rem);
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items:first baseline;
     column-gap: 1rem;
 }
 

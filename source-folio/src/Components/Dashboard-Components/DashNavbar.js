@@ -45,13 +45,15 @@ const NavBar = () => {
         'authtoken': Token
       }
     }
-    const portfolios = axios.get(`http://localhost:8000/api/search/${filter}/${searchText}`, config);
+    const portfolios = axios.get(`https://source-folio-woad.vercel.app/api/search/${filter}/${searchText}`, config);
     portfolios.then((data) => {
       console.log(data.data);
       setList(data.data);
-    })
+    }).catch((error) => {
+      setList([]);
+    });
   })()
-  }, [searchText, list])
+  }, [searchText])
 
   useEffect(() => {(async() => {
 
@@ -190,7 +192,7 @@ const NavBar = () => {
                 
                 <li>
                   <SearchBox handleInputChange={handleSearchInput} />
-                  <div style={{display: list.length > 0 ? "" : "none"}}>
+                  <div style={{display: list.length > 0 ? "" : "none", maxHeight: "300px", overflowY: "scroll"}}>
                     <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
                       {list.map((x, index) => {
                         return (<li className="pb-3 sm:pb-4 cursor-pointer" onClick={() => {navigate(`/portfolio/${x._id}`)}}>
