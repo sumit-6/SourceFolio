@@ -1,10 +1,9 @@
 import React from "react";
-import "./contact.css"
+import "./CssFiles/contact.css"
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { AiOutlineMail } from "react-icons/ai";
 import { AiOutlineWhatsApp } from "react-icons/ai";
 import { FaLinkedin } from "react-icons/fa";
-
 
 const Contact=(props)=>{
     return (

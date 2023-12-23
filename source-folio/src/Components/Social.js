@@ -2,7 +2,7 @@ import React from "react";
 import { SiInstagram } from "react-icons/si";
 import { SiLinkedin } from "react-icons/si";
 import { SiGithub } from "react-icons/si";
-import "./home.css"
+import "./CssFiles/home.css"
 
 const Social=(props)=>{
     return (

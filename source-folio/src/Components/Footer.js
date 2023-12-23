@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./footer.css"
+import "./CssFiles/footer.css"
 import { AiOutlineHome } from "react-icons/ai";
 import useUser from "../hooks/useUser";
 import { useNavigate } from "react-router-dom";

@@ -1,6 +1,6 @@
 import React from "react";
 import { BiBadgeCheck } from "react-icons/bi";
-import "./skills.css"
+import "./CssFiles/skills.css"
 
 const Programmingskills=(props)=>{
     return (

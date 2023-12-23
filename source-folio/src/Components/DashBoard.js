@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "./Dashboard-Components/DashNavbar";
-import "./dashboard.css"
+import "./CssFiles/dashboard.css"
 const Dashboard = () => {
   
   return (

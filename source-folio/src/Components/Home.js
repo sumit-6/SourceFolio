@@ -1,6 +1,6 @@
 import React from "react";
 import Data from "./Data";
-import "./home.css";
+import "./CssFiles/home.css"
 import Social from "./Social";
 
 const Home=(props)=>{

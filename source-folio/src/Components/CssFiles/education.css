@@ -11,8 +11,7 @@
 
 .education__heading{
     display: block;
-    /* background-color: rgb(54 54 54); */
-    background-image: url("../asset/image/4.jpg");
+    background-image: url("../../asset/image/4.jpg");
     background-repeat: no repeat;
     background-size: cover;
     color : white;
