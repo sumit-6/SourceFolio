@@ -1,7 +1,7 @@
 import React from "react";
 import Toolsandframework from "./ToolsAndFramework";
 import Programmingskills from "./ProgrammingSkills";
-import "./skills.css"
+import "./CssFiles/skills.css"
 
 const Skills=(props)=>{
     return (

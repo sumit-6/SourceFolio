@@ -1,5 +1,5 @@
 import React from "react";
-import "./achivements.css"
+import "./CssFiles/achivements.css"
 import { SlGraduation } from "react-icons/sl";
 
 const Achivements=(props)=>{

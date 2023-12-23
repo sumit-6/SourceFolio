@@ -4,7 +4,7 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import { useState } from "react";
-import "./experience.css";
+import "./CssFiles/experience.css"
 
 const Experience=(props)=>{
 

@@ -1,5 +1,5 @@
 import React from "react";
-import "./education.css"
+import "./CssFiles/education.css"
 import { BiPencil } from "react-icons/bi";
 
 const Education=(props)=>{

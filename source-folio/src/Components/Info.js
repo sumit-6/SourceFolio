@@ -1,6 +1,6 @@
 import React from "react";
 import { BiAward, BiBriefcase, BiSupport } from "react-icons/bi";
-import "./aboutme.css";
+import "./CssFiles/aboutme.css";
 
 const Info=(props)=>{
     return (

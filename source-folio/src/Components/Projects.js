@@ -1,5 +1,5 @@
 import React from "react";
-import "./project.css";
+import "./CssFiles/project.css";
 
 import { AiFillCaretRight } from "react-icons/ai";
 import { AiOutlineCheckCircle } from "react-icons/ai";
@@ -10,7 +10,7 @@ import { useState } from "react";
 // import backgroundd from "../asset/image/back.jpg";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import "./experience.css"
+import "./CssFiles/experience.css"
 
 const Projects=(props)=>{
     const responsive = {

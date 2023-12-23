@@ -1,7 +1,6 @@
 import React from "react";
-import "./aboutme.css";
+import "./CssFiles/aboutme.css";
 import Info from "./Info";
-import "./aboutme.css";
 import { Link } from "react-scroll";
 
 const About = (props) => {

@@ -13,7 +13,7 @@ import Projects from "./Projects";
 import Contact from "./Contact";
 import Education from "./Education";
 import axios from "axios";
-import "./portfolio.css";
+import "./CssFiles/portfolio.css";
 import "../index.css";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
