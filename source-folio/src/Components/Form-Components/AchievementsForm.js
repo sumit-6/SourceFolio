@@ -60,7 +60,7 @@ const AchievementsForm = (props) => {
 
                 {inputList.length !== 1 && (
                   <IoIosRemoveCircleOutline
-                    className="h-8 w-8 text-white mt-14"
+                    className="h-8 w-8 text-white mt-12"
                     onClick={(e) => handleRemove(e, index)}
                   />
                 )}
