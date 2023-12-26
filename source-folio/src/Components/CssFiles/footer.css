@@ -2,15 +2,15 @@
     display: flex;
     justify-content: space-around;
     color: white;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin-bottom: 2rem;
 
 }
 
 .buttonn:hover{
-    font-size: 1.5rem;
     cursor: pointer;
     color : orange;
+    transition: .3s;
+    font-size: 1.1rem;
 }
 
 .home__icon{
