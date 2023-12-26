@@ -30,8 +30,10 @@ function MainDesignations(props) {
         <>
             {inputList.map((x, index) => {
                 return (
-                    <div className="flex justify-between">
+                    <div className="flex">
+                    <div className="flex-1">
                     <InputBox field="Designation" type="text" id={`mainDesignation_${index}`} name="mainDesignations" placeholder="Full Stack Developer/Coder/App Developer/..." handleChange={handleinputchange} value={x} index={index}></InputBox>
+                    </div>
                     <div className="flex justify-center">
                         {
                             inputList.length - 1 === index && 

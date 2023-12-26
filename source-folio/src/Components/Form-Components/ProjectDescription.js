@@ -37,7 +37,8 @@ const ProjectDescription = (props) => {
         {inputList.map((x, i) => {
             return (
             <>
-            <div className="grid grid-flow-col rounded-lg border border-gray-800 mb-6">
+            <div className="flex">
+              <div className="flex-1">
              <TextArea field="Enter Description"
                             id={`projectDescription_${id}_${i}`}
                             placeholder="Enter your achievement"
@@ -45,6 +46,7 @@ const ProjectDescription = (props) => {
                             handleChange={handleinputchange}
                             name={`projectDescription_${id}`}
                             index = {i}></TextArea>
+              </div>
             <div className="flex">
               {
                 inputList.length - 1 === i && 

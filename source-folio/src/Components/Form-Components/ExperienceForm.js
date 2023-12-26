@@ -78,7 +78,7 @@ const ExperienceForm=(props)=>{
                   handleChange={handleinputchange}
                   value={x.role}
                 ></InputBox>
-                <div className="border border-gray-800 rounded-lg p-2 mb-6">
+                
                   <WorkDescription
                     index={index}
                     data={x.workDescription}
@@ -86,7 +86,7 @@ const ExperienceForm=(props)=>{
                     onRemove={handleWorkDescriptionDelete}
                     handleWorkDescriptionAdd={handleWorkDescriptionAdd}
                   ></WorkDescription>
-                </div>
+                
                 <InputBox
                   field="Company"
                   index={index}

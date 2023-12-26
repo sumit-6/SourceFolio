@@ -17,7 +17,7 @@ const AboutMe = (props) => {
     
     return (
       <div
-        className=" border border-gray-700 p-4 mt-7 rounded-lg text-center m-auto"
+        className="border border-gray-700 rounded-lg p-4 mt-6"
         style={{ display: props.isSelected ? "" : "none" }}
       >
         <div className="text-xl text-white text-center">About Me Details!</div>

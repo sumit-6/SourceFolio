@@ -36,7 +36,8 @@ const WorkDescription = (props) => {
         {inputList.map((x, i) => {
             return (
                 <>
-                <div className="grid grid-flow-col">
+                <div className="flex ">
+                  <div className="flex-1">
              <TextArea field="Enter Description"
                             id={`workDescription_${props.index}_${i}`}
                             placeholder="Enter description of what you did at this workplace..."
@@ -44,6 +45,7 @@ const WorkDescription = (props) => {
                             handleChange={handleinputchange}
                             name={`workDescription_${props.index}`}
                             index = {i}></TextArea>
+                  </div>
             <div className="flex">
               {
                 inputList.length - 1 === i && 
