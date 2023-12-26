@@ -99,7 +99,7 @@ const EditForm=(props)=>{
       let array = Array.apply(null, Array(5)).map(function (y) {return false});
       array[index] = true;
       setIsVisible(array);
-      if(index==7)
+      if(index===7)
       {
         setIsContact(!isContact);
       }
@@ -182,139 +182,76 @@ const EditForm=(props)=>{
             </div>
           </div>
 
-          {isVisible[0] ? (
-            <BioForm
-              isSelected={true}
-              data={{
-                name: inputData.name,
-                instagram: inputData.instagram,
-                linkedIn: inputData.linkedIn,
-                githubProfile: inputData.githubProfile,
-                bio: inputData.bio,
-                mainDesignations: inputData.mainDesignations,
-              }}
-              id={ID}
-              handleChange={handleDataChange}
-              handleMainDesignations={handleMainDesignations}
-              handleFileChange={handlePictureChange}
-            />
-          ) : (
-            <BioForm
-              isSelected={false}
-              data={{
-                name: inputData.name,
-                instagram: inputData.instagram,
-                linkedIn: inputData.linkedIn,
-                githubProfile: inputData.githubProfile,
-                bio: inputData.bio,
-                profilePicture: inputData.profilePicture,
-                mainDesignations: inputData.mainDesignations,
-              }}
-              id={ID}
-              handleChange={handleDataChange}
-              handleMainDesignations={handleMainDesignations}
-              handleFileChange={handlePictureChange}
-            />
-          )}
-          {isVisible[1] ? (
-            <AboutMe
-              isSelected={true}
-              data={{
-                yearsOfExperience: inputData.yearsOfExperience,
-                numberOfProjects: inputData.numberOfProjects,
-                description: inputData.description,
-              }}
-              handleChange={handleDataChange}
-            />
-          ) : (
-            <AboutMe
-              isSelected={false}
-              data={{
-                yearsOfExperience: inputData.yearsOfExperience,
-                numberOfProjects: inputData.numberOfProjects,
-                description: inputData.description,
-              }}
-              handleChange={handleDataChange}
-            />
-          )}
-          {isVisible[2] ? (
-            <EducationForm
-              isSelected={true}
-              data={inputEducationList}
-              handleChange={handleEducation}
-            />
-          ) : (
-            <EducationForm
-              isSelected={false}
-              data={inputEducationList}
-              handleChange={handleEducation}
-            />
-          )}
-          {isVisible[3] ? (
-            <ExperienceForm
-              isSelected={true}
-              data={inputExperienceList}
-              handleChange={handleExperience}
-            />
-          ) : (
-            <ExperienceForm
-              isSelected={false}
-              data={inputExperienceList}
-              handleChange={handleExperience}
-            />
-          )}
-          {isVisible[4] ? (
-            <ProjectsForm
-              isSelected={true}
-              data={inputProjectList}
-              handleChange={handleProject}
-            />
-          ) : (
-            <ProjectsForm
-              isSelected={false}
-              data={inputProjectList}
-              handleChange={handleProject}
-            />
-          )}
-          {isVisible[5] ? (
-            <SkillsForm
-              isSelected={true}
-              data={inputSkills}
-              handleChange={handleSkills}
-            />
-          ) : (
-            <SkillsForm
-              isSelected={false}
-              data={inputSkills}
-              handleChange={handleSkills}
-            />
-          )}
-          {isVisible[6] ? (
-            <AchievementsForm
-              isSelected={true}
-              data={inputAchievement}
-              handleChange={handleAchievement}
-            />
-          ) : (
-            <AchievementsForm
-              isSelected={false}
-              data={inputAchievement}
-              handleChange={handleAchievement}
-            />
-          )}
-          {isVisible[7] ? (
-            <ContactForm
-              isSelected={true}
-              data={{ email: inputData.email, telephone: inputData.telephone }}
-              handleChange={handleDataChange}
-            />
-          ) : (
-            <ContactForm
-              isSelected={false}
-              data={{ email: inputData.email, telephone: inputData.telephone }}
-              handleChange={handleDataChange}
-            />
-          )}
+     
+          <BioForm
+            isSelected={isVisible[0]}
+            data={{
+              name: inputData.name,
+              instagram: inputData.instagram,
+              linkedIn: inputData.linkedIn,
+              githubProfile: inputData.githubProfile,
+              bio: inputData.bio,
+              mainDesignations: inputData.mainDesignations,
+            }}
+            id={ID}
+            handleChange={handleDataChange}
+            handleMainDesignations={handleMainDesignations}
+            handleFileChange={handlePictureChange}
+          />
+          
+      
+          <AboutMe
+            isSelected={isVisible[1]}
+            data={{
+              yearsOfExperience: inputData.yearsOfExperience,
+              numberOfProjects: inputData.numberOfProjects,
+              description: inputData.description,
+            }}
+            handleChange={handleDataChange}
+          />
+         
+         
+          <EducationForm
+            isSelected={isVisible[2]}
+            data={inputEducationList}
+            handleChange={handleEducation}
+          />
+          
+         
+          <ExperienceForm
+            isSelected={isVisible[3]}
+            data={inputExperienceList}
+            handleChange={handleExperience}
+          />
+          
+          
+          <ProjectsForm
+            isSelected={isVisible[4]}
+            data={inputProjectList}
+            handleChange={handleProject}
+          />
+          
+          
+          <SkillsForm
+            isSelected={isVisible[5]}
+            data={inputSkills}
+            handleChange={handleSkills}
+          />
+         
+          
+          <AchievementsForm
+            isSelected={isVisible[6]}
+            data={inputAchievement}
+            handleChange={handleAchievement}
+          />
+          
+          
+          <ContactForm
+            isSelected={isVisible[7]}
+            data={{ email: inputData.email, telephone: inputData.telephone }}
+            handleChange={handleDataChange}
+          />
+         
           <button
             type="submit"
             className={`btn btn-lg flex items-center justify-center m-5 ${
