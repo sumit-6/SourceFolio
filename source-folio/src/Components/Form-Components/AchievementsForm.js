@@ -38,7 +38,8 @@ const AchievementsForm = (props) => {
 
         {inputList.map((box, index) => {
           return (
-            <div className="w-full grid grid-flow-col mt-6">
+            <div className="w-full flex mt-6">
+              <div className="flex-1">
               <TextArea
                 name={`myAchievements`}
                 field="Achievement"
@@ -48,10 +49,11 @@ const AchievementsForm = (props) => {
                 handleChange={handleInputChange}
                 index={index}
               ></TextArea>
+              </div>
               <div className="flex">
                 {inputList.length - 1 === index && (
                   <IoIosAddCircleOutline
-                    className="h-8 w-8 text-white mt-14"
+                    className="h-8 w-8 text-white mt-12"
                     onClick={(e) => handleAddClick(e)}
                   />
                 )}

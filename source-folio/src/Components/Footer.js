@@ -63,7 +63,7 @@ const Footer=(props)=>{
               >
                 Back to home
               </a>{" "}
-              <span>
+              <span className="mt-2 md:mt-0">
                 <AiOutlineHome className="home__icon" />
               </span>
             </div>

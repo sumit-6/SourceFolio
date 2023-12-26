@@ -68,7 +68,7 @@ const ProjectsForm = (props) => {
                     placeholder="Enter project name"
                     value={x.projectName}
                   ></InputBox>
-                  <div className="border border-gray-900 rounded-lg p-2">
+                  <div className="border border-gray-900 rounded-lg">
                     <ProjectDescription
                       index={index}
                       onChange={handleProjectDescriptionChange}

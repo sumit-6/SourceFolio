@@ -235,8 +235,12 @@ hr {
 }
 
 @media screen and (max-width : 576px) {
-  .footer__content, .back__home {
-    display: none;
+  .footer__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    line-height: 3rem;
+    align-items: center;
 }
 }
 
@@ -429,4 +433,8 @@ hr {
 
 #chk:checked ~.signup label{
   transform: scale(.6);
+}
+
+input[type="date"]::-webkit-calender-picker-indicator {
+  cursor: pointer;
 }

@@ -43,19 +43,25 @@ const SkillsForm = (props) => {
         className="p-4 mt-6"
         style={{ display: props.isSelected ? "" : "none" }}
       >
-        <div className="text-xl text-white text-center">Skills Details</div>
+        
+        <div className="border border-gray-700 rounded-lg p-2 mt-6">
+        <div className="text-xl text-white text-center">Programming Skills Details</div>
         <ProgrammingSkills
           data={inputObj.programmingSkills}
           onChange={handleProgrammingSkills}
           onRemove={handleProgrammingSkillsRemove}
           onObjChange={handleObjChange}
         ></ProgrammingSkills>
+        </div>
+        <div className="border border-gray-700 rounded-lg p-2 mt-6">
+        <div className="text-xl text-white text-center">Tools and Frameworks Details</div>
         <ToolsAndFrameworks
           data={inputObj.toolsAndFrameworks}
           onChange={handleToolsAndFramework}
           onRemove={handleToolsAndFrameworkRemove}
           onObjChange={handleObjChange}
         ></ToolsAndFrameworks>
+        </div>
       </div>
     );
 }

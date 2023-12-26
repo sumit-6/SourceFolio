@@ -36,7 +36,7 @@ const ProgrammingSkills = (props) => {
     <>
       {inputList.map((x, index) => {
         return (
-          <div className="border border-gray-700 rounded-lg p-2 mt-6">
+          <>
             <div className="mt-6 p-4">
               <InputBox
                 field="Programming Language"
@@ -72,7 +72,7 @@ const ProgrammingSkills = (props) => {
                 )}
               </div>
             </div>
-          </div>
+          </>
         );
       })}
     </>

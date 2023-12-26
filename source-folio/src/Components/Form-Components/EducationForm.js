@@ -64,18 +64,18 @@ const EducationForm=(props)=>{
                 value={x.place}
                 handleChange={handleinputchange}
               ></InputBox>
-              <div class="md:flex md:items-center mb-6">
+              <div class="md:flex md:items-center md:justify-between mb-6">
                 <div>
                   <label
-                    class="block text-gray-300 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                    className="block text-gray-300 font-bold md:text-right mb-1 md:mb-0 pr-4"
                     htmlFor={`aggregate_${index}`}
                   >
-                    Aggregate
+                    Aggregate:
                   </label>
                 </div>
-                <div class="md:w-2/3">
+                <div className="md:w-2/3">
                   <input
-                    class="bg-[#18162b] appearance-none border-2 border-gray-700 rounded w-full py-2 px-4 text-white leading-tight focus:outline-none  focus:border-purple-500 ml-10"
+                    className="bg-[#18162b] appearance-none border-2 border-gray-700 rounded w-full py-2 px-4 text-white leading-tight focus:outline-none focus:border-purple-500"
                     id={`aggregate_${index}`}
                     name="aggregate"
                     value={x.aggregate}

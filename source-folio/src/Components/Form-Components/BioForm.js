@@ -31,10 +31,10 @@ const BioForm=(props)=>{
     
     return (
       <div
-        className=" p-4 mt-6 rounded-lg flex "
+        className="p-4 mt-6 rounded-lg lg:flex lg:flex-wrap"
         style={{ display: props.isSelected ? "" : "none" }}
       >
-        <div className="border border-gray-700 w-2/4 rounded-lg p-4">
+        <div className="border border-gray-700 lg:w-2/4 rounded-lg p-4 mt-2">
           <div className="text-xl text-white text-center">Bio Details</div>
           <div className="mt-8">
             <InputBox
@@ -46,7 +46,7 @@ const BioForm=(props)=>{
               value={inputObj.name}
               handleChange={handleinputchange}
             ></InputBox>
-            {inputObj["profilePicture"] != undefined ? <InputBox
+            {inputObj["profilePicture"] !== undefined ? <InputBox
               field="Profile Picture"
               type="file"
               name="profilePicture"
@@ -56,9 +56,9 @@ const BioForm=(props)=>{
               value={inputObj.profilePicture}
               isSelected = {true}
             ></InputBox> : 
-              <div class="md:flex md:items-center mb-6">
+              <div class="md:flex md:items-center md:justify-between mb-6">
                 <div>
-                  <label class="block text-gray-300 font-bold mb-1 md:mb-0 whitespace-nowrap mr-2" htmlFor={"profilePicture"}>
+                  <label class="block text-gray-300 font-bold mb-1 md:mb-0 whitespace-nowrap" htmlFor={"profilePicture"}>
                   Profile Picture:
                   </label>
                 </div>
@@ -67,7 +67,7 @@ const BioForm=(props)=>{
                     type="button"
                     data-te-ripple-init
                     data-te-ripple-color="light"
-                    class="inline-flex items-center rounded px-6 pb-2 pt-2.5 ml-24 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:bg-neutral-100 hover:text-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:text-primary-700"
+                    class="inline-flex items-center rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:bg-neutral-100 hover:text-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:text-primary-700"
                     onClick={() => {navigate(`/edit/profilePicture/${props.id}`)}}
                     >
                     Update Profile Picture
@@ -91,7 +91,7 @@ const BioForm=(props)=>{
           </div>
         </div>
 
-        <div className="border border-gray-700 w-2/4 rounded-lg ml-6 p-4">
+        <div className="border border-gray-700 lg:w-2/4 rounded-lg p-4 mt-2">
           <div className="text-xl text-white text-center">Social Handles!</div>
           <div className="mt-8">
             <InputBox
