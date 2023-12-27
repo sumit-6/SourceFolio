@@ -58,7 +58,7 @@ const ExperienceForm=(props)=>{
   }
     return (
       <div
-        className="p-4 mt-6 border border-gray-700 rounded-lg"
+        className="p-1 sm:p-4 mt-6 border border-gray-700 rounded-lg"
         style={{ display: props.isSelected ? "" : "none" }}
       >
         <div className="text-xl text-white text-center">
