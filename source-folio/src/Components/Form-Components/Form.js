@@ -126,29 +126,29 @@ const Form=(props)=>{
           className="form bg-grey-200 border-gray-500 border h-full w-full mt-10 rounded-lg p-8"
           onSubmit={(e) => handleSubmit(e)}
         >
-          <div className="flex">
-            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 0)}} style={{backgroundColor: (isVisible[0] ? "rgb(219, 144, 5)" : "")}}>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:flex lg:flex-wrap xl:flex xl:flex-wrap">
+            <div className={`navButton text-xs ${isVisible[0] ? "marker:border" : "border"} h-8 w-24 border-white text-white flex items-center justify-center ml-2 rounded-2xl cursor-pointer`} onClick={e => {handleNavButtonClick(e, 0)}} style={{backgroundColor: (isVisible[0] ? "rgb(219, 144, 5)" : "")}}>
               Bio
             </div>
-            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer " onClick={e => {handleNavButtonClick(e, 1)}} style={{backgroundColor: (isVisible[1] ? "rgb(219, 144, 5)" : "")}}>
+            <div className={`navButton text-xs ${isVisible[1] ? "marker:border" : "border"} h-8 w-24 border-white text-white flex items-center justify-center ml-2 rounded-2xl cursor-pointer`} onClick={e => {handleNavButtonClick(e, 1)}} style={{backgroundColor: (isVisible[1] ? "rgb(219, 144, 5)" : "")}}>
               About me
             </div>
-            <div className="navButton text-xs border h-8 w-32 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 2)}} style={{backgroundColor: (isVisible[2] ? "rgb(219, 144, 5)" : "")}}>
+            <div className={`navButton text-xs ${isVisible[2] ? "marker:border" : "border"} h-8 w-32 border-white text-white flex items-center justify-center ml-2 rounded-2xl cursor-pointer`} onClick={e => {handleNavButtonClick(e, 2)}} style={{backgroundColor: (isVisible[2] ? "rgb(219, 144, 5)" : "")}}>
               My Education
             </div>
-            <div className="navButton text-xs border h-8 w-32 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 3)}} style={{backgroundColor: (isVisible[3] ? "rgb(219, 144, 5)" : "")}}>
+            <div className={`navButton text-xs ${isVisible[3] ? "marker:border" : "border"} h-8 w-32 border-white text-white flex items-center justify-center ml-2 rounded-2xl cursor-pointer`} onClick={e => {handleNavButtonClick(e, 3)}} style={{backgroundColor: (isVisible[3] ? "rgb(219, 144, 5)" : "")}}>
               My Experience
             </div>
-            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 4)}} style={{backgroundColor: (isVisible[4] ? "rgb(219, 144, 5)" : "")}}>
+            <div className={`navButton text-xs ${isVisible[4] ? "marker:border" : "border"} h-8 w-24 border-white text-white flex items-center justify-center ml-2 rounded-2xl cursor-pointer`} onClick={e => {handleNavButtonClick(e, 4)}} style={{backgroundColor: (isVisible[4] ? "rgb(219, 144, 5)" : "")}}>
               My Projects
             </div>
-            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer " onClick={e => {handleNavButtonClick(e, 5)}} style={{backgroundColor: (isVisible[5] ? "rgb(219, 144, 5)" : "")}}>
+            <div className={`navButton text-xs ${isVisible[5] ? "marker:border" : "border"} h-8 w-24 border-white text-white flex items-center justify-center ml-2 rounded-2xl cursor-pointer`} onClick={e => {handleNavButtonClick(e, 5)}} style={{backgroundColor: (isVisible[5] ? "rgb(219, 144, 5)" : "")}}>
               My Skills
             </div>
-            <div className="navButton text-xs border h-8 w-36 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer " onClick={e => {handleNavButtonClick(e, 6)}} style={{backgroundColor: (isVisible[6] ? "rgb(219, 144, 5)" : "")}}>
+            <div className={`navButton text-xs ${isVisible[6] ? "marker:border" : "border"} h-8 w-36 border-white text-white flex items-center justify-center ml-2 rounded-2xl cursor-pointer`} onClick={e => {handleNavButtonClick(e, 6)}} style={{backgroundColor: (isVisible[6] ? "rgb(219, 144, 5)" : "")}}>
               My Achivements
             </div>
-            <div className="navButton text-xs border h-8 w-24 border-white text-white flex items-center justify-center ml-7 rounded-2xl cursor-pointer" onClick={e => {handleNavButtonClick(e, 7)}} style={{backgroundColor: (isVisible[7] ? "rgb(219, 144, 5)" : "")}}>
+            <div className={`navButton text-xs ${isVisible[7] ? "marker:border" : "border"} h-8 w-24 border-white text-white flex items-center justify-center ml-2 rounded-2xl cursor-pointer`} onClick={e => {handleNavButtonClick(e, 7)}} style={{backgroundColor: (isVisible[7] ? "rgb(219, 144, 5)" : "")}}>
               Contact
             </div>
           </div>
