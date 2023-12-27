@@ -37,11 +37,11 @@ function MainDesignations(props) {
                     <div className="flex justify-center">
                         {
                             inputList.length - 1 === index && 
-                            <IoIosAddCircleOutline className="h-8 w-8 text-white" onClick={(e)=> handleAddClick(e)}/>
+                            <IoIosAddCircleOutline className="h-8 w-8 text-white mt-8 md:mt-0" onClick={(e)=> handleAddClick(e)}/>
                         }
                         {
                             inputList.length !== 1 &&
-                            <IoIosRemoveCircleOutline className="h-8 w-8 text-white" onClick={(e)=> handleRemove(e, index)}/> 
+                            <IoIosRemoveCircleOutline className="h-8 w-8 text-white mt-8 md:mt-0" onClick={(e)=> handleRemove(e, index)}/> 
                         }
                     </div>
                  </div>

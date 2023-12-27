@@ -36,9 +36,9 @@ const WorkDescription = (props) => {
         {inputList.map((x, i) => {
             return (
                 <>
-                <div className="flex ">
+                <div className="flex">
                   <div className="flex-1">
-             <TextArea field="Enter Description"
+                    <TextArea field="Enter Description"
                             id={`workDescription_${props.index}_${i}`}
                             placeholder="Enter description of what you did at this workplace..."
                             value={x}
@@ -46,17 +46,16 @@ const WorkDescription = (props) => {
                             name={`workDescription_${props.index}`}
                             index = {i}></TextArea>
                   </div>
-            <div className="flex">
-              {
-                inputList.length - 1 === i && 
-                <IoIosAddCircleOutline className="h-8 w-8 text-white mt-12" onClick={(e)=> handleaddclick(e)}/>
-              }
-              {
-                inputList.length !== 1 &&
-                <IoIosRemoveCircleOutline className="h-8 w-8 text-white mt-12" onClick={(e)=> handleremove(e, i)}/> 
-              }
-              
-            </div>
+                  <div className="flex">
+                    {
+                      inputList.length - 1 === i && 
+                      <IoIosAddCircleOutline className="h-8 w-8 text-white mt-12" onClick={(e)=> handleaddclick(e)}/>
+                    }
+                    {
+                      inputList.length !== 1 &&
+                      <IoIosRemoveCircleOutline className="h-8 w-8 text-white mt-12" onClick={(e)=> handleremove(e, i)}/> 
+                    }
+                  </div>
             </div>
                 </>
             );

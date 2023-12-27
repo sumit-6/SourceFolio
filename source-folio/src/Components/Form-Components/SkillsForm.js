@@ -40,11 +40,11 @@ const SkillsForm = (props) => {
   }
     return (
       <div
-        className="p-4 mt-6"
+        className="p-1 sm:p-4 mt-6"
         style={{ display: props.isSelected ? "" : "none" }}
       >
         
-        <div className="border border-gray-700 rounded-lg p-2 mt-6">
+        <div className="border border-gray-700 rounded-lg p-1 sm:p-2 mt-6">
         <div className="text-xl text-white text-center">Programming Skills Details</div>
         <ProgrammingSkills
           data={inputObj.programmingSkills}
