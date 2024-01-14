@@ -50,7 +50,7 @@ const Projects=(props)=>{
           {
           props.data.map((x, i) => {
             return (
-              <div className="project__content" key={i}>
+              <div className="project__content w-11/12 h-full" key={i}>
                 <div>
                   <div className="Experience__icon">
                     <FaRegHeart />

@@ -36,7 +36,7 @@ const Experience=(props)=>{
           {props.data.map((x, i) => {
             return (
               <div
-                style={{ marginRight: "-0.7rem" }}
+                style={{ marginRight: "-0.7rem", borderRadius: "1.3rem" }}
                 className="experience__content"
               >
                 <div>
