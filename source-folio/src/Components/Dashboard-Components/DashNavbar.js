@@ -18,11 +18,9 @@ const NavBar = () => {
   const [focused, setFocused] = useState(false);
   const navigate = useNavigate();
   const [sfid, setsfId] = useState(null);
-  const [isAvailable, setIsAvailable] = useState(null);
   const {user, isLoading} = useUser();
   const [Token, setToken] = useState(null);
   const [data, setData] = useState(null);
-  const [isReady, setIsReady] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [filter, setFilter] = useState("name");
   const [list, setList] = useState([])
@@ -52,41 +50,32 @@ const NavBar = () => {
     }
     const portfolios = axios.get(`https://source-folio-woad.vercel.app/api/search/${filter}/${searchText}`, config);
     portfolios.then((data) => {
-      console.log(data.data);
+      //console.log(data.data);
       setList(data.data);
-    }).catch((error) => {
+    }).catch(() => {
       setList([]);
     });
   })()
-  }, [searchText])
+  }, [searchText, Token, filter])
 
   useEffect(() => {(async() => {
 
     const token = user && await user.getIdToken();
     setToken(token);
-    const response = await axios.get(`https://source-folio-woad.vercel.app/api/getID/${user.uid}`, {headers: {authtoken: token}});
-    
-    if(response.data !== 'Failure') {
-      const dataRes = response.data;
-      setsfId(dataRes);
-      const userData = await axios.get(`https://source-folio-woad.vercel.app/api/portfolio/${sfid}`);
-      setData(userData.data);
-      setIsAvailable(true);
-      setIsReady(true);
-    }
-    else {
-      setIsAvailable(false);
-      setIsReady(true);
-    }
+    if(user){
+      const response = await axios.get(`https://source-folio-woad.vercel.app/api/getID/${user.uid}`, {headers: {authtoken: token}});
+
+      if(response.data !== 'Failure') {
+        const dataRes = response.data;
+        setsfId(dataRes);
+        const userData = await axios.get(`https://source-folio-woad.vercel.app/api/portfolio/${sfid}`);
+        setData(userData.data);
+      }
+    } 
   })();
   }, [user, sfid]);
 
-  useEffect(() => {
-    setIsReady(false);
-    setTimeout(() => {
-      setIsReady(true);
-    }, 5000);
-  }, []);
+  
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -99,8 +88,8 @@ const NavBar = () => {
   
   return (
     <>
-      {!isReady && <Loading />}
-      {isReady && (
+      {isLoading && <Loading />}
+      {!isLoading && (
         <>
           <header className="header" id="light">
             <nav className="nav nav__container">
