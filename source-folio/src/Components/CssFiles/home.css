@@ -48,6 +48,7 @@
 .home__social-icon{
     font-size:1.25rem;
     color:white;
+    margin-bottom: 5px;
 }
 
 .home__social-icon:hover{
