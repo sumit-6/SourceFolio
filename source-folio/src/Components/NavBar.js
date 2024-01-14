@@ -9,82 +9,83 @@ import { Link } from "react-scroll";
 const NavBar=(props)=>{
 
     const [Toggle,showMenu]=useState(false);
+    const [onFocus, setOnFocus] = useState("aboutme")
     return (
       <header class="header" id="light">
         <nav className="nav nav__container">
           <Link to="aboutme" className="nav__logo" style={{ color: "white" }}>
-            {props.name} <span>.</span>
+            {props.name} <span style={{color: "orange"}}>.</span>
           </Link>
 
           <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>
             <ul className="nav__list ">
-              <li className="nav__item">
+              <li className="nav__item" onMouseEnter={() => {setOnFocus("aboutme")}}>
                 <Link
                   to="aboutme"
                   // smooth={true}
                   // duration={1000}
                   className="nav__link"
-                  style={{ color: "orange" }}
+                  style={onFocus === "aboutme" ? { color: "orange" } : {color: "white"}}
                 >
                   <i className="nav__icon"></i>About me
                 </Link>
               </li>
 
-              <li className="nav__item">
+              <li className="nav__item" onMouseEnter={() => {setOnFocus("education")}}>
                 <Link
                   to="education"
                   // smooth={true}
                   // duration={1000}
                   className="nav__link"
-                  style={{ color: "white" }}
+                  style={onFocus === "education" ? { color: "orange" } : {color: "white"}}
                 >
                   <i className="nav__icon"></i>Education
                 </Link>
               </li>
 
-              {props.myExperience.length ? <li className="nav__item">
+              {props.myExperience.length ? <li className="nav__item" onMouseEnter={() => {setOnFocus("experience")}}>
                 <Link
                   to="experience"
                   // smooth={true}
                   // duration={1000}
                   className="nav__link"
-                  style={{ color: "white" }}
+                  style={onFocus === "experience" ? { color: "orange" } : {color: "white"}}
                 >
                   <i className="nav__icon"></i>Experience
                 </Link>
               </li> : ""}
 
-              <li className="nav__item">
+              <li className="nav__item" onMouseEnter={() => {setOnFocus("projects")}}>
                 <Link
                   to="projects"
                   // smooth={true}
                   // duration={1000}
                   className="nav__link"
-                  style={{ color: "white" }}
+                  style={onFocus === "projects" ? { color: "orange" } : {color: "white"}}
                 >
                   <i className="nav__icon"></i>Projects
                 </Link>
               </li>
 
-              <li className="nav__item">
+              <li className="nav__item" onMouseEnter={() => {setOnFocus("skills")}}>
                 <Link
                   to="skills"
                   // smooth={true}
                   // duration={1000}
                   className="nav__link"
-                  style={{ color: "white" }}
+                  style={onFocus === "skills" ? { color: "orange" } : {color: "white"}}
                 >
                   <i className="nav__icon"></i>Skills
                 </Link>
               </li>
 
-              <li className="nav__item">
+              <li className="nav__item" onMouseEnter={() => {setOnFocus("achivements")}}>
                 <Link
                   to="achivements"
                   // smooth={true}
                   // duration={1000}
                   className="nav__link"
-                  style={{ color: "white" }}
+                  style={onFocus === "achivements" ? { color: "orange" } : {color: "white"}}
                 >
                   <i className="nav__icon"></i>Achivements
                 </Link>

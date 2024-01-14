@@ -23,7 +23,8 @@ const NavBar = () => {
   const [data, setData] = useState(null);
   const [searchText, setSearchText] = useState("");
   const [filter, setFilter] = useState("name");
-  const [list, setList] = useState([])
+  const [list, setList] = useState([]);
+  const [onFocus, setOnFocus] = useState("aboutus");
 
   function HandleSetFocused(focus) {
     setFocused(focus);
@@ -99,7 +100,7 @@ const NavBar = () => {
 
               <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>
                 <ul className="nav__list">
-                  <li className="nav__item">
+                  <li className="nav__item" onMouseEnter={() => {setOnFocus("aboutus")}}>
                     <Link
                       onClick={() =>
                         (window.location.href =
@@ -108,21 +109,21 @@ const NavBar = () => {
                       // smooth={true}
                       // duration={1000}
                       className="nav__link"
-                      style={{ color: "orange" }}
+                      style={onFocus === "aboutus" ? { color: "orange" } : {color: "white"}}
                     >
                       <i className="nav__icon"></i>About us
                     </Link>
                   </li>
 
                   {user && sfid && (
-                    <li className="nav__item">
+                    <li className="nav__item" onMouseEnter={() => {setOnFocus("view")}}>
                       <Link
                         onClick={() =>
                           (window.location.href = ` https://source-folio-frontend.vercel.app/portfolio/${sfid}`)
                         }
                         // duration={1000}
                         className="nav__link"
-                        style={{ color: "white" }}
+                        style={onFocus === "view" ? { color: "orange" } : {color: "white"}}
                       >
                         <i className="nav__icon"></i>View My sourceFolio
                       </Link>
@@ -130,7 +131,7 @@ const NavBar = () => {
                   )}
 
                   {user && !sfid && (
-                    <li className="nav__item">
+                    <li className="nav__item" onMouseEnter={() => {setOnFocus("make")}}>
                       <Link
                         onClick={() =>
                           (window.location.href = `https://react-form-ten-steel.vercel.app/form?q=${Token}&where=form`)
@@ -138,7 +139,7 @@ const NavBar = () => {
                         // smooth={true}
                         // duration={1000}
                         className="nav__link"
-                        style={{ color: "white" }}
+                        style={onFocus === "make" ? { color: "orange" } : {color: "white"}}
                       >
                         <i className="nav__icon"></i>Make My SourceFolio
                       </Link>
@@ -146,24 +147,24 @@ const NavBar = () => {
                   )}
 
 
-                  <li className="nav__item">
+                  <li className="nav__item" onMouseEnter={() => {setOnFocus("contact")}}>
                     <a
                       href="mailto:sourcefolio2023@gmail.com"
                       className="nav__link"
-                      style={{color: "white"}}
+                      style={onFocus === "contact" ? { color: "orange" } : {color: "white"}}
                     >
                       Contact
                     </a>
                   </li>
 
                   {!user && (
-                    <li className="nav__item">
+                    <li className="nav__item" onMouseEnter={() => {setOnFocus("login")}}>
                       <Link
                         onClick={() => navigate(`login`)}
                         // smooth={true}
                         // duration={1000}
                         className="nav__link"
-                        style={{ color: "white" }}
+                        style={onFocus === "login" ? { color: "orange" } : {color: "white"}}
                       >
                         <i className="nav__icon"></i>Login/Signup
                       </Link>
@@ -171,13 +172,13 @@ const NavBar = () => {
                   )}
                    
                   {user && (
-                    <li className="nav__item">
+                    <li className="nav__item" onMouseEnter={() => {setOnFocus("logout")}}>
                       <Link
                         onClick={(e) => handleLogout(e)}
                         // smooth={true}
                         // duration={1000}
                         className="nav__link"
-                        style={{ color: "white" }}
+                        style={onFocus === "logout" ? { color: "orange" } : {color: "white"}}
                       >
                         <i className="nav__icon"></i>Logout
                       </Link>
