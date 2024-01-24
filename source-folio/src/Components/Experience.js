@@ -102,7 +102,7 @@ const Experience=(props)=>{
                         <div>
                           <AiOutlineCheckCircle />
                         </div>
-                        <p className="experience__modal-info">
+                        <p className="experience__modal-info" style={{color: "orange"}}>
                           <a
                             href={`${x.certificate}`}
                             target="_blank"
