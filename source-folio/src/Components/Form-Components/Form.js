@@ -248,6 +248,7 @@ const Form=(props)=>{
           <div
             type="submit"
             className="border border-white flex items-center justify-center m-5 p-2 text-orange-400 rounded-lg max-w-min cursor-pointer hover:border-orange-400"
+            onClick={(e) => {handleSubmit(e)}}
           >
             Submit&nbsp;Form
           </div>
