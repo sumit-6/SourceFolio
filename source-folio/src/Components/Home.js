@@ -14,8 +14,8 @@ const Home=(props)=>{
                 <div className="home__content grid">
                     <Social instagram={props.instagram} linkedIn={props.linkedIn} githubProfile={props.githubProfile}/>
 
-                    <div className="home__img" style={{background: `url(${getThumbnail(props.profilePicture.url)})`}}></div>
-                    {/* <h1>lol</h1> */}
+                    {props.profilePicture.url !== null ? <div className="home__img" style={{background: `url(${getThumbnail(props.profilePicture.url)})`}}></div> : null}
+                    
                     <Data name={props.name} description={props.description} mainDesignations={props.mainDesignations}/>
                 </div>
             </div>

@@ -14,7 +14,7 @@ import "../CssFiles/portfolio.css";
 import "../../index.css";
 
 const Preview = (props) => {
-  const data = props.data;
+  const data = {...props.data};
   
   return (
     <>
@@ -45,14 +45,14 @@ const Preview = (props) => {
                 <hr />
               </>
             ) : (
-              null
+              ""
             )}
             {data.myProjects.length ? (<>
                 <Projects data={data.myProjects} />
                 <hr />
               </>
             ) : (
-              null
+              ""
             )}
             <Skills data={data.mySkills} />
             <hr />
