@@ -12,7 +12,7 @@ const ContactForm = (props) => {
     }
     return (
       <div
-        className="border border-gray-700 rounded-lg p-1 sm:p-4 mt-6"
+        className="border border-gray-700 rounded-lg p-2 sm:p-4 mt-6"
         style={{ display: props.isSelected ? "" : "none" }}
       >
         <div className="text-xl text-white text-center">Contact Details!</div>

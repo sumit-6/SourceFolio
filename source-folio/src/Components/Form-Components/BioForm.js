@@ -34,7 +34,7 @@ const BioForm=(props)=>{
         className="p-1 sm:p-4 mt-6 rounded-lg lg:flex lg:flex-wrap"
         style={{ display: props.isSelected ? "" : "none" }}
       >
-        <div className="border border-gray-700 lg:w-2/4 rounded-lg p-1 sm:p-4 mt-2">
+        <div className="border border-gray-700 lg:w-2/4 rounded-lg p-2 sm:p-4 mt-2">
           <div className="text-xl text-white text-center">Bio Details</div>
           <div className="mt-8">
             <InputBox
