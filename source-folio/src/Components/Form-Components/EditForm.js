@@ -166,7 +166,7 @@ const EditForm=(props)=>{
           }
           style={{width: "90vw", height: "90vh", padding: "0"}}
         >
-          <div className="experience__modal-content overflow-y-scroll"
+          <div className="overflow-y-scroll"
           style={{width: "100%", height: "100%", border: "2px solid white", borderRadius: "20px"}}>
             <div
               className="experience__modal-close"
