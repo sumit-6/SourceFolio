@@ -11,7 +11,7 @@ const NavBar=(props)=>{
     const [Toggle,showMenu]=useState(false);
     const [onFocus, setOnFocus] = useState("aboutme")
     return (
-      <header class="header" id="light">
+      <header className="header" id="light">
         <nav className="nav nav__container">
           <Link to="aboutme" className="nav__logo" style={{ color: "white" }}>
             {props.name} <span style={{color: "orange"}}>.</span>
