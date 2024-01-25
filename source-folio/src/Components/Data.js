@@ -7,7 +7,7 @@ const Data = (props) => {
   const listOfDesignations = props.mainDesignations.map((x) => {return `I'm ${x}`});;
   return (
     <div className="home__data">
-      <h1 className="home__title" style={{ fontSize: "2rem" }}>
+      {props.name !== "" ? <h1 className="home__title" style={{ fontSize: "2rem" }}>
         I am {`${props.name}`}
         <svg
           width="36"
@@ -58,16 +58,16 @@ const Data = (props) => {
             fill="#EBA352"
           ></path>
         </svg>
-      </h1>
-      <h3 className="home__subtitle"><Typewriter options={{
+      </h1> : null}
+      {listOfDesignations.length !== 0 ? <h3 className="home__subtitle"><Typewriter options={{
         autoStart : true,loop:true, delay:40,strings:listOfDesignations,
-      }}/></h3>
-      <p className="home__description">
+      }}/></h3> : null}
+      {props.description !== "" ? <p className="home__description">
         {props.description}
-      </p>
-      <Link
+      </p> : null}
+      {props.description ? <Link
         to="contact"
-        className="button button--flex"
+        className="button button--flex cursor-pointer"
         style={{ color: "white", marginTop: "1.3rem" }}
       >
         Say Hello
@@ -88,8 +88,8 @@ const Data = (props) => {
             fill="#DA7328"
           ></path>
         </svg>
-      </Link>
-    </div>
+      </Link> : null}
+    </div> 
   );
 }
 

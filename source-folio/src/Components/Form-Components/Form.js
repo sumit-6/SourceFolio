@@ -10,16 +10,19 @@ import AchievementsForm from "./AchievementsForm";
 import ContactForm from "./ContactForm";
 import axios from 'axios';
 import useUser from "../../hooks/useUser";
+import Preview from "../Preview/Preview";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const Form=(props)=>{
     const [isVisible, setIsVisible] = useState([true, false, false, false, false, false, false, false]);
     const [inputData, setInputData] = useState({name: "", instagram: "", 
     linkedIn: "", githubProfile: "", bio: "", yearsOfExperience: "", numberOfProjects: "", 
-    description: "", email: "", telephone: "", profilePicture: {url: null, filename: null}, mainDesignations:[""]});
+    description: "", email: "", telephone: "", profilePicture: {url: "https://res.cloudinary.com/dk26fyzkl/image/upload/v1705001736/SourceFolio/c7xjisezokd3rbogmba9.jpg", filename: "c7xjisezokd3rbogmba9"}, mainDesignations:[""]});
     const [sfid, setsfId] = useState(null);
 
     const {user, isLoading} = useUser();
     const [Token, setToken] = useState(null);
+    const [togglePreview, setTogglePreview] = useState(0);
     
     const [inputExperienceList, setInputExperienceList] = useState([]);
     const [inputProjectList, setInputProjectList] = useState([]);
@@ -121,6 +124,33 @@ const Form=(props)=>{
         <div className="text-2xl text-center text-white">
           Fill your details below!!
         </div>
+        <div className="border border-white flex items-center justify-center m-5 p-2 text-orange-400 rounded-lg max-w-min cursor-pointer hover:border-orange-400"
+         onClick={() => {setTogglePreview(1)}}>
+          Preview
+        </div>
+
+        <div
+          className={
+            togglePreview === 1
+              ? "experience__modal m-auto fixed active-modal flex items-center justify-center"
+              : "experience__modal m-auto"
+          }
+          style={{width: "90vw", height: "90vh", padding: "0"}}
+        >
+          <div className="overflow-y-scroll"
+          style={{width: "100%", height: "100%", border: "2px solid white", borderRadius: "20px"}}>
+            <div
+              className="experience__modal-close"
+              onClick={() => {
+                setTogglePreview(0);
+              }}
+            >
+              <AiOutlineCloseCircle />
+            </div>
+            <Preview data={{...inputData, myExperience: inputExperienceList, myEducation: inputEducationList, myProjects: inputProjectList, myAchievements: inputAchievement, mySkills: inputSkills}} />
+          </div>
+
+        </div>
         <form
           encType="multipart/form-data"
           className="form bg-grey-200 border-gray-500 border h-full w-full mt-10 rounded-lg p-2 sm:p-8"
@@ -215,14 +245,12 @@ const Form=(props)=>{
             handleChange={handleDataChange}
           />
           
-          <button
+          <div
             type="submit"
-            className={`btn btn-lg flex items-center justify-center m-5 ${
-              isContact ? "text-orange-400 " : "hidden"
-            }`}
+            className="border border-white flex items-center justify-center m-5 p-2 text-orange-400 rounded-lg max-w-min cursor-pointer hover:border-orange-400"
           >
-            Submit Form
-          </button>
+            Submit&nbsp;Form
+          </div>
         </form>
       </div>
     );

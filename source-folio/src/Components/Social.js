@@ -7,29 +7,29 @@ import "./CssFiles/home.css"
 const Social=(props)=>{
     return (
       <div className="home__social">
-        <a
+        {props.instagram !== "" ? <a
           href={`${props.instagram}`}
           className="home__social-icon"
           target="_blank"
         >
           <SiInstagram />
-        </a>
+        </a> : null}
 
-        <a
+        {props.linkedIn !== "" ? <a
           href={`${props.linkedIn}`}
           className="home__social-icon"
           target="_blank"
         >
           <SiLinkedin />
-        </a>
+        </a> : null}
 
-        <a
+        {props.githubProfile !== "" ? <a
           href={`${props.githubProfile}`}
           className="home__social-icon"
           target="_blank"
         >
           <SiGithub />
-        </a>
+        </a> : null}
       </div>
     );
 }

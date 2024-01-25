@@ -12,6 +12,8 @@ import axios from 'axios';
 import useUser from "../../hooks/useUser";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Preview from "../Preview/Preview";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const EditForm=(props)=>{
     const path = useLocation().pathname;
@@ -24,6 +26,7 @@ const EditForm=(props)=>{
     const [data, setData] = useState({});
     const {user, isLoading} = useUser();
     const [Token, setToken] = useState(null);
+    const [togglePreview, setTogglePreview] = useState(0);
 
 
     
@@ -150,6 +153,33 @@ const EditForm=(props)=>{
         <div className="text-2xl text-center text-white">
           Fill your details below!!
         </div>
+        <div className="border border-white flex items-center justify-center m-5 p-2 text-orange-400 rounded-lg max-w-min cursor-pointer hover:border-orange-400"
+         onClick={() => {setTogglePreview(1)}}>
+          Preview
+        </div>
+
+        <div
+          className={
+            togglePreview === 1
+              ? "experience__modal m-auto fixed active-modal flex items-center justify-center"
+              : "experience__modal m-auto"
+          }
+          style={{width: "90vw", height: "90vh", padding: "0"}}
+        >
+          <div className="experience__modal-content overflow-y-scroll"
+          style={{width: "100%", height: "100%", border: "2px solid white", borderRadius: "20px"}}>
+            <div
+              className="experience__modal-close"
+              onClick={() => {
+                setTogglePreview(0);
+              }}
+            >
+              <AiOutlineCloseCircle />
+            </div>
+            <Preview data={{...inputData, myExperience: inputExperienceList, myEducation: inputEducationList, myProjects: inputProjectList, myAchievements: inputAchievement, mySkills: inputSkills}} />
+          </div>
+
+        </div>
         <form
           encType="multipart/form-data"
           className="form bg-grey-200 border-gray-500 border h-full w-full mt-10 rounded-lg p-2 sm:p-8"
@@ -252,14 +282,12 @@ const EditForm=(props)=>{
             handleChange={handleDataChange}
           />
          
-          <button
+          <div
             type="submit"
-            className={`btn btn-lg flex items-center justify-center m-5 ${
-              isContact ? "text-orange-400 " : "hidden"
-            }`}
+            className="border border-white flex items-center justify-center m-5 p-2 text-orange-400 rounded-lg w-min cursor-pointer hover:border-orange-400"
           >
-            Submit Form
-          </button>
+            Submit&nbsp;Form
+          </div>
         </form>
       </div>
     );
