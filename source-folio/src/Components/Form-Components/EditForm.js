@@ -149,7 +149,7 @@ const EditForm=(props)=>{
     }
     
     return ( (data["name"]) && 
-      <div className="p-2 sm:p-8">
+      <div className="p-2 sm:p-8" style={{visibility: togglePreview === 1 ? "hidden" : "visible"}}>
         <div className="text-2xl text-center text-white">
           Fill your details below!!
         </div>
@@ -169,7 +169,7 @@ const EditForm=(props)=>{
           <div className="overflow-y-scroll"
           style={{width: "100%", height: "100%", border: "2px solid white", borderRadius: "20px"}}>
             <div
-              className="experience__modal-close z-50"
+              className="experience__modal-close z-50 cursor-pointer"
               onClick={() => {
                 setTogglePreview(0);
               }}
