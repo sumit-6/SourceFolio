@@ -140,7 +140,7 @@ const Form=(props)=>{
           <div className="overflow-y-scroll"
           style={{width: "100%", height: "100%", border: "2px solid white", borderRadius: "20px"}}>
             <div
-              className="experience__modal-close"
+              className="experience__modal-close z-50"
               onClick={() => {
                 setTogglePreview(0);
               }}
