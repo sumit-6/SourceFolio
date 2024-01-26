@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import NavBar from "../NavBar.js";
+import NavBar from "./NavBar.js";
 import Home from "../Home.js";
 import "../../App.css";
 import Aboutme from "../Aboutme.js";
@@ -19,6 +19,7 @@ const Preview = (props) => {
   return (
     <>
       <div className="Portfolio rounded-xl">
+      <span className="hidden lg:block"><NavBar name={data.name} myExperience={data.myExperience} /></span>
           <main className="main">
             <Home
               name={data.name}
