@@ -119,6 +119,26 @@ svg{
   display: block;
 } */
 
+.blue{
+  --body : #18162b;
+  --font : orange ; 
+}
+
+.black { 
+  --body : black ; 
+  --font : #859448 ; 
+}
+
+.lightGrey { 
+  --body : #E6DCD3; 
+  --font : #B4A79E; 
+}
+
+.greenish{
+  --body : #CBD18F;
+  --font : #3A6B35; 
+}
+
 /*=============== REUSABLE CSS CLASSES ===============*/
 .section {
   padding: 6rem 0 2rem;
@@ -157,7 +177,7 @@ svg{
 } */
 
 body{
-  background-color: #18162b;
+  background-color: var(--body);
 }
 
 /* .for_light_theme{
