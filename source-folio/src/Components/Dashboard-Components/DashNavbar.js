@@ -99,7 +99,7 @@ const NavBar = () => {
               </Link>
 
               <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>
-                <ul className="nav__list" style={{marginTop: "1rem"}}>
+                <ul className="nav__list" style={{marginTop: "2rem"}}>
                   <li className="nav__item" onMouseEnter={() => {setOnFocus("aboutus")}}>
                     <Link
                       onClick={() =>

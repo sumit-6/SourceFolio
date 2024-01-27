@@ -16,7 +16,6 @@ const NavBar=(props)=>{
           <Link to="aboutme" className="nav__logo" style={{ color: "white" }}>
             {props.name} <span style={{color: "orange"}}>.</span>
           </Link>
-
           <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>
             <ul className="nav__list ">
               <li className="nav__item" onMouseEnter={() => {setOnFocus("aboutme")}}>
@@ -30,7 +29,7 @@ const NavBar=(props)=>{
                   <i className="nav__icon"></i>About me
                 </Link>
               </li>
-
+              
               <li className="nav__item" onMouseEnter={() => {setOnFocus("education")}}>
                 <Link
                   to="education"

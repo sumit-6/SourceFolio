@@ -17,7 +17,7 @@ const About = (props) => {
           alt=""
           className="about__img"
         />
-
+        
         <div className="about__data">
           <Info
             yearsOfExperience={props.yearsOfExperience}
