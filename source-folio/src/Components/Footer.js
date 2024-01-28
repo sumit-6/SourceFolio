@@ -35,10 +35,11 @@ const Footer=(props)=>{
     }
     return (
       <section className="footer__copy">
-        <div className="footer__content">
+        <div className="footer__content" style={{ display: "flex", alignItems: "center" }}>
           {!isLoading && user && token && user.uid == props.data.user_id && (
             <a
               className="buttonn"
+              
               onClick={() => {
                 navigate(`/edit/${props.id}`);
               }}
@@ -57,15 +58,16 @@ const Footer=(props)=>{
             <div style={{ display: "flex" }}>
               <a
                 className="buttonn"
+                style={{ display: "flex", alignItems: "center" }}
                 onClick={() => {
                   navigate("/");
                 }}
               >
-                Back to home
-              </a>{" "}
-              <span className="mt-2 md:mt-0">
+                Back to home<span className="mt-2 md:mt-0 mb-5 md:mb-2">
                 <AiOutlineHome className="home__icon" />
               </span>
+              </a>
+              
             </div>
           </div>
         )}

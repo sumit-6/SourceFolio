@@ -1,5 +1,4 @@
 import React,{useState} from "react";
-import "./NavBar.css"
 import { RxCross2 } from "react-icons/rx";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-scroll";

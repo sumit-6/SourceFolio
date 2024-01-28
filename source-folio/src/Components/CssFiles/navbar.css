@@ -32,7 +32,7 @@
 .nav__list{
     display:flex;
     column-gap:2rem;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
 .nav__link{
