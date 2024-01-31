@@ -95,7 +95,7 @@ const NavBar = () => {
           <header className="header" id="light">
             <nav className="nav nav__container">
               <Link className="nav__logo" style={{ color: "white" }}>
-                SourceFolio <span style={{ color: "orange" }}>.</span>
+                SourceFolio&nbsp;<span style={{ color: "orange" }}>.</span>
               </Link>
 
               <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>
@@ -111,7 +111,7 @@ const NavBar = () => {
                       className="nav__link"
                       style={onFocus === "aboutus" ? { color: "orange" } : {color: "white"}}
                     >
-                      <i className="nav__icon"></i>About us
+                      <i className="nav__icon"></i>About&nbsp;us
                     </Link>
                   </li>
 
@@ -119,13 +119,13 @@ const NavBar = () => {
                     <li className="nav__item" onMouseEnter={() => {setOnFocus("view")}}>
                       <Link
                         onClick={() =>
-                          (window.location.href = ` https://source-folio-frontend.vercel.app/portfolio/${sfid}`)
+                          {navigate(`/portfolio/${sfid}`)}
                         }
                         // duration={1000}
                         className="nav__link"
                         style={onFocus === "view" ? { color: "orange" } : {color: "white"}}
                       >
-                        <i className="nav__icon"></i>View My sourceFolio
+                        <i className="nav__icon"></i>View&nbsp;My&nbsp;sourceFolio
                       </Link>
                     </li>
                   )}
@@ -141,7 +141,7 @@ const NavBar = () => {
                         className="nav__link"
                         style={onFocus === "make" ? { color: "orange" } : {color: "white"}}
                       >
-                        <i className="nav__icon"></i>Make My SourceFolio
+                        <i className="nav__icon"></i>Make&nbsp;My&nbsp;SourceFolio
                       </Link>
                     </li>
                   )}
@@ -185,10 +185,10 @@ const NavBar = () => {
                     </li>
                   )}
                 
-                <li>
+                <li className="hidden md:block">
                   <div onFocus={() => {HandleSetFocused(true)}} onBlur={() => {HandleSetFocused(false)}} tabIndex={0}>
                   <SearchBox handleInputChange={handleSearchInput}/>
-                  <div className="md:w-15 lg:w-15" style={{display: (list.length > 0 && focused) ? "" : "none", maxHeight: "300px", overflowY: "scroll"}}>
+                  <div className="md:w-48 lg:w-48" style={{display: (searchText.length > 0 && focused) ? "" : "none", maxHeight: "300px", overflowY: "scroll"}}>
                     <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
                       {list.map((x, index) => {
                         return (
@@ -215,7 +215,7 @@ const NavBar = () => {
                   </div>
                 </li>
 
-                <li>
+                <li className={`hidden ${focused ? "md:hidden" : "md:block"}`}>
                 <DropdownMenu handleSearchChange={handleSearchText}/>
                 </li>
 
