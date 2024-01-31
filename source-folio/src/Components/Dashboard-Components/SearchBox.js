@@ -14,7 +14,7 @@ function SearchBox(props) {
             <div className={`relative ${document.activeElement === ref.current ? "w-48" : "w-12"} mx-auto`}>
                 <input type="search" name="search" id="search"
                 ref={ref}
-                autoFocus
+                
                  className="relative peer z-10 bg-transparent w-12 h-8 rounded-xl border 
                  focus:w-full focus:border-orange-300 focus:cursor-text focus:pl-16 focus:pr-4
                   pl-12
