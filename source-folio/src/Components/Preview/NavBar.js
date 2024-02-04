@@ -18,7 +18,7 @@ const NavBar=(props)=>{
       style={{marginTop: "0.1rem", width: "calc(100% - 20px)"}}>
         <nav className="nav nav__container">
           <Link onClick={() => {handleClickScroll("aboutme")}} className="nav__logo" style={{ color: "white" }}>
-            {props.name} <span style={{color: "orange"}}>.</span>
+            {props.name}&nbsp;<span style={{color: "orange"}}>.</span>
           </Link>
 
           <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>

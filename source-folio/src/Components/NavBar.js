@@ -17,7 +17,7 @@ const NavBar=(props)=>{
       >
         <nav className="nav nav__container">
           <Link to="aboutme" className="nav__logo" style={{ color: "white" }}>
-            {props.name} <span style={{ color: "orange" }}>.</span>
+            {props.name}&nbsp;<span style={{ color: "orange" }}>.</span>
           </Link>
           <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>
             <ul className="nav__list ">
