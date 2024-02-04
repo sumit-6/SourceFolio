@@ -15,7 +15,7 @@ const TextArea = (props) => {
         <div className="md:w-2/3">
           <textarea
             rows="4"
-            class="bg-[#18162b] block p-2.5 text-white rounded-lg border-2 leading-tight border-gray-700 dark:focus:ring-purple-500 dark:focus:border-purple-500 sm:w-full w-full lg:mt-4"
+            class="bg-[#18162b] block p-2.5 text-white rounded-lg border-2 leading-tight border-gray-700 dark:focus:ring-purple-500 dark:focus:border-purple-500 focus:outline-none focus:border-purple-500 sm:w-full w-full lg:mt-4"
             id={id}
             name={name}
             placeholder={placeholder}
