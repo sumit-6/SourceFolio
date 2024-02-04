@@ -13,9 +13,9 @@ const NavBar=(props)=>{
     const [Toggle,showMenu]=useState(false);
     const [onFocus, setOnFocus] = useState("aboutme")
     return (
-      <header className="w-full top-0 z-40 absolute md:backdrop-filter md:backdrop-blur-lg md:bg-opacity-30 rounded-tl-3xl" 
+      <header className="w-full top-0 z-40 absolute md:backdrop-filter md:backdrop-blur-lg md:bg-opacity-30 rounded-tl-3xl mt-5 sm:mt-[0.1rem]" 
       id="light"
-      style={{marginTop: "0.1rem", width: "calc(100% - 20px)"}}>
+      style={{width: "calc(100% - 20px)"}}>
         <nav className="nav nav__container">
           <Link onClick={() => {handleClickScroll("aboutme")}} className="nav__logo" style={{ color: "white" }}>
             {props.name}&nbsp;<span style={{color: "orange"}}>.</span>
