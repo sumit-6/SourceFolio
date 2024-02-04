@@ -1,6 +1,5 @@
 import React,{useState} from "react";
 import { RxCross2 } from "react-icons/rx";
-import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-scroll";
 
 const NavBar=(props)=>{
@@ -14,7 +13,9 @@ const NavBar=(props)=>{
     const [Toggle,showMenu]=useState(false);
     const [onFocus, setOnFocus] = useState("aboutme")
     return (
-      <header className="w-full top-0 left-0 z-40 mt-7 fixed" id="light">
+      <header className="w-full top-0 z-40 absolute md:backdrop-filter md:backdrop-blur-lg md:bg-opacity-30 rounded-tl-3xl" 
+      id="light"
+      style={{marginTop: "0.1rem", width: "calc(100% - 20px)"}}>
         <nav className="nav nav__container">
           <Link onClick={() => {handleClickScroll("aboutme")}} className="nav__logo" style={{ color: "white" }}>
             {props.name} <span style={{color: "orange"}}>.</span>
@@ -108,14 +109,12 @@ const NavBar=(props)=>{
           </div>
 
           <div
-            className="nav__toggle"
+            className="nav__toggle bottom-0"
             onClick={() => {
               showMenu(!Toggle);
             }}
           >
-            <i style={{ color: "white"}} className="navbar__menu__list">
-              <AiOutlineMenu />
-            </i>
+            &nbsp;
           </div>
         </nav>
       </header>

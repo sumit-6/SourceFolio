@@ -19,8 +19,9 @@ const Preview = (props) => {
   return (
     <>
       <div className="Portfolio rounded-xl">
-      <span className="hidden lg:block"><NavBar name={data.name} myExperience={data.myExperience} /></span>
+          <NavBar name={data.name} myExperience={data.myExperience} />
           <main className="main">
+          
             <Home
               name={data.name}
               mainDesignations={data.mainDesignations}
