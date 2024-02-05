@@ -6,9 +6,10 @@ import "./CssFiles/home.css"
 import Information from "./Information";
 
 const Social=(props)=>{
+  const {token, user, isLoading, user_id} = props;
     return (
       <div className="home__social">
-        <Information />
+        {!isLoading && user && token && user.uid == user_id && <Information />}
 
         {props.instagram !== "" ? <a
           href={`${props.instagram}`}

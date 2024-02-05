@@ -86,6 +86,10 @@ const Portfolio = () => {
               githubProfile={data.githubProfile}
               linkedIn={data.linkedIn}
               instagram={data.instagram}
+              user_id={data.user_id}
+              user={user}
+              token={token}
+              isLoading={isLoading}
             />
             <hr />
             <Aboutme
