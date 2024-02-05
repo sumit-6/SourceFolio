@@ -3,10 +3,13 @@ import { SiInstagram } from "react-icons/si";
 import { SiLinkedin } from "react-icons/si";
 import { SiGithub } from "react-icons/si";
 import "./CssFiles/home.css"
+import Information from "./Information";
 
 const Social=(props)=>{
     return (
       <div className="home__social">
+        <Information />
+
         {props.instagram !== "" ? <a
           href={`${props.instagram}`}
           className="home__social-icon"

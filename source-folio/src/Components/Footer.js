@@ -1,23 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./CssFiles/footer.css"
 import { AiOutlineHome } from "react-icons/ai";
-import useUser from "../hooks/useUser";
 import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
 const Footer=(props)=>{
-  const {user, isLoading} = useUser();
-  const [token, setToken] = useState(null);
+  const {user, token, isLoading} = props;
   const navigate = useNavigate();
-  useEffect(() => {
-    (async () => {
-      const t = user && await user.getIdToken();
-      setToken(t);
-    })();
-
-    
-  }, [user])
-
   const handleDelete = async (e) => {
       e.preventDefault();
       const config = {

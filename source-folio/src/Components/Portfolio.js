@@ -16,6 +16,7 @@ import axios from "axios";
 import "./CssFiles/portfolio.css";
 import "../index.css";
 import Footer from "./Footer";
+import useUser from "../hooks/useUser";
 import { useNavigate } from "react-router-dom";
 
 const Portfolio = () => {
@@ -27,6 +28,18 @@ const Portfolio = () => {
   const queryParams = new URLSearchParams(location.search);
   const [successMessage, setSuccessMessage] = useState(queryParams.get('success'));
   const navigate = useNavigate();
+
+  const {user, isLoading} = useUser();
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const t = user && await user.getIdToken();
+      setToken(t);
+    })();
+
+    
+  }, [user])
 
   useEffect(() => {
     // Set a timeout to remove the flash message after 3 seconds
@@ -109,7 +122,7 @@ const Portfolio = () => {
               telephone={data.telephone}
               email={data.email}
             />
-            <Footer id={ID} data={data} />
+            <Footer id={ID} data={data} user={user} token={token} isLoading={isLoading} setToken={setToken} />
           </main>
         )}
       </div>
