@@ -87,22 +87,59 @@ const Form=(props)=>{
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-      const form = document.querySelector('.form');
-      const formData_empty = new FormData(form);
-      const formData = {};
-      for (const key of formData_empty.entries()) {
-        
-          if(!formData[key[0]]) formData[key[0]] = key[1];
-          else if(typeof(formData[key[0]]) !== 'object') {
-            formData[key[0]] = [formData[key[0]]];
-            formData[key[0]].push(key[1]);
-          } else {
-            formData[key[0]].push(key[1]);
-          }
-      }
 
-      
-      
+      const formData = {};
+      // {name: "", instagram: "", 
+    //linkedIn: "", githubProfile: "", bio: "", yearsOfExperience: "", numberOfProjects: "", 
+    //description: "", email: "", telephone: 0, profilePicture: {url: null, filename: null}, mainDesignations:[""]}
+      const names = ["name", "instagram", "linkedIn", "githubProfile", "bio", "yearsOfExperience", "numberOfProjects", "description", "email", "telephone", "mainDesignations"];
+      names.forEach((name) => {
+        formData[name] = inputData[name];
+      })
+      if(inputEducationList.length > 0) {
+        const names = ["institutionName", "year", "place", "aggregate", "coursePursuied"]
+        names.forEach((name) => {
+          formData[name] = inputEducationList.map((x) => (x[name]));
+        })
+      }
+      if(inputExperienceList.length) {
+        const names = ["role", "company", "certificate"]
+        names.forEach((name) => {
+          formData[name] = inputExperienceList.map((x) => (x[name]));
+          
+        });
+        formData[`start`] = []
+        formData[`end`] = []
+        inputExperienceList.forEach((exp, index) => {
+          formData[`workDescription_${index}`] = exp.workDescription;
+          formData[`start`].push(exp.duration.start);
+          formData[`end`].push(exp.duration.end);
+        });
+      }
+      if(inputProjectList.length > 0) {
+        const names = ["projectName", "gitHubLink", "projectLink"]
+        names.forEach((name) => {
+          formData[name] = inputEducationList.map((x) => (x[name]));
+        })
+
+        inputProjectList.forEach((project, index) => {
+          formData[`projectDescription_${index}`] = project.description;
+        })
+      }
+      formData["skillName"] = [];
+      formData["skillLevel"] = [];
+      formData["toolName"] = [];
+      formData["toolLevel"] = [];
+      inputSkills.programmingSkills.forEach((skill) => {
+        formData["skillName"].push(skill.skillName);
+        formData["skillLevel"].push(skill.skillLevel);
+      })
+      inputSkills.toolsAndFrameworks.forEach((tool) => {
+        formData["toolName"].push(tool.toolName);
+        formData["toolLevel"].push(tool.toolLevel);
+      })
+      formData["myAchievements"] = inputAchievement;
+
       const config = {
         headers: {
           'Authtoken': Token,
