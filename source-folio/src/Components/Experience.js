@@ -9,6 +9,8 @@ import "./CssFiles/experience.css"
 const Experience=(props)=>{
 
   function formatDate(dateString) {
+    console.log(dateString)
+    if(dateString === undefined) dateString = ""
     const months = [
       "January", "February", "March", "April", "May", "June", "July", "August",
       "September", "October", "November", "December"
@@ -18,7 +20,8 @@ const Experience=(props)=>{
     const monthIndex = parseInt(dateParts[1]) - 1;
     const monthName = months[monthIndex];
     const year = dateParts[0];
-    return `${monthName} ${year}`;
+    
+    return `${monthName !== undefined ? monthName : ''} ${year !== '' ? year : "Present"}`;
   }
     const [toggleState,setToggleState]=useState(0);
     
@@ -34,6 +37,7 @@ const Experience=(props)=>{
 
         <div className="experience__container nav__container grid">
           {props.data.map((x, i) => {
+            console.log(x.duration)
             return (
               <div
                 style={{ marginRight: "-0.7rem", borderRadius: "1.3rem" }}
@@ -77,7 +81,7 @@ const Experience=(props)=>{
                     </div>
                     <h3 className="experience__modal-title">{x.role}</h3>
                     <p className="experience__modal-description">
-                      {x.role} at <b style={{color: "orange"}}>{x.company}</b>, {formatDate(x.duration.start)} to {formatDate(x.duration.end)}
+                      {x.role} at <b style={{color: "orange"}}>{x.company}</b><span style={{display: (x.duration.start === x.duration.end && x.duration.start === "") ? "none": ""}}>, {formatDate(x.duration.start)} to {formatDate(x.duration.end)}</span>
                     </p>
                     <ul className="experience__modal-experiences grid">
                       {

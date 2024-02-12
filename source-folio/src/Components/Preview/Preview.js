@@ -19,7 +19,7 @@ const Preview = (props) => {
   return (
     <>
       <div className="Portfolio rounded-xl">
-          <NavBar name={data.name} myExperience={data.myExperience} />
+          <NavBar name={data.name} myExperience={data.myExperience} myEducation={data.myEducation} myProjects={data.myProjects} />
           <main className="main">
           
             <Home
@@ -39,8 +39,8 @@ const Preview = (props) => {
               profilePicture={data.profilePicture}
             />
             <hr />
-            <Education data={data.myEducation} />
-            <hr />
+            {data.myEducation.length ? <><Education data={data.myEducation} />
+            <hr /></> : ""}
             {data.myExperience.length ? (
               <>
                 <Experience data={data.myExperience} />

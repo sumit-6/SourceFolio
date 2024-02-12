@@ -42,7 +42,7 @@ const NavBar=(props)=>{
                 </Link>
               </li>
 
-              <li
+              {props.myEducation.length ? (<li
                 className="nav__item"
                 onMouseEnter={() => {
                   setOnFocus("education");
@@ -61,7 +61,7 @@ const NavBar=(props)=>{
                 >
                   <i className="nav__icon"></i>Education
                 </Link>
-              </li>
+              </li>) : ("")}
 
               {props.myExperience.length ? (
                 <li
@@ -88,7 +88,7 @@ const NavBar=(props)=>{
                 ""
               )}
 
-              <li
+              {props.myProjects.length ? <li
                 className="nav__item"
                 onMouseEnter={() => {
                   setOnFocus("projects");
@@ -107,7 +107,7 @@ const NavBar=(props)=>{
                 >
                   <i className="nav__icon"></i>Projects
                 </Link>
-              </li>
+              </li> : ""}
 
               <li
                 className="nav__item"

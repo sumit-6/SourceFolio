@@ -116,7 +116,7 @@ const ProjectsForm = (props) => {
               </>
             );
           })}
-          <div className="flex justify-center mt-2">
+          <div className="flex justify-center mt-6">
             {inputList.length === 0 && (
               <IoIosAddCircleOutline
                 className="h-8 w-8 text-white"

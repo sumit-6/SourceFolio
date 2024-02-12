@@ -56,7 +56,7 @@ const Portfolio = () => {
   useEffect(() => {
     (async () => {
       const response = await axios.get(
-        `https://source-folio-woad.vercel.app/api/portfolio/${ID}`
+        `http://localhost:8000/api/portfolio/${ID}`
       );
       if (typeof response.data === "object") {
         const dataRes = response.data;
@@ -74,7 +74,7 @@ const Portfolio = () => {
       <div className="Portfolio">
         {successMessage && <FlashMessage msg={successMessage} />}
         {isReady && (
-          <NavBar name={data.name} myExperience={data.myExperience} />
+          <NavBar name={data.name} myExperience={data.myExperience} myEducation={data.myEducation} myProjects={data.myProjects}/>
         )}
         {isReady && (
           <main className="main">
@@ -99,8 +99,8 @@ const Portfolio = () => {
               profilePicture={data.profilePicture}
             />
             <hr />
-            <Education data={data.myEducation} />
-            <hr />
+            {data.myEducation.length ? <><Education data={data.myEducation} />
+            <hr /></>: ""}
             {data.myExperience.length ? (
               <>
                 <Experience data={data.myExperience} />

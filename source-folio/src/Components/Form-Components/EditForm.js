@@ -22,7 +22,7 @@ const EditForm=(props)=>{
     const [isVisible, setIsVisible] = useState([true, false, false, false, false, false, false, false]);
     const [inputData, setInputData] = useState({name: "", instagram: "", 
     linkedIn: "", githubProfile: "", bio: "", yearsOfExperience: "", numberOfProjects: "", 
-    description: "", email: "", telephone: "", profilePicture: {url: null, filename: null}, mainDesignations:[""]});
+    description: "", email: "", telephone: 0, profilePicture: {url: null, filename: null}, mainDesignations:[""]});
     const [data, setData] = useState({});
     const {user, isLoading} = useUser();
     const [Token, setToken] = useState(null);
@@ -32,7 +32,7 @@ const EditForm=(props)=>{
     
     const [inputExperienceList, setInputExperienceList] = useState([]);
     const [inputProjectList, setInputProjectList] = useState([]);
-    const [inputEducationList, setInputEducationList] = useState([{institutionName: "", place: "", year: "", aggregate: "", coursePursuied: ""}]);
+    const [inputEducationList, setInputEducationList] = useState([]);
     const [inputSkills, setInputSkills] = useState({programmingSkills: [{skillName: "", skillLevel: ""}], toolsAndFrameworks: [{toolName: "", toolLevel: ""}]});
     const [inputAchievement, setInputAchievement] = useState([""]);
     const [isContact,setIsContact]=useState(false)
@@ -41,7 +41,7 @@ const EditForm=(props)=>{
 
         const token = user && await user.getIdToken();
         setToken(token);
-        const response = await axios.get(`https://source-folio-woad.vercel.app/api/portfolio/${ID}`, {headers: {authtoken: token}});
+        const response = await axios.get(`http://localhost:8000/api/portfolio/${ID}`, {headers: {authtoken: token}});
         if(typeof(response.data) === 'object') {
             const dataRes = response.data;
             setData(dataRes);
@@ -140,7 +140,7 @@ const EditForm=(props)=>{
         }
       }
 
-      const response = await axios.post(`https://source-folio-woad.vercel.app/portfolio/edit/${ID}`,formData,config);
+      const response = await axios.post(`http://localhost:8000/portfolio/edit/${ID}`,formData,config);
       if(response.data === "Success") {
         navigate("/")
       } else {
@@ -148,7 +148,7 @@ const EditForm=(props)=>{
       }
     }
     
-    return ( (data["name"]) && 
+    return ((data._id !== undefined) &&  
       <div className="p-2 sm:p-8" style={{visibility: togglePreview === 1 ? "hidden" : "visible"}}>
         <div className="text-2xl text-center text-white">
           Fill your details below!!

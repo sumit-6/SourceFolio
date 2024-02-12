@@ -16,8 +16,6 @@ import convertJSON from './utilityMethod.js';
 import admin from 'firebase-admin';
 const credentials = {};
 
-
-
 if(process.env.NODE_ENV !== 'production') {
     dotenv.config();
 }
@@ -51,7 +49,7 @@ const storage = new CloudinaryStorage({
 })
 const upload = multer({storage});
 import { fileURLToPath } from 'url';
-import { createDeflate } from 'zlib';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -108,7 +106,7 @@ app.use(
                 "'self'",
                 "blob:",
                 "data:",
-                `https://res.cloudinary.com/${cloudinary_val}/`, //SHOULD MATCH YOUR CLOUDINARY ACCOUNT! 
+                `https://res.cloudinary.com/${cloudinary_val}/`,
                 "https://images.unsplash.com/",
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
@@ -119,7 +117,7 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, authtoken, file");
     next();
-  });
+});
 
 const dbUrl = process.env.DB_URL;
 mongoose.connect(dbUrl);
@@ -213,8 +211,6 @@ const validatePortfolio = (doc) => {
     }
 }
 
-
-
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
 app.use(express.urlencoded({ extended: true }));
@@ -236,6 +232,7 @@ app.use(async (req, res, next) => {
     req.user = req.user || {};
     next();
 });
+
 app.use(mongoSanitize());
 const secret = process.env.SECRET;
 const MongoDBStore = MongoDBStorePackage(session);
@@ -387,9 +384,10 @@ app.post('/edit/profilePicture/:id', upload.single('profilePicture'), async(req,
         const id = req.params.id;
         const data = await Portfolio.findById(id);
         if(req.user && data.user_id === req.user.user_id) {
-            await cloudinary.uploader.destroy(data.profilePicture.filename)
+            if(data.profilePicture && data.profilePicture.filename) await cloudinary.uploader.destroy(data.profilePicture.filename)
             const file = req.file;
-            const obj = {profilePicture: {url: file.path, filename: file.filename }};
+            const obj = {profilePicture: {url: file !== undefined ? file.path : "https://res.cloudinary.com/dk26fyzkl/image/upload/v1707765680/SourceFolio/no-user-image_no8zkv.gif",
+                                         filename: file !== undefined ? file.filename : "no-user-image_no8zkvcs" }};
             await Portfolio.findByIdAndUpdate(id, obj);
             res.status(200).send(`Success`);
         }
@@ -424,7 +422,7 @@ app.post('/portfolio/delete/:id', async(req, res) => {
     const data = await Portfolio.findById(id);
     
     if(req.user && (data.user_id === req.user.user_id)) {
-        await cloudinary.uploader.destroy(data.profilePicture.filename)
+        if(data.profilePicture && data.profilePicture.filename) await cloudinary.uploader.destroy(data.profilePicture.filename)
         await Portfolio.findByIdAndDelete(id);
         res.status(200).send("Success")
     } else {
