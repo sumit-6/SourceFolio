@@ -17,7 +17,7 @@ const Form=(props)=>{
     const [isVisible, setIsVisible] = useState([true, false, false, false, false, false, false, false]);
     const [inputData, setInputData] = useState({name: "", instagram: "", 
     linkedIn: "", githubProfile: "", bio: "", yearsOfExperience: "", numberOfProjects: "", 
-    description: "", email: "", telephone: "", profilePicture: {url: "https://res.cloudinary.com/dk26fyzkl/image/upload/v1705001736/SourceFolio/c7xjisezokd3rbogmba9.jpg", filename: "c7xjisezokd3rbogmba9"}, mainDesignations:[""]});
+    description: "", email: "", telephone: 0, profilePicture: {url: "https://res.cloudinary.com/dk26fyzkl/image/upload/v1707765680/SourceFolio/no-user-image_no8zkv.gif", filename: "c7xjisezokd3rbogmba9"}, mainDesignations:[""]});
     const [sfid, setsfId] = useState(null);
 
     const {user, isLoading} = useUser();
@@ -26,7 +26,7 @@ const Form=(props)=>{
     
     const [inputExperienceList, setInputExperienceList] = useState([]);
     const [inputProjectList, setInputProjectList] = useState([]);
-    const [inputEducationList, setInputEducationList] = useState([{institutionName: "", place: "", year: "", aggregate: "", coursePursuied: ""}]);
+    const [inputEducationList, setInputEducationList] = useState([]);
     const [inputSkills, setInputSkills] = useState({programmingSkills: [{skillName: "", skillLevel: ""}], toolsAndFrameworks: [{toolName: "", toolLevel: ""}]});
     const [inputAchievement, setInputAchievement] = useState([""]);
     const [isContact,setIsContact]=useState(false)
@@ -111,11 +111,11 @@ const Form=(props)=>{
         enctype: 'multipart/form-data'
       }
   
-      const response = await axios.post('https://source-folio-woad.vercel.app/portfolio/insert',formData,config);
+      const response = await axios.post('http://localhost:8000/portfolio/insert',formData,config);
       if(response.data === "Success") {
-        window.location.href = `https://source-folio.vercel.app/`;
+        window.location.href = `http://localhost:3000/`;
       } else {
-        window.location.href = `https://source-folio.vercel.app/pageDoesn'tExist`;
+        window.location.href = `http://localhost:3000/pageDoesn'tExist`;
       }
     }
     

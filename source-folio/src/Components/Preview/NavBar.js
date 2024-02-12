@@ -33,7 +33,7 @@ const NavBar=(props)=>{
                 </Link>
               </li>
 
-              <li className="nav__item" onMouseEnter={() => {setOnFocus("education")}}>
+              {props.myEducation.length ? <li className="nav__item" onMouseEnter={() => {setOnFocus("education")}}>
                 <Link
                   onClick={() => {handleClickScroll("education")}}
                   // smooth={true}
@@ -43,7 +43,7 @@ const NavBar=(props)=>{
                 >
                   <i className="nav__icon"></i>Education
                 </Link>
-              </li>
+              </li>: ""}
 
               {props.myExperience.length ? <li className="nav__item" onMouseEnter={() => {setOnFocus("experience")}}>
                 <Link
@@ -57,7 +57,7 @@ const NavBar=(props)=>{
                 </Link>
               </li> : ""}
 
-              <li className="nav__item" onMouseEnter={() => {setOnFocus("projects")}}>
+              {props.myProjects.length ? <li className="nav__item" onMouseEnter={() => {setOnFocus("projects")}}>
                 <Link
                   onClick={() => {handleClickScroll("projects")}}
                   // smooth={true}
@@ -67,7 +67,7 @@ const NavBar=(props)=>{
                 >
                   <i className="nav__icon"></i>Projects
                 </Link>
-              </li>
+              </li>: ""}
 
               <li className="nav__item" onMouseEnter={() => {setOnFocus("skills")}}>
                 <Link

@@ -22,7 +22,7 @@ function convertJSON(inputJSON) {
     	"myAchievements": [],
     	"linkedIn": "",
     	"instagram": "",
-    	"telephone": "",
+    	"telephone": 0,
     	"email": ""
     };
     
@@ -59,7 +59,7 @@ function convertJSON(inputJSON) {
             
             outputJSON['myEducation'].push(obj);
         }
-    } else {
+    } else if(inputJSON['institutionName']) {
         const obj = {
             "institutionName": "",
             "place": "",

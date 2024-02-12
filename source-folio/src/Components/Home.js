@@ -15,7 +15,7 @@ const Home=(props)=>{
                 <div className="home__content grid">
                     <Social token={token} user={user} isLoading={isLoading} user_id={user_id} instagram={props.instagram} linkedIn={props.linkedIn} githubProfile={props.githubProfile}/>
 
-                    {props.profilePicture.url !== null ? <div className="home__img" style={{background: `url(${getThumbnail(props.profilePicture.url)})`}}></div> : null}
+                    <div className="home__img" style={{background: `url(${props.profilePicture !== undefined && props.profilePicture.url !== null ? getThumbnail(props.profilePicture.url) : getThumbnail("https://res.cloudinary.com/dk26fyzkl/image/upload/v1707765680/SourceFolio/no-user-image_no8zkv.gif")})`}}></div>
                     
                     <Data name={props.name} description={props.description} mainDesignations={props.mainDesignations}/>
                 </div>

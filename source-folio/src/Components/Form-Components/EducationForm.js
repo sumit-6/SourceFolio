@@ -22,8 +22,8 @@ const EducationForm=(props)=>{
   }
 
   const handleaddclick=()=>{ 
-    setinputList([...inputList, {institutionName: "", place: "", year: "", aggregate: "", coursePursuied: ""}]);
-    props.handleChange([...inputList, {institutionName: "", place: "", year: "", aggregate: "", coursePursuied: ""}]);
+    setinputList([...inputList, {institutionName: "", place: "", year: 0, aggregate: 0, coursePursuied: ""}]);
+    props.handleChange([...inputList, {institutionName: "", place: "", year: 0, aggregate: 0, coursePursuied: ""}]);
   }
     return (
       <div
@@ -59,7 +59,7 @@ const EducationForm=(props)=>{
                 name="place"
                 type="text"
                 index={index}
-                id="place_0"
+                id={`place_${index}`}
                 placeholder="Enter place (like... Delhi, India)"
                 value={x.place}
                 handleChange={handleinputchange}
@@ -103,7 +103,7 @@ const EducationForm=(props)=>{
                     onClick={(e) => handleaddclick(e)}
                   ></IoIosAddCircleOutline>
                 )}
-                {inputList.length !== 1 && (
+                { (
                   <IoIosRemoveCircleOutline
                     className=" text-white h-7 w-7 mt-1"
                     onClick={(e) => handleremove(e, index)}
@@ -113,6 +113,15 @@ const EducationForm=(props)=>{
             </div>
           );
         })}
+        <div className="flex justify-center mt-6">
+          {inputList.length === 0 && (
+            <IoIosAddCircleOutline
+              className=" text-white h-8 w-8"
+              onClick={(e) => handleaddclick(e)}
+            ></IoIosAddCircleOutline>
+          )}
+                
+        </div>
       </div>
     );
 }

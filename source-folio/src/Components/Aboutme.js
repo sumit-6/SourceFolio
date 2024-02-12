@@ -13,7 +13,7 @@ const About = (props) => {
 
       <div className="about__container nav__container grid">
         <img
-          src={`${props.profilePicture.url}`}
+          src={`${props.profilePicture !== undefined ? props.profilePicture.url : "https://res.cloudinary.com/dk26fyzkl/image/upload/v1707765680/SourceFolio/no-user-image_no8zkv.gif"}`}
           alt=""
           className="about__img"
         />
