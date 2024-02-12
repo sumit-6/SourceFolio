@@ -41,7 +41,7 @@ const EditForm=(props)=>{
 
         const token = user && await user.getIdToken();
         setToken(token);
-        const response = await axios.get(`http://localhost:8000/api/portfolio/${ID}`, {headers: {authtoken: token}});
+        const response = await axios.get(`https://source-folio-woad.vercel.app/api/portfolio/${ID}`, {headers: {authtoken: token}});
         if(typeof(response.data) === 'object') {
             const dataRes = response.data;
             setData(dataRes);
@@ -140,7 +140,7 @@ const EditForm=(props)=>{
         }
       }
 
-      const response = await axios.post(`http://localhost:8000/portfolio/edit/${ID}`,formData,config);
+      const response = await axios.post(`https://source-folio-woad.vercel.app/portfolio/edit/${ID}`,formData,config);
       if(response.data === "Success") {
         navigate("/")
       } else {

@@ -49,7 +49,7 @@ const NavBar = () => {
         'authtoken': Token
       }
     }
-    const portfolios = axios.get(`http://localhost:8000/api/search/${filter}/${searchText}`, config);
+    const portfolios = axios.get(`https://source-folio-woad.vercel.app/api/search/${filter}/${searchText}`, config);
     portfolios.then((data) => {
       //console.log(data.data);
       setList(data.data);
@@ -64,12 +64,12 @@ const NavBar = () => {
     const token = user && await user.getIdToken();
     setToken(token);
     if(user){
-      const response = await axios.get(`http://localhost:8000/api/getID/${user.uid}`, {headers: {authtoken: token}});
+      const response = await axios.get(`https://source-folio-woad.vercel.app/api/getID/${user.uid}`, {headers: {authtoken: token}});
 
       if(response.data !== 'Failure') {
         const dataRes = response.data;
         setsfId(dataRes);
-        const userData = await axios.get(`http://localhost:8000/api/portfolio/${sfid}`);
+        const userData = await axios.get(`https://source-folio-woad.vercel.app/api/portfolio/${sfid}`);
         setData(userData.data);
       }
     } 
