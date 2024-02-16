@@ -41,7 +41,7 @@ const ProjectDescription = (props) => {
               <div className="flex-1">
              <TextArea field="Enter Description"
                             id={`projectDescription_${id}_${i}`}
-                            placeholder="Enter your achievement"
+                            placeholder="Enter your project description"
                             value={x}
                             handleChange={handleinputchange}
                             name={`projectDescription_${id}`}
