@@ -172,9 +172,12 @@ svg{
   gap: 1.5rem;
 }
 
-/* .Portfolio{
-  background-color: #18162b;
-} */
+.v_line {
+     border-left: 5px solid rgb(2, 99, 135);
+     height: 100px;
+     margin: 0 auto;
+      width: 2px;
+}
 
 body{
   background-color: #18162b;
