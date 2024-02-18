@@ -72,6 +72,14 @@
     border-radius: 50%;
 }
 
+.education__rounder{
+    display: inline-block;
+    width : 10px;
+    height: 10px;
+    background-color: rgb(235, 155, 6);
+    border-radius: 50%;
+}
+
 .qualification__line{
     display: block;
     width: 1px;
