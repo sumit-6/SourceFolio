@@ -4,8 +4,6 @@
     top: 0;
     left: 0;
     z-index: var(--z-fixed);
-    /* margin-top: 1rem; */
-    /* background-color: var(--container-color); */
 }
 
 .switch {

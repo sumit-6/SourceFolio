@@ -114,10 +114,6 @@ img {
   max-width: 100%;
   height: auto;
 }
-/* 
-svg{
-  display: block;
-} */
 
 .blue{
   --body : #18162b;
@@ -283,18 +279,6 @@ hr {
   }
 }
 
-/* hr {
-  width: 40%;
-  height: 0.1rem;
-  background-color: rgb(227, 153, 24);
-  margin-bottom: 6px;
-  margin-right: auto;
-  margin-left: auto;
-  margin-top: 50px;
-  border-width: 0.5px;
-  border-color: rgb(239, 239, 240);
-} */
-
 /*----------------------------------------*/
 .App {
   text-align: center;
@@ -334,8 +318,6 @@ hr {
     transform: rotate(360deg);
   }
 }
-
-/* Login Form CSS*/
 
 .error__button {
   background-color: #18162d;
