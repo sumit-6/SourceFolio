@@ -35,7 +35,7 @@ const Education = (props) => {
                         </p>
                         <div>
                           <span className="text-sm font-extrabold md:mr-2 p-1">
-                            Aggregrate - {x.aggregate}
+                            Aggregate - {x.aggregate}
                           </span>{" "}
                           |{" "}
                           <span className="text-sm font-extrabold md:ml-2">
