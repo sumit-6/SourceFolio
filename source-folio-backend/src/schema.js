@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 const Schema = mongoose.Schema;
 const EducationSchema = new Schema({
   institutionName: String,

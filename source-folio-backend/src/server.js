@@ -48,6 +48,7 @@ const storage = new CloudinaryStorage({
         allowedFormats: ['jpeg', 'jpg', 'png']
     }
 })
+
 const upload = multer({storage});
 import { fileURLToPath } from 'url';
 
