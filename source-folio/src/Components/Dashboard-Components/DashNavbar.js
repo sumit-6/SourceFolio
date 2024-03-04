@@ -195,7 +195,7 @@ const NavBar = () => {
                         <li className="pb-3 sm:pb-4 cursor-pointer" onClick={() => {navigate(`/portfolio/${x._id}`)}}>
                             <div class="flex items-center space-x-4">
                               <div class="flex-shrink-0">
-                                  <img className="w-8 h-8 rounded-full" src={x.profilePicture.url} alt={x.name} />
+                                  <img className="w-8 h-8 rounded-full" src={x.profilePicture !== undefined && x.profilePicture.url !== null ? x.profilePicture.url : "https://res.cloudinary.com/dk26fyzkl/image/upload/v1707765680/SourceFolio/no-user-image_no8zkv.gif"} alt={x.name} />
                               </div>
                               <div class="flex-1 min-w-0">
                                   <p class="text-sm font-medium text-white truncate dark:text-white">

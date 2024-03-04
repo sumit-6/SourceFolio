@@ -9,7 +9,6 @@ import "./CssFiles/experience.css"
 const Experience=(props)=>{
 
   function formatDate(dateString) {
-    console.log(dateString)
     if(dateString === undefined) dateString = ""
     const months = [
       "January", "February", "March", "April", "May", "June", "July", "August",
@@ -37,7 +36,6 @@ const Experience=(props)=>{
 
         <div className="experience__container nav__container grid">
           {props.data.map((x, i) => {
-            console.log(x.duration)
             return (
               <div
                 style={{ marginRight: "-0.7rem", borderRadius: "1.3rem" }}

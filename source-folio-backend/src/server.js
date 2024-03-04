@@ -2,24 +2,22 @@ import express from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
 import helmet from 'helmet';
-import cl from 'cloudinary';
-import multer from 'multer';
 import dotenv from 'dotenv';
 import session from 'express-session';
-import flash from 'connect-flash';
 import MongoDBStorePackage from 'connect-mongodb-session';
-import portfolioSchema from '../JoiSchemas.js';
-import ExpressError from '../ExpressError.js';
 import mongoSanitize from 'express-mongo-sanitize';
-import convertJSON from './utilityMethod.js';
-import Portfolio from './schema.js';
-
+import apiRouter from './Router/api.js';
 import admin from 'firebase-admin';
+import { fileURLToPath } from 'url';
+import editRouter from './Router/edit.js';
+import portfolioRouter from './Router/portfolio.js';
+
 const credentials = {};
 
 if(process.env.NODE_ENV !== 'production') {
     dotenv.config();
 }
+
 credentials['type'] = process.env.TYPE;
 credentials['project_id'] = process.env.PROJECT_ID;
 credentials['private_key_id'] = process.env.PRIVATE_KEY_ID;
@@ -30,27 +28,10 @@ credentials['auth_uri'] = process.env.AUTH_URI;
 credentials['token_uri'] = process.env.TOKEN_URI;
 credentials['auth_provider_x509_cert_url'] = process.env.AUTH_PROVIDER_X509_CERT_URL;
 credentials['client_x509_cert_url'] = process.env.CLIENT_X509_CERT_URL;
+
 admin.initializeApp({
     credential: admin.credential.cert(credentials),
 });
-
-const cloudinary = cl.v2;
-import { CloudinaryStorage } from 'multer-storage-cloudinary';
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_KEY,
-    api_secret: process.env.CLOUDINARY_SECRET
-})
-const storage = new CloudinaryStorage({
-    cloudinary,
-    params: {
-        folder: 'SourceFolio',
-        allowedFormats: ['jpeg', 'jpg', 'png']
-    }
-})
-
-const upload = multer({storage});
-import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -70,6 +51,7 @@ app.use(helmet.originAgentCluster());
 app.use(helmet.permittedCrossDomainPolicies());
 app.use(helmet.referrerPolicy());
 app.use(helmet.xssFilter());
+
 const scriptSrcUrls = [
     "https://stackpath.bootstrapcdn.com/",
     "https://api.tiles.mapbox.com/",
@@ -94,6 +76,7 @@ const connectSrcUrls = [
     "https://events.mapbox.com/",
 ];
 const fontSrcUrls = [];
+
 const cloudinary_val = process.env.CLOUDINARY_CLOUD_NAME
 app.use(
     helmet.contentSecurityPolicy({
@@ -115,6 +98,7 @@ app.use(
         }
     })
 );
+
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, authtoken, file");
@@ -129,16 +113,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
     console.log("connection open");
 });
-
-
-const validatePortfolio = (doc) => {    
-    const {error} = portfolioSchema.validate(doc);
-
-    if(error) {
-        const msg = error.details.map(ele => ele.message).join(',')
-        throw new ExpressError(msg, 400);
-    }
-}
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
@@ -182,207 +156,23 @@ app.use(session({
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        //secure: true,
         expires: Date.now() + 1000 * 60 * 60,
         maxAge: 1000 * 60 * 60
     }
 }));
 
-app.use(flash());
-app.use((req, res, next) => {
-    res.locals.success = req.flash('success');
-    res.locals.error = req.flash('error');
-    next();
-})
-
 app.get("/",  (req, res) => {
     res.send("Hello, Welcome to My backend!!");
 })
 
-app.get('/api/getID/:id', async (req, res) => {
-    if(req.user && (req.user.user_id === req.params.id)) {
-        const id = req.params.id;
-        const data = await Portfolio.findOne({"user_id": id});
-        if(data) res.status(200).send(data._id);
-        else res.status(400).send("Failure");
-    } else {
-        res.status(400).send("Failure");
-    }
-})
+app.use('/api', apiRouter);
+app.use('/edit', editRouter);
+app.use('/portfolio', portfolioRouter);
 
-app.get('/api/portfolio/:id', async(req, res) => {
-    const id = req.params.id;
-    try {
-        const data = await Portfolio.findById(id);
-        res.json(data);
-    }
-    catch(e) {
-        res.status(404).send("error");
-    }
-});
-
-app.get('/api/search/name/:q', async(req, res) => {
-    const query = req.params.q;
-    try {
-        const portfolios = await Portfolio.find(
-            {name: { $regex: new RegExp(query, 'i') }}
-        );
-        res.send(portfolios);
-    } catch(e) {
-        res.status(404).send(e);
-    }
-})
-
-app.get('/api/search/skills/:q', async(req, res) => {
-    const query = req.params.q;
-    try {
-        const portfolios = await Portfolio.find(
-            {
-                $or: [
-                    {
-                      'mySkills.programmingSkills': {
-                        $elemMatch: { skillName: { $regex: new RegExp(query, 'i') } }
-                      }
-                    },
-                    {
-                      'mySkills.toolsAndFrameworks': {
-                        $elemMatch: { toolName: { $regex: new RegExp(query, 'i') } }
-                      }
-                    }
-                ]
-            }
-        );
-        res.send(portfolios);
-    } catch(e) {
-        res.status(404).send(e);
-    }
-})
-
-app.get('/api/search/experience/:q', async(req, res) => {
-    const query = req.params.q;
-    try {
-        const portfolios = await Portfolio.find(
-            {
-                $or: [
-                    {
-                      'myExperience': {
-                        $elemMatch: {
-                          $or: [
-                            { 'company': { $regex: new RegExp(query, 'i') } },
-                            { 'role': { $regex: new RegExp(query, 'i') } },
-                          ],
-                        },
-                      },
-                    },
-                    { 'mainDesignations': { $regex: new RegExp(query, 'i') } },
-                    { 'yearsOfExperience': { $regex: new RegExp(query, 'i') } }
-                  ],
-          
-            }
-        );
-        res.send(portfolios);
-    } catch(e) {
-        res.status(404).send(e);
-    }
-})
-
-app.get('/api/search/education/:q', async(req, res) => {
-    const query = req.params.q;
-    try {
-        const portfolios = await Portfolio.find(
-            {
-                $or: [
-                    {
-                      'myEducation.institutionName': { $regex: new RegExp(query, 'i') }
-                    },
-                    {
-                      'myEducation.coursePursuied': { $regex: new RegExp(query, 'i') }
-                    }
-                  ]
-          
-            }
-        );
-        res.send(portfolios);
-    } catch(e) {
-        res.status(404).send(e);
-    }
-})
-
-app.post('/edit/profilePicture/:id', upload.single('profilePicture'), async(req, res) => {
-    try {
-        const id = req.params.id;
-        const data = await Portfolio.findById(id);
-        if(req.user && data.user_id === req.user.user_id) {
-            if(data.profilePicture && data.profilePicture.filename) await cloudinary.uploader.destroy(data.profilePicture.filename)
-            const file = req.file;
-            const obj = {profilePicture: {url: file !== undefined ? file.path : "https://res.cloudinary.com/dk26fyzkl/image/upload/v1707765680/SourceFolio/no-user-image_no8zkv.gif",
-                                         filename: file !== undefined ? file.filename : "no-user-image_no8zkvcs" }};
-            await Portfolio.findByIdAndUpdate(id, obj);
-            res.status(200).send(`Success`);
-        }
-        else {
-            await cloudinary.uploader.destroy(req.file.filename);
-            res.status(400).send("Failure");
-        }
-    } catch(err) {
-        console.log(err);
-    }
-});
-
-app.post('/portfolio/edit/:id', async(req, res) => {
-    const id = req.params.id;
-    const updatedData = req.body;
-    const data = await Portfolio.findById(id);
-
-    if(req.user && data.user_id === req.user.user_id) {
-        const resultantObj = convertJSON(updatedData);
-        resultantObj.user_id = req.user.user_id;
-        validatePortfolio(resultantObj);
-        await Portfolio.findByIdAndUpdate(id, resultantObj, {new: true});
-        req.flash('success', 'Successfully Updated!');
-        res.status(200).send(`Success`);
-    } else {
-        res.status(400).send("Failure");
-    }
-})
-
-app.post('/portfolio/delete/:id', async(req, res) => {
-    const id = req.params.id;
-    const data = await Portfolio.findById(id);
-    
-    if(req.user && (data.user_id === req.user.user_id)) {
-        if(data.profilePicture && data.profilePicture.filename) await cloudinary.uploader.destroy(data.profilePicture.filename)
-        await Portfolio.findByIdAndDelete(id);
-        res.status(200).send("Success")
-    } else {
-        res.status(400).send("Failure");
-    }
-})
-
-app.post('/portfolio/insert', upload.single('profilePicture'), async (req, res) => {
-    if(req.user) {
-        const obj = req.body;
-        obj.profilePicture = req.file;
-      
-        const resultantObj = convertJSON(obj);
-       
-        resultantObj.user_id = req.user.user_id;
-       
-        validatePortfolio(resultantObj);
-        const mongooseObj = new Portfolio(resultantObj);
-        await mongooseObj.save();
-        res.status(200).send("Success");
-    } else {
-        await cloudinary.uploader.destroy(req.file.filename);
-        res.status(400).send("Failure");
-    }
-});
 const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
-    console.log('server is listening on http://localhost:8000');
+    console.log('server is listening on https://source-folio-woad.vercel.app');
 });
 
-
 export default app;
-

@@ -179,7 +179,7 @@ const EditForm=(props)=>{
         }
       }
 
-      const response = await axios.post(`https://source-folio-woad.vercel.app/portfolio/edit/${ID}`,formData,config);
+      const response = await axios.post(`https://source-folio-woad.vercel.app/edit/portfolio/${ID}`,formData,config);
       if(response.data === "Success") {
         navigate("/")
       } else {
