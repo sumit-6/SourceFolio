@@ -3,8 +3,6 @@ import "./CssFiles/navbar.css"
 import { RxCross2 } from "react-icons/rx";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-scroll";
-// import ReactSwitch from "react-switch";
-// import DarkMode from "./DarkMode";
 
 const NavBar=(props)=>{
 
