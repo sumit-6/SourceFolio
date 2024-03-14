@@ -10,7 +10,7 @@ const team = [
     name: "Sumit Verma",
     role: "Backend Developer",
     imageUrl:
-      "https://drive.google.com/thumbnail?id=1vELV7zyd9nwSOGeYzy8XzFWSnaKjz-uY&sz=w500",
+      "https://drive.google.com/thumbnail?id=19tLaK5OHbL3tO20-zUOIbr4KYoQkfG-D&sz=w500",
   },
   {
     name: "Devanshi Gupta",
@@ -57,7 +57,7 @@ const AboutUs = () => {
                 </h2>
               </div>
               <p className="mt-6 text-lg leading-8 text-white text-center">
-                Meet our amazing team. We worked on sourceFolio together. Build your amazing portfolio with sourceFolio.
+                Meet our amazing team. We worked on SourceFolio together. Build your amazing portfolio with SourceFolio.
               </p>
             </div>
             <ul className="mt-20 grid max-w-2xl grid-cols-2 gap-x-12 gap-y-16 text-center sm:grid-cols-3 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-5 xl:grid-cols-6 m-auto md:pl-40"
