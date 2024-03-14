@@ -1,5 +1,6 @@
 /* custom fonts */
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300&family=Poppins:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Fira+Mono:400');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -460,4 +461,18 @@ hr {
 
 input[type="date"]::-webkit-calender-picker-indicator {
   cursor: pointer;
+}
+
+/* aboutus css */
+/* .aboutUsHeading{
+
+} */
+
+.aboutUsHeading{
+  background-image: url(https://media.giphy.com/media/26BROrSHlmyzzHf3i/giphy.gif);
+  background-size: cover;
+  color: transparent;
+  -moz-background-clip: text;
+  -webkit-background-clip: text;
+  text-transform: uppercase;
 }
