@@ -1,9 +1,9 @@
-import Portfolio from "../schema.js";
+import Portfolio from "../Model/schema.js";
 import express from "express";
 import multer from 'multer';
 import cl from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
-import convertJSON from "../utilityMethod.js";
+import convertJSON from "../Utils/utilityMethod.js";
 import dotenv from "dotenv"
 import portfolioSchema from "../../JoiSchemas.js";
 import ExpressError from "../../ExpressError.js"

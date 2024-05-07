@@ -1,7 +1,7 @@
-import Portfolio from "../schema.js";
+import Portfolio from "../Model/schema.js";
 import multer from 'multer';
 import express from "express";
-import convertJSON from "../utilityMethod.js";
+import convertJSON from "../Utils/utilityMethod.js";
 import cl from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import portfolioSchema from "../../JoiSchemas.js";
