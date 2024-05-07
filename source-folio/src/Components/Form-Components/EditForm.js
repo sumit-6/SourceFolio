@@ -16,6 +16,7 @@ import Preview from "../Preview/Preview";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const EditForm=(props)=>{
+    const [isSubmitted, setIsSubmitted] = useState(false);
     const path = useLocation().pathname;
     const navigate = useNavigate();
     const ID = path.split("/")[2];
@@ -118,80 +119,85 @@ const EditForm=(props)=>{
       setInputData(obj);
     }
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-
-      const formData = {};
-      // {name: "", instagram: "", 
-    //linkedIn: "", githubProfile: "", bio: "", yearsOfExperience: "", numberOfProjects: "", 
-    //description: "", email: "", telephone: 0, profilePicture: {url: null, filename: null}, mainDesignations:[""]}
-      const names = ["name", "instagram", "linkedIn", "githubProfile", "bio", "yearsOfExperience", "numberOfProjects", "description", "email", "telephone", "mainDesignations"];
-      names.forEach((name) => {
-        formData[name] = inputData[name];
-      })
-      if(inputEducationList.length > 0) {
-        const names = ["institutionName", "year", "place", "aggregate", "coursePursuied"]
+    useEffect(() => {
+        const formData = {};
+        // {name: "", instagram: "", 
+      //linkedIn: "", githubProfile: "", bio: "", yearsOfExperience: "", numberOfProjects: "", 
+      //description: "", email: "", telephone: 0, profilePicture: {url: null, filename: null}, mainDesignations:[""]}
+        const names = ["name", "instagram", "linkedIn", "githubProfile", "bio", "yearsOfExperience", "numberOfProjects", "description", "email", "telephone", "mainDesignations"];
         names.forEach((name) => {
-          formData[name] = inputEducationList.map((x) => (x[name]));
+          formData[name] = inputData[name];
         })
-      }
-      if(inputExperienceList.length) {
-        const names = ["role", "company", "certificate"]
-        names.forEach((name) => {
-          formData[name] = inputExperienceList.map((x) => (x[name]));
-          
-        });
-        formData[`start`] = []
-        formData[`end`] = []
-        inputExperienceList.forEach((exp, index) => {
-          formData[`workDescription_${index}`] = exp.workDescription;
-          formData[`start`].push(exp.duration.start);
-          formData[`end`].push(exp.duration.end);
-        });
-      }
-      if(inputProjectList.length > 0) {
-        const names = ["projectName", "gitHubLink", "projectLink"]
-        names.forEach((name) => {
-          formData[name] = inputProjectList.map((x) => (x[name]));
-        })
-
-        inputProjectList.forEach((project, index) => {
-          formData[`projectDescription_${index}`] = project.description;
-        })
-      }
-      formData["skillName"] = [];
-      formData["skillLevel"] = [];
-      formData["toolName"] = [];
-      formData["toolLevel"] = [];
-      inputSkills.programmingSkills.forEach((skill) => {
-        formData["skillName"].push(skill.skillName);
-        formData["skillLevel"].push(skill.skillLevel);
-      })
-      inputSkills.toolsAndFrameworks.forEach((tool) => {
-        formData["toolName"].push(tool.toolName);
-        formData["toolLevel"].push(tool.toolLevel);
-      })
-      formData["myAchievements"] = inputAchievement;
-      
-      const config = {
-        headers: {
-          'authtoken': Token
+        if(inputEducationList.length > 0) {
+          const names = ["institutionName", "year", "place", "aggregate", "coursePursuied"]
+          names.forEach((name) => {
+            formData[name] = inputEducationList.map((x) => (x[name]));
+          })
         }
-      }
-
-      const abortController = new AbortController();
-      const { signal } = abortController;
-
-      const response = await axios.post(`https://source-folio-woad.vercel.app/edit/portfolio/${ID}`,formData,config, {signal});
-      if(response.data === "Success") {
-        navigate("/")
-      } else {
-        navigate("/pageDoesn'tExist")
-      }
+        if(inputExperienceList.length) {
+          const names = ["role", "company", "certificate"]
+          names.forEach((name) => {
+            formData[name] = inputExperienceList.map((x) => (x[name]));
+            
+          });
+          formData[`start`] = []
+          formData[`end`] = []
+          inputExperienceList.forEach((exp, index) => {
+            formData[`workDescription_${index}`] = exp.workDescription;
+            formData[`start`].push(exp.duration.start);
+            formData[`end`].push(exp.duration.end);
+          });
+        }
+        if(inputProjectList.length > 0) {
+          const names = ["projectName", "gitHubLink", "projectLink"]
+          names.forEach((name) => {
+            formData[name] = inputProjectList.map((x) => (x[name]));
+          })
+  
+          inputProjectList.forEach((project, index) => {
+            formData[`projectDescription_${index}`] = project.description;
+          })
+        }
+        formData["skillName"] = [];
+        formData["skillLevel"] = [];
+        formData["toolName"] = [];
+        formData["toolLevel"] = [];
+        inputSkills.programmingSkills.forEach((skill) => {
+          formData["skillName"].push(skill.skillName);
+          formData["skillLevel"].push(skill.skillLevel);
+        })
+        inputSkills.toolsAndFrameworks.forEach((tool) => {
+          formData["toolName"].push(tool.toolName);
+          formData["toolLevel"].push(tool.toolLevel);
+        })
+        formData["myAchievements"] = inputAchievement;
+        const abortController = new AbortController();
+        const { signal } = abortController;
+        const config = {
+          headers: {
+            'authtoken': Token
+          },
+          signal: signal
+        }
+  
+        
+      ;(async () => {
+        const response = await axios.post(`https://source-folio-woad.vercel.app/edit/portfolio/${ID}`,formData,config);
+        if(response.data === "Success") {
+          navigate("/")
+        } else {
+          navigate("/pageDoesn'tExist")
+        }
+      })();
 
       return () => {
         abortController.abort();
       }
+    }, [isSubmitted]);
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      setIsSubmitted((prev) => !prev);
     }
     
     return ((data._id !== undefined) &&  
