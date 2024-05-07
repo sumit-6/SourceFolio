@@ -153,7 +153,7 @@ const NavBar = () => {
                     >
                       <Link
                         onClick={() =>
-                          (window.location.href = `https://react-form-ten-steel.vercel.app/form?q=${Token}&where=form`)
+                          {navigate('form')}
                         }
                         // smooth={true}
                         // duration={1000}
