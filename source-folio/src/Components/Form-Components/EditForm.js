@@ -179,11 +179,18 @@ const EditForm=(props)=>{
         }
       }
 
-      const response = await axios.post(`https://source-folio-woad.vercel.app/edit/portfolio/${ID}`,formData,config);
+      const abortController = new AbortController();
+      const { signal } = abortController;
+
+      const response = await axios.post(`https://source-folio-woad.vercel.app/edit/portfolio/${ID}`,formData,config, {signal});
       if(response.data === "Success") {
         navigate("/")
       } else {
         navigate("/pageDoesn'tExist")
+      }
+
+      return () => {
+        abortController.abort();
       }
     }
     

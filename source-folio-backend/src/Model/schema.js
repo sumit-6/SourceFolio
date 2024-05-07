@@ -72,7 +72,7 @@ const PortfolioSchema = new Schema({
   email: String,
   instagram: String,
   telephone: Number,
-});
+}, {timestamps: true});
 
 const Portfolio = mongoose.model("Portfolio", PortfolioSchema);
 export default Portfolio;

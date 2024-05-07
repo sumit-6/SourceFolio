@@ -147,12 +147,19 @@ const Form=(props)=>{
         },
         enctype: 'multipart/form-data'
       }
+
+      const abortController = new AbortController();
+      const { signal } = abortController;
   
-      const response = await axios.post('https://source-folio-woad.vercel.app/portfolio/insert',formData,config);
+      const response = await axios.post('https://source-folio-woad.vercel.app/portfolio/insert',formData,config, { signal });
       if(response.data === "Success") {
         window.location.href = `https://source-folio.vercel.app`;
       } else {
         window.location.href = `https://source-folio.vercel.app/pageDoesn'tExist`;
+      }
+
+      return () => {
+        abortController.abort();
       }
     }
     
