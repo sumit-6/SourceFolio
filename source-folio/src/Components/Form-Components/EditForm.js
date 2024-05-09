@@ -16,6 +16,7 @@ import Preview from "../Preview/Preview";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const EditForm=(props)=>{
+    const [skip, setSkip] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const path = useLocation().pathname;
     const navigate = useNavigate();
@@ -42,7 +43,7 @@ const EditForm=(props)=>{
 
         const token = user && await user.getIdToken();
         setToken(token);
-        const response = await axios.get(`https://source-folio-woad.vercel.app/api/portfolio/${ID}`, {headers: {authtoken: token}});
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/portfolio/${ID}`, {headers: {authtoken: token}});
         if(typeof(response.data) === 'object') {
             const dataRes = response.data;
             setData(dataRes);
@@ -120,10 +121,9 @@ const EditForm=(props)=>{
     }
 
     useEffect(() => {
+      if(skip) setSkip(false);
+      if(!skip) {
         const formData = {};
-        // {name: "", instagram: "", 
-      //linkedIn: "", githubProfile: "", bio: "", yearsOfExperience: "", numberOfProjects: "", 
-      //description: "", email: "", telephone: 0, profilePicture: {url: null, filename: null}, mainDesignations:[""]}
         const names = ["name", "instagram", "linkedIn", "githubProfile", "bio", "yearsOfExperience", "numberOfProjects", "description", "email", "telephone", "mainDesignations"];
         names.forEach((name) => {
           formData[name] = inputData[name];
@@ -181,17 +181,18 @@ const EditForm=(props)=>{
         }
   
         
-      ;(async () => {
-        const response = await axios.post(`https://source-folio-woad.vercel.app/edit/portfolio/${ID}`,formData,config);
-        if(response.data === "Success") {
-          navigate("/")
-        } else {
-          navigate("/pageDoesn'tExist")
-        }
-      })();
+        ;(async () => {
+          const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/edit/portfolio/${ID}`,formData,config);
+          if(response.data === "Success") {
+            navigate("/")
+          } else {
+            navigate("/pageDoesn'tExist")
+          }
+        })();
 
-      return () => {
-        abortController.abort();
+        return () => {
+          abortController.abort();
+        }
       }
     }, [isSubmitted]);
 

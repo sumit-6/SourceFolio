@@ -57,7 +57,6 @@ portfolioRouter.route('/insert').post(upload.single('profilePicture'), async (re
         obj.profilePicture = req.file;
       
         const resultantObj = convertJSON(obj);
-       
         resultantObj.user_id = req.user.user_id;
        
         validatePortfolio(resultantObj);

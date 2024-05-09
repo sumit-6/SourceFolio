@@ -172,7 +172,7 @@ app.use('/portfolio', portfolioRouter);
 const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
-    console.log('server is listening on https://source-folio-woad.vercel.app');
+    console.log(`server is listening on ${process.env.BACKEND_URL}`);
 });
 
 export default app;

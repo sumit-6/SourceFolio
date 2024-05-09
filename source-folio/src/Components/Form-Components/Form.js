@@ -14,6 +14,7 @@ import Preview from "../Preview/Preview";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const Form=(props)=>{
+    const [skip, setSkip] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isVisible, setIsVisible] = useState([true, false, false, false, false, false, false, false]);
     const [inputData, setInputData] = useState({name: "", instagram: "", 
@@ -87,12 +88,9 @@ const Form=(props)=>{
     }
 
     useEffect(() => {
-
-  
+      if(skip) setSkip(false);
+      if(!skip) {
         const formData = {};
-        // {name: "", instagram: "", 
-      //linkedIn: "", githubProfile: "", bio: "", yearsOfExperience: "", numberOfProjects: "", 
-      //description: "", email: "", telephone: 0, profilePicture: {url: null, filename: null}, mainDesignations:[""]}
         const names = ["name", "instagram", "linkedIn", "githubProfile", "bio", "yearsOfExperience", "numberOfProjects", "description", "email", "telephone", "mainDesignations"];
         names.forEach((name) => {
           formData[name] = inputData[name];
@@ -122,7 +120,7 @@ const Form=(props)=>{
           names.forEach((name) => {
             formData[name] = inputEducationList.map((x) => (x[name]));
           })
-  
+
           inputProjectList.forEach((project, index) => {
             formData[`projectDescription_${index}`] = project.description;
           })
@@ -150,23 +148,24 @@ const Form=(props)=>{
           enctype: 'multipart/form-data',
           signal: signal
         }
-  
-        
-      ;(async () => {
-        
     
-        const response = await axios.post('https://source-folio-woad.vercel.app/portfolio/insert',formData,config, { signal });
-        if(response.data === "Success") {
-          window.location.href = `https://source-folio.vercel.app`;
-        } else {
-          window.location.href = `https://source-folio.vercel.app/pageDoesn'tExist`;
-        }
-  
-        
-      })();
+          
+        ;(async () => {
+          
+      
+          const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/portfolio/insert`,formData,config);
+          if(response.data === "Success") {
+            window.location.href = `${process.env.REACT_APP_FRONTEND_URL}`;
+          } else {
+            window.location.href = `${process.env.REACT_APP_FRONTEND_URL}/pageDoesn'tExist`;
+          }
+    
+          
+        })();
 
-      return () => {
-        abortController.abort();
+        return () => {
+          abortController.abort();
+        }
       }
     }, [isSubmitted])
 

@@ -36,7 +36,7 @@ const ProfilePictureEditForm=(props)=>{
           enctype: 'multipart/form-data'
         }
       
-        const response = await axios.post(`https://source-folio-woad.vercel.app/edit/profilePicture/${ID}`, formData, config)
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/edit/profilePicture/${ID}`, formData, config)
         if(response.data === "Success") {
             navigate(`/edit/${ID}`);
         } else {

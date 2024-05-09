@@ -16,7 +16,7 @@ const Footer=(props)=>{
         }
       }
     
-      const response = await axios.post(`https://source-folio-woad.vercel.app/portfolio/delete/${props.id}`, {}, config);
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/portfolio/delete/${props.id}`, {}, config);
       if(response.data === "Success") {
         navigate("/")
       } else {

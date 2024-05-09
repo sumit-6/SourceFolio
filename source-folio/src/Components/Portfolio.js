@@ -56,7 +56,7 @@ const Portfolio = () => {
   useEffect(() => {
     (async () => {
       const response = await axios.get(
-        `https://source-folio-woad.vercel.app/api/portfolio/${ID}`
+        `${process.env.REACT_APP_BACKEND_URL}/api/portfolio/${ID}`
       );
       if (typeof response.data === "object") {
         const dataRes = response.data;
