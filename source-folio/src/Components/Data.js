@@ -1,21 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./CssFiles/home.css"
 import Typewriter from "typewriter-effect"
 import { Link } from "react-scroll";
+import { DataContext } from "./Portfolio";
 
-const Data = (props) => {
-  const listOfDesignations = props.mainDesignations.map((x) => {return `I'm ${x}`});;
+const Data = () => {
+  const { state } = useContext(DataContext)
+  const listOfDesignations = state.data.mainDesignations.map((x) => {return `I'm ${x}`});;
   return (
     <div className="home__data">
-      {props.name !== "" ? <h1 className="home__title" style={{ fontSize: "2rem" }}>
-        I am {`${props.name}`}
+      {state.data.name !== "" ? <h1 className="home__title" style={{ fontSize: "2rem" }}>
+        I am {`${state.data.name}`}
         <svg
           width="36"
           height="36"
           viewBox="0 0 48 48"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          class="home__hand"
+          className="home__hand"
         >
           <path
             d="M25.4995 32.0305L31.3495 33.1555L36.1495 8.48051C36.4495 6.83051 35.3995 5.18051 33.8245 4.88051C32.1745 4.58051 30.5995 5.70551 30.2995 7.35551L25.4995 32.0305Z"
@@ -62,17 +64,17 @@ const Data = (props) => {
       {listOfDesignations.length !== 0 ? <h3 className="home__subtitle"><Typewriter options={{
         autoStart : true,loop:true, delay:40,strings:listOfDesignations,
       }}/></h3> : null}
-      {props.description !== "" ? <p className="home__description">
-        {props.description}
+      {state.data.description !== "" ? <p className="home__description">
+        {state.data.description}
       </p> : null}
-      {props.description ? <Link
+      {state.data.description ? <Link
         to="contact"
         className="button button--flex cursor-pointer"
         style={{ color: "white", marginTop: "1.3rem" }}
       >
         Say Hello
         <svg
-          class="button__icon"
+          className="button__icon"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"

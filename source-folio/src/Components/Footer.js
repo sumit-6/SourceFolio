@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./CssFiles/footer.css"
 import { AiOutlineHome } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { DataContext } from "./Portfolio";
 
 import axios from "axios";
 
-const Footer=(props)=>{
-  const {user, token, isLoading} = props;
+const Footer = (props) => {
+  const { state: { data: { user_id }, auth: { token, user, isLoading } } } = useContext(DataContext);
   const navigate = useNavigate();
   const handleDelete = async (e) => {
       e.preventDefault();
@@ -26,7 +27,7 @@ const Footer=(props)=>{
     return (
       <section className="footer__copy">
         <div className="footer__content" style={{ display: "flex", alignItems: "center" }}>
-          {!isLoading && user && token && user.uid == props.data.user_id && (
+          {!isLoading && user && token && user.uid == user_id && (
             <a
               className="buttonn"
               
@@ -37,13 +38,13 @@ const Footer=(props)=>{
               Edit SourceFolio
             </a>
           )}
-          {!isLoading && user && token && user.uid == props.data.user_id && (
+          {!isLoading && user && token && user.uid == user_id && (
             <a className="delete buttonn" onClick={handleDelete}>
               Delete SourceFolio
             </a>
           )}
         </div>
-        {!isLoading && user && token && user.uid == props.data.user_id && (
+        {!isLoading && user && token && user.uid == user_id && (
           <div className="back__home ">
             <div style={{ display: "flex" }}>
               <a

@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./CssFiles/aboutme.css";
 import Info from "./Info";
 import { Link } from "react-scroll";
+import { DataContext } from "./Portfolio";
 
-const About = (props) => {
+const About = () => {
+  const { state: { data: {profilePicture, bio} } } = useContext(DataContext);
+
+
+  function getProfilePictureURL() {
+    return `${profilePicture !== undefined ? profilePicture.url : "https://res.cloudinary.com/dk26fyzkl/image/upload/v1707765680/SourceFolio/no-user-image_no8zkv.gif"}`;
+  }
   return (
     <section className="about section" id="aboutme">
       <h2 className="section__title" style={{ color: "white" }}>
@@ -13,18 +20,14 @@ const About = (props) => {
 
       <div className="about__container nav__container grid">
         <img
-          src={`${props.profilePicture !== undefined ? props.profilePicture.url : "https://res.cloudinary.com/dk26fyzkl/image/upload/v1707765680/SourceFolio/no-user-image_no8zkv.gif"}`}
+          src={getProfilePictureURL()}
           alt=""
           className="about__img"
         />
         
         <div className="about__data">
-          <Info
-            yearsOfExperience={props.yearsOfExperience}
-            numberOfProjects={props.numberOfProjects}
-          />
-
-          <p className="about__description">{props.bio}</p>
+          <Info />
+          <p className="about__description">{bio}</p>
           <Link
             to="achivements"
             className="button button--flex"
@@ -33,7 +36,7 @@ const About = (props) => {
             {/* download="" href={CV} */}
             Read More...
             <svg
-              class="button__icon"
+              className="button__icon"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"

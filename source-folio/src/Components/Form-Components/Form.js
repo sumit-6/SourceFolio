@@ -13,7 +13,7 @@ import useUser from "../../hooks/useUser";
 import Preview from "../Preview/Preview";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
-const Form=(props)=>{
+const Form= () => {
     const [skip, setSkip] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isVisible, setIsVisible] = useState([true, false, false, false, false, false, false, false]);
@@ -151,16 +151,12 @@ const Form=(props)=>{
     
           
         ;(async () => {
-          
-      
           const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/portfolio/insert`,formData,config);
           if(response.data === "Success") {
             window.location.href = `${process.env.REACT_APP_FRONTEND_URL}`;
           } else {
             window.location.href = `${process.env.REACT_APP_FRONTEND_URL}/pageDoesn'tExist`;
           }
-    
-          
         })();
 
         return () => {

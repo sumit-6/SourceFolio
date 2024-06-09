@@ -6,8 +6,7 @@ import Aboutme from "./Aboutme.js";
 import Skills from "./Skills";
 import Achivements from "./Achivements";
 import { useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
-import FlashMessage from "./FlashMessage";
+import { useState, useEffect, useReducer } from "react";
 import Experience from "./Experience";
 import Projects from "./Projects";
 import Contact from "./Contact";
@@ -18,119 +17,133 @@ import "../index.css";
 import Footer from "./Footer";
 import useUser from "../hooks/useUser";
 import { useNavigate } from "react-router-dom";
+import { helper } from "../asset/helperObject.js";
+
+export const DataContext = React.createContext();
+
+const initialUserState = {
+  loading: false,
+  error: "",
+  data: {...helper},
+  auth: {
+    user: null,
+    token: null,
+    isLoading: true
+  }
+}
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'LOGGED_IN':
+      return {
+        loading: false,
+        error: '',
+        data: action.data,
+        auth: {
+          user: action.user,
+          token: action.token,
+          isLoading: action.isLoading
+        }
+      }
+    case 'NO_USER_FOUND': {
+      return {
+        loading: false,
+        error: 'No logged in user is found',
+        data: {...helper},
+        auth: {
+          user: action.user,
+          token: action.token,
+          isLoading: action.isLoading
+        }
+      }
+    } 
+    default: {
+        return state
+      }
+  }
+}
 
 const Portfolio = () => {
   const path = useLocation().pathname;
   const ID = path.split("/")[2];
-  const location = useLocation();
-  const [data, setData] = useState({});
-  const [isReady, setIsReady] = useState(false);
-  const queryParams = new URLSearchParams(location.search);
-  const [successMessage, setSuccessMessage] = useState(queryParams.get('success'));
   const navigate = useNavigate();
 
+  const [state, dispatch] = useReducer(reducer, initialUserState)
+
   const {user, isLoading} = useUser();
-  const [token, setToken] = useState(null);
 
   useEffect(() => {
     (async () => {
-      const t = user && await user.getIdToken();
-      setToken(t);
-    })();
-
-    
-  }, [user])
-
-  useEffect(() => {
-    // Set a timeout to remove the flash message after 3 seconds
-    const timeout = setTimeout(() => {
-      setSuccessMessage(null);
-    }, 1500);
-
-    // Clear the timeout if the component unmounts before the timeout finishes
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, []);
-
-  useEffect(() => {
-    (async () => {
+      const token = user && await user.getIdToken();
       const response = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/api/portfolio/${ID}`
       );
       if (typeof response.data === "object") {
-        const dataRes = response.data;
-
-        setData(dataRes);
-        setIsReady(true);
+        const data = response.data;
+        dispatch({type: "LOGGED_IN", data: data, user: user, token: token, isLoading: isLoading});
       }
       else {
+        dispatch({type: "NO_USER_FOUND"});
         navigate("error");
       }
     })();
-  }, [ID]);
+  }, [ID, user]);
   return (
-    <>
+    <DataContext.Provider value={{
+      state: state, dispatch: dispatch
+    }}>
       <div className="Portfolio">
-        {successMessage && <FlashMessage msg={successMessage} />}
-        {isReady && (
-          <NavBar name={data.name} myExperience={data.myExperience} myEducation={data.myEducation} myProjects={data.myProjects}/>
-        )}
-        {isReady && (
+        {
+          !state.loading && (
+            <NavBar />
+          )
+        }
+        {!state.loading && (
           <main className="main">
-            <Home
-              name={data.name}
-              mainDesignations={data.mainDesignations}
-              description={data.description}
-              profilePicture={data.profilePicture}
-              githubProfile={data.githubProfile}
-              linkedIn={data.linkedIn}
-              instagram={data.instagram}
-              user_id={data.user_id}
-              user={user}
-              token={token}
-              isLoading={isLoading}
-            />
+            <Home profilePicture={state.data.profilePicture} />
             <hr />
-            <Aboutme
-              bio={data.bio}
-              yearsOfExperience={data.yearsOfExperience}
-              numberOfProjects={data.numberOfProjects}
-              profilePicture={data.profilePicture}
-            />
+            <Aboutme />
             <hr />
-            {data.myEducation.length ? <><Education data={data.myEducation} />
-            <hr /></>: ""}
-            {data.myExperience.length ? (
-              <>
-                <Experience data={data.myExperience} />
-                <hr />
-              </>
-            ) : (
-              ""
-            )}
-            {data.myProjects.length ? (<>
-                <Projects data={data.myProjects} />
-                <hr />
-              </>
-            ) : (
-              ""
-            )}
-            <Skills data={data.mySkills} />
+            {
+              state.data.myEducation.length ? (
+                <>
+                  <Education data = { state.data.myEducation } />
+                  <hr />
+                </> 
+              ) : (
+                null
+              )
+            }
+            {
+              state.data.myExperience.length ? (
+                <>
+                  <Experience data = { state.data.myExperience } />
+                  <hr />
+                </>
+              ) : (
+                null
+              )
+            }
+            {
+              state.data.myProjects.length ? (
+                <>
+                  <Projects data = { state.data.myProjects } />
+                  <hr />
+                </>
+              ) : (
+                null
+              )
+            }
+            <Skills data = { state.data.mySkills } />
             <hr />
-            <Achivements data={data.myAchievements} />
+            <Achivements data = { state.data.myAchievements } />
             <hr />
-            <Contact
-              linkedIn={data.linkedIn}
-              instagram={data.instagram}
-              telephone={data.telephone}
-              email={data.email}
-            />
-            <Footer id={ID} data={data} user={user} token={token} isLoading={isLoading} setToken={setToken} />
+            <Contact />
+            <Footer id = {ID} />
           </main>
         )}
       </div>
-    </>
+    </DataContext.Provider>
   );
 };
 

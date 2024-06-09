@@ -1,12 +1,13 @@
-import React,{useState} from "react";
+import React,{useState, useContext} from "react";
 import "./CssFiles/navbar.css"
 import { RxCross2 } from "react-icons/rx";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-scroll";
+import { DataContext } from "./Portfolio";
 
-const NavBar=(props)=>{
-
-    const [Toggle,showMenu]=useState(false);
+const NavBar = () => {
+    const { state: { data: { name, myEducation, myExperience, myProjects } } } = useContext(DataContext);
+    const [toggle, setToggle]=useState(false);
     const [onFocus, setOnFocus] = useState("aboutme")
     return (
       <header
@@ -15,9 +16,9 @@ const NavBar=(props)=>{
       >
         <nav className="nav nav__container">
           <Link to="aboutme" className="nav__logo" style={{ color: "white" }}>
-            {props.name}&nbsp;<span style={{ color: "orange" }}>.</span>
+            {name}&nbsp;<span style={{ color: "orange" }}>.</span>
           </Link>
-          <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>
+          <div className={toggle ? "nav__menu show-menu" : "nav__menu"}>
             <ul className="nav__list ">
               <li
                 className="nav__item"
@@ -40,7 +41,7 @@ const NavBar=(props)=>{
                 </Link>
               </li>
 
-              {props.myEducation.length ? (<li
+              {myEducation.length ? (<li
                 className="nav__item"
                 onMouseEnter={() => {
                   setOnFocus("education");
@@ -61,7 +62,7 @@ const NavBar=(props)=>{
                 </Link>
               </li>) : ("")}
 
-              {props.myExperience.length ? (
+              {myExperience.length ? (
                 <li
                   className="nav__item"
                   onMouseEnter={() => {
@@ -86,7 +87,7 @@ const NavBar=(props)=>{
                 ""
               )}
 
-              {props.myProjects.length ? <li
+              {myProjects.length ? <li
                 className="nav__item"
                 onMouseEnter={() => {
                   setOnFocus("projects");
@@ -156,7 +157,7 @@ const NavBar=(props)=>{
               style={{ color: "white" }}
               className="nav__close"
               onClick={() => {
-                showMenu(!Toggle);
+                setToggle(!toggle);
               }}
             >
               <RxCross2 />
@@ -166,7 +167,7 @@ const NavBar=(props)=>{
           <div
             className="nav__toggle"
             onClick={() => {
-              showMenu(!Toggle);
+              setToggle(!toggle);
             }}
           >
             <i style={{ color: "white" }} className="navbar__menu__list">

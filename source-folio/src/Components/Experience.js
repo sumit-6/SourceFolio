@@ -43,7 +43,7 @@ const Experience=(props)=>{
               >
                 <div>
                   <div className="Experience__icon">
-                    <FaRegHeart />
+                    <FaRegHeart key={x._id} />
                   </div>
                   <h3 className="experience__title">
                     {x.role.split(' ').map((unit, j) => {return (

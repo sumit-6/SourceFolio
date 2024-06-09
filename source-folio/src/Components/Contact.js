@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./CssFiles/contact.css"
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { AiOutlineMail } from "react-icons/ai";
-import { AiOutlineWhatsApp } from "react-icons/ai";
 import { FaLinkedin } from "react-icons/fa";
+import { DataContext } from "./Portfolio";
 
-const Contact=(props)=>{
+const Contact = () => {
+    const { state: { data: { email, linkedIn } } } = useContext(DataContext);
     return (
       <section className="contact section" id="contact">
         <h2 className="section__title" style={{ color: "orange" }}>
@@ -24,10 +25,10 @@ const Contact=(props)=>{
                 </span>
 
                 <h3 className="contact__card-title">Email</h3>
-                <span className="contact__card-data">{props.email}</span>
+                <span className="contact__card-data">{email}</span>
 
                 <a
-                  href={`mailto:${props.email}`}
+                  href={`mailto:${email}`}
                   className="contact__button"
                 >
                   Write me{" "}
@@ -64,10 +65,10 @@ const Contact=(props)=>{
                 </span>
 
                 <h3 className="contact__card-title">LinkedIn</h3>
-                <span className="contact__card-data">{props.linkedIn.split('/')[4]}</span>
+                <span className="contact__card-data">{linkedIn.split('/')[4]}</span>
 
                 <a
-                  href={props.linkedIn}
+                  href={linkedIn}
                   className="contact__button"
                 >
                   Write me{" "}
@@ -133,7 +134,7 @@ const Contact=(props)=>{
               <a className="button button--flex" style={{ color: "white" }}>
                 Send Message
                 <svg
-                  class="button__icon"
+                  className="button__icon"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
