@@ -1,8 +1,10 @@
-import React,{useState} from "react";
+import React,{ useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { Link } from "react-scroll";
+import { useSelector } from "react-redux";
 
-const NavBar=(props)=>{
+const NavBar = () => {
+    const { name, myEducation, myExperience, myProjects } = useSelector(state => state.portfolio.data);
     const handleClickScroll = (name) => {
         const element = document.getElementById(name);
         if (element) {
@@ -18,7 +20,7 @@ const NavBar=(props)=>{
       style={{width: "calc(100% - 20px)"}}>
         <nav className="nav nav__container">
           <Link onClick={() => {handleClickScroll("aboutme")}} className="nav__logo" style={{ color: "white" }}>
-            {props.name}&nbsp;<span style={{color: "orange"}}>.</span>
+            {name}&nbsp;<span style={{color: "orange"}}>.</span>
           </Link>
 
           <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>
@@ -33,7 +35,7 @@ const NavBar=(props)=>{
                 </Link>
               </li>
 
-              {props.myEducation.length ? <li className="nav__item" onMouseEnter={() => {setOnFocus("education")}}>
+              {myEducation.length ? <li className="nav__item" onMouseEnter={() => {setOnFocus("education")}}>
                 <Link
                   onClick={() => {handleClickScroll("education")}}
                   // smooth={true}
@@ -45,7 +47,7 @@ const NavBar=(props)=>{
                 </Link>
               </li>: ""}
 
-              {props.myExperience.length ? <li className="nav__item" onMouseEnter={() => {setOnFocus("experience")}}>
+              {myExperience.length ? <li className="nav__item" onMouseEnter={() => {setOnFocus("experience")}}>
                 <Link
                   onClick={() => {handleClickScroll("experience")}}
                   // smooth={true}
@@ -57,7 +59,7 @@ const NavBar=(props)=>{
                 </Link>
               </li> : ""}
 
-              {props.myProjects.length ? <li className="nav__item" onMouseEnter={() => {setOnFocus("projects")}}>
+              {myProjects.length ? <li className="nav__item" onMouseEnter={() => {setOnFocus("projects")}}>
                 <Link
                   onClick={() => {handleClickScroll("projects")}}
                   // smooth={true}

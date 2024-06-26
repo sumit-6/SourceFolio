@@ -1,34 +1,33 @@
-import React, {useState} from "react";
+import React from "react";
 import InputBox from "./InputBox";
 import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { update_portfolio } from "../../redux/features/portfolioSlice";
 
-function MainDesignations(props) {
-    const [inputList, setinputList]= useState(props.mainDesignations);
+function MainDesignations() {
+    const { mainDesignations } = useSelector(state => state.portfolio.data);
+    const dispatch = useDispatch();
   
   const handleinputchange=(e, index)=>{
     const {value}= e.target;
-    const list= [...inputList];
+    const list= [...mainDesignations];
     list[index]= value;
-    setinputList(list);
-    props.handleChange(list);
-
+    dispatch(update_portfolio({ mainDesignations: list }));
   }
  
-  const handleRemove= (event, index)=>{
+  const handleRemove= (event, index) => {
     event.preventDefault();
-    let list=[...inputList];
+    let list=[...mainDesignations];
     list.splice(index,1);
-    setinputList(list);
-    props.handleChange(list);
+    dispatch(update_portfolio({ mainDesignations: list }));
   }
 
   const handleAddClick=()=>{ 
-    setinputList([...inputList, ""]);
-    props.handleChange([...inputList, ""]);
+    dispatch(update_portfolio({ mainDesignations: [...mainDesignations, ""] }));
   }
     return (
         <>
-            {inputList.map((x, index) => {
+            {mainDesignations.map((x, index) => {
                 return (
                     <div className="flex">
                     <div className="flex-1">
@@ -36,11 +35,11 @@ function MainDesignations(props) {
                     </div>
                     <div className="flex justify-center">
                         {
-                            inputList.length - 1 === index && 
+                            mainDesignations.length - 1 === index && 
                             <IoIosAddCircleOutline className="h-8 w-8 text-white mt-8 md:mt-0" onClick={(e)=> handleAddClick(e)}/>
                         }
                         {
-                            inputList.length !== 1 &&
+                            mainDesignations.length !== 1 &&
                             <IoIosRemoveCircleOutline className="h-8 w-8 text-white mt-8 md:mt-0" onClick={(e)=> handleRemove(e, index)}/> 
                         }
                     </div>

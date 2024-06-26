@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import Home from "./Home";
 import "../App.css";
@@ -6,127 +6,77 @@ import Aboutme from "./Aboutme.js";
 import Skills from "./Skills";
 import Achivements from "./Achivements";
 import { useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
-import FlashMessage from "./FlashMessage";
 import Experience from "./Experience";
 import Projects from "./Projects";
 import Contact from "./Contact";
 import Education from "./Education";
-import axios from "axios";
 import "./CssFiles/portfolio.css";
 import "../index.css";
 import Footer from "./Footer";
-import useUser from "../hooks/useUser";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { set_portfolio } from "../redux/features/portfolioSlice.js";
 
 const Portfolio = () => {
+  const [isLoading, setIsLoading] = useState(true)
+  const [data, setData] = useState({myExperience: [], myProjects: [], myEducation: []});
+  const dispatch = useDispatch();
+  //const data = useSelector(state => state.portfolio.data);
+  
   const path = useLocation().pathname;
   const ID = path.split("/")[2];
-  const location = useLocation();
-  const [data, setData] = useState({});
-  const [isReady, setIsReady] = useState(false);
-  const queryParams = new URLSearchParams(location.search);
-  const [successMessage, setSuccessMessage] = useState(queryParams.get('success'));
-  const navigate = useNavigate();
-
-  const {user, isLoading} = useUser();
-  const [token, setToken] = useState(null);
-
+  
   useEffect(() => {
-    (async () => {
-      const t = user && await user.getIdToken();
-      setToken(t);
-    })();
-
     
-  }, [user])
+      (async () => {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/portfolio/${ID}`
+        );
+        if (typeof response.data === "object") {
+          const portfolio = response.data;
+          dispatch(set_portfolio(portfolio));
+          setIsLoading(false);
+          setData(portfolio);
+        }
+      })();
+    
+  }, [])
 
-  useEffect(() => {
-    // Set a timeout to remove the flash message after 3 seconds
-    const timeout = setTimeout(() => {
-      setSuccessMessage(null);
-    }, 1500);
-
-    // Clear the timeout if the component unmounts before the timeout finishes
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/portfolio/${ID}`
-      );
-      if (typeof response.data === "object") {
-        const dataRes = response.data;
-
-        setData(dataRes);
-        setIsReady(true);
-      }
-      else {
-        navigate("error");
-      }
-    })();
-  }, [ID]);
   return (
     <>
       <div className="Portfolio">
-        {successMessage && <FlashMessage msg={successMessage} />}
-        {isReady && (
-          <NavBar name={data.name} myExperience={data.myExperience} myEducation={data.myEducation} myProjects={data.myProjects}/>
+        {!isLoading && (
+          <NavBar />
         )}
-        {isReady && (
+        {!isLoading && (
           <main className="main">
-            <Home
-              name={data.name}
-              mainDesignations={data.mainDesignations}
-              description={data.description}
-              profilePicture={data.profilePicture}
-              githubProfile={data.githubProfile}
-              linkedIn={data.linkedIn}
-              instagram={data.instagram}
-              user_id={data.user_id}
-              user={user}
-              token={token}
-              isLoading={isLoading}
-            />
+            <Home />
             <hr />
-            <Aboutme
-              bio={data.bio}
-              yearsOfExperience={data.yearsOfExperience}
-              numberOfProjects={data.numberOfProjects}
-              profilePicture={data.profilePicture}
-            />
+            <Aboutme />
             <hr />
-            {data.myEducation.length ? <><Education data={data.myEducation} />
-            <hr /></>: ""}
+            {data.myEducation.length ? <><Education />
+            <hr /></>: null}
             {data.myExperience.length ? (
               <>
-                <Experience data={data.myExperience} />
+                <Experience />
                 <hr />
               </>
             ) : (
-              ""
+              null
             )}
             {data.myProjects.length ? (<>
-                <Projects data={data.myProjects} />
+                <Projects />
                 <hr />
               </>
             ) : (
-              ""
+              null
             )}
-            <Skills data={data.mySkills} />
+            <Skills />
             <hr />
-            <Achivements data={data.myAchievements} />
+            <Achivements />
             <hr />
-            <Contact
-              linkedIn={data.linkedIn}
-              instagram={data.instagram}
-              telephone={data.telephone}
-              email={data.email}
-            />
-            <Footer id={ID} data={data} user={user} token={token} isLoading={isLoading} setToken={setToken} />
+            <Contact />
+            <Footer />
           </main>
         )}
       </div>

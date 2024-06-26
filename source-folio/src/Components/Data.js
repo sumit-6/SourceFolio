@@ -2,13 +2,15 @@ import React from "react";
 import "./CssFiles/home.css"
 import Typewriter from "typewriter-effect"
 import { Link } from "react-scroll";
+import { useSelector } from "react-redux";
 
-const Data = (props) => {
-  const listOfDesignations = props.mainDesignations.map((x) => {return `I'm ${x}`});;
+const Data = () => {
+  const { description, mainDesignations, name } = useSelector(state => state.portfolio.data);
+  const listOfDesignations = mainDesignations.map((x) => {return `I'm ${x}`});;
   return (
     <div className="home__data">
-      {props.name !== "" ? <h1 className="home__title" style={{ fontSize: "2rem" }}>
-        I am {`${props.name}`}
+      {name !== "" ? <h1 className="home__title" style={{ fontSize: "2rem" }}>
+        I am {`${name}`}
         <svg
           width="36"
           height="36"
@@ -62,10 +64,10 @@ const Data = (props) => {
       {listOfDesignations.length !== 0 ? <h3 className="home__subtitle"><Typewriter options={{
         autoStart : true,loop:true, delay:40,strings:listOfDesignations,
       }}/></h3> : null}
-      {props.description !== "" ? <p className="home__description">
-        {props.description}
+      {description !== "" ? <p className="home__description">
+        {description}
       </p> : null}
-      {props.description ? <Link
+      {description ? <Link
         to="contact"
         className="button button--flex cursor-pointer"
         style={{ color: "white", marginTop: "1.3rem" }}

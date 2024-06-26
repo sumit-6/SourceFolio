@@ -2,8 +2,10 @@ import React from "react";
 import Toolsandframework from "./ToolsAndFramework";
 import Programmingskills from "./ProgrammingSkills";
 import "./CssFiles/skills.css"
+import { useSelector } from "react-redux";
 
-const Skills=(props)=>{
+const Skills=()=>{
+    const { mySkills } = useSelector(state => state.portfolio.data);
     return (
       <section className="skills section"  id="skills">
         <h2 className="section__title">
@@ -12,8 +14,8 @@ const Skills=(props)=>{
         <span className="section__subtitle">My Technical Skills</span>
 
         <div className="skills__container nav__container grid">
-            <Programmingskills data={props.data.programmingSkills}/>
-            <Toolsandframework data={props.data.toolsAndFrameworks}/>
+            <Programmingskills data={mySkills.programmingSkills}/>
+            <Toolsandframework data={mySkills.toolsAndFrameworks}/>
         </div>
       </section>
     );

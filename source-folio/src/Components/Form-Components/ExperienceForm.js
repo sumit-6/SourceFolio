@@ -3,58 +3,39 @@ import InputBox from "./InputBox";
 import WorkDescription from "./WorkDescription";
 import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io";
 import Duration from "./Duration";
+import { useSelector, useDispatch } from "react-redux";
+import { update_portfolio } from "../../redux/features/portfolioSlice";
 
 const ExperienceForm=(props)=>{
-  const [inputList, setinputList]= useState(props.data);
+  const dispatch = useDispatch();
+  const { myExperience } = useSelector(state => state.portfolio.data);
 
   const handleinputchange=(e, index)=>{
     const {name, value}= e.target;
-    const list= [...inputList];
-    list[index][name]= value;
-    setinputList(list);
-    props.handleChange(list);
+    const list= [...myExperience];
+    const obj = {
+      ...list[index],
+      [name]: value
+    }
+    list[index] = obj;
+    dispatch(update_portfolio({
+      myExperience: list
+    }));
   }
  
   const handleremove= (event, index)=>{
     event.preventDefault();
-    const list=[...inputList];
+    const list=[...myExperience];
     list.splice(index,1);
-    setinputList(list);
-    props.handleChange(list);
+    dispatch(update_portfolio({
+      myExperience: list
+    }));
   }
-
-  const handleWorkDescriptionChange = (value, index) => {
-    const list = [...inputList];
-    list[index].workDescription = value;
-    setinputList(list); 
-    props.handleChange(list);
-  };
-
-  const handleWorkDescriptionDelete = (value, index, ind) => {
-    const list = [...inputList];
-    list[ind]['workDescription'].splice(index, 1);
-    setinputList(list);
-    props.handleChange(list);
-  };
-
-  const handleWorkDescriptionAdd = (list, index) => {
-    const newList = [...inputList];
-      newList[index].workDescription = list;
-      setinputList(newList);
-      props.handleChange(newList);
-  }
-
-  const handleDurationChange = (value, index) => {
-    const list = [...inputList];
-    list[index].duration = value;
-   
-    setinputList(list);
-    props.handleChange(list);
-  };
 
   const handleaddclick=()=>{ 
-    setinputList([...inputList, {role: "", company: "", certificate: "", workDescription: [""], duration: {start: "", end: ""}}]);
-    props.handleChange([...inputList, {role: "", company: "", certificate: "", workDescription: [""], duration: {start: "", end: ""}}]);
+    dispatch(update_portfolio({
+      myExperience: [...myExperience, {role: "", company: "", certificate: "", workDescription: [""], duration: {start: "", end: ""}}]
+    }));
   }
     return (
       <div
@@ -64,7 +45,7 @@ const ExperienceForm=(props)=>{
         <div className="text-xl text-white text-center">
           Experience Details!
         </div>
-        {inputList.map((x, index) => {
+        {myExperience.map((x, index) => {
           return (
             <>
               <div className="mt-6">
@@ -81,10 +62,6 @@ const ExperienceForm=(props)=>{
                 
                   <WorkDescription
                     index={index}
-                    data={x.workDescription}
-                    onChange={handleWorkDescriptionChange}
-                    onRemove={handleWorkDescriptionDelete}
-                    handleWorkDescriptionAdd={handleWorkDescriptionAdd}
                   ></WorkDescription>
                 
                 <InputBox
@@ -109,11 +86,10 @@ const ExperienceForm=(props)=>{
                 ></InputBox>
                 <Duration
                   index={index}
-                  onChange={handleDurationChange}
                   data={x.duration}
                 ></Duration>
                 <div className="flex justify-center">
-                  {inputList.length - 1 === index && (
+                  {myExperience.length - 1 === index && (
                     <IoIosAddCircleOutline
                       className=" text-white h-7 w-7 mt-1"
                       onClick={(e) => handleaddclick(e)}
@@ -131,7 +107,7 @@ const ExperienceForm=(props)=>{
           );
         })}
         <div className="flex justify-center mt-6">
-          {inputList.length === 0 && (
+          {myExperience.length === 0 && (
             <IoIosAddCircleOutline
               className="h-8 w-8 text-white"
               onClick={(e) => handleaddclick(e)}

@@ -3,32 +3,34 @@ import { SiInstagram } from "react-icons/si";
 import { SiLinkedin } from "react-icons/si";
 import { SiGithub } from "react-icons/si";
 import "./CssFiles/home.css"
+import { useSelector } from "react-redux";
 import Information from "./Information";
 
-const Social=(props)=>{
-  const {token, user, isLoading, user_id} = props;
+const Social=()=>{
+  const { token, user, isLoading } = useSelector(state => state.portfolio.auth);
+    const { user_id, instagram, linkedIn, githubProfile } = useSelector(state => state.portfolio.data);
     return (
       <div className="home__social">
         {!isLoading && user && token && user.uid == user_id && <Information />}
 
-        {props.instagram !== "" ? <a
-          href={`${props.instagram}`}
+        {instagram !== "" ? <a
+          href={`${instagram}`}
           className="home__social-icon"
           target="_blank"
         >
           <SiInstagram />
         </a> : null}
 
-        {props.linkedIn !== "" ? <a
-          href={`${props.linkedIn}`}
+        {linkedIn !== "" ? <a
+          href={`${linkedIn}`}
           className="home__social-icon"
           target="_blank"
         >
           <SiLinkedin />
         </a> : null}
 
-        {props.githubProfile !== "" ? <a
-          href={`${props.githubProfile}`}
+        {githubProfile !== "" ? <a
+          href={`${githubProfile}`}
           className="home__social-icon"
           target="_blank"
         >

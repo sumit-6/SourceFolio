@@ -1,9 +1,10 @@
 import React from "react";
 import "./CssFiles/achivements.css"
 import { SlGraduation } from "react-icons/sl";
+import { useSelector } from "react-redux";
 
-const Achivements=(props)=>{
-
+const Achivements=()=>{
+    const { myAchievements } = useSelector(state => state.portfolio.data);
     return (
       <section className="qualification section" id="achivements">
         <h2 className="section__title">
@@ -27,7 +28,7 @@ const Achivements=(props)=>{
 
           <div className="qualification__sections">
             <div className="qualification__content">
-              {props.data.map((x, i) => {
+              {myAchievements.map((x, i) => {
                 
                 if(i & 1) {
                   return (

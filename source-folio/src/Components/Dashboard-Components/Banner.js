@@ -2,8 +2,11 @@ import React from 'react';
 // import cloud from "../../asset/image/mobilee.jpg"
 import "./banner.css"
 import Typewriter from "typewriter-effect";
+import { useSelector } from 'react-redux';
 
 const DashHome=(props)=>{
+    const { user } = useSelector(state => state.portfolio.auth)
+    console.log(user)
     return (
       <div className="banner">
         <div className="content">
@@ -20,19 +23,19 @@ const DashHome=(props)=>{
             />
           </h1>
           <p>Create, inspire, succeed with our portfolio builder.</p>
-          {props.user && props.id && <div className="content_a">
+          {user && props.id && <div className="content_a">
             <a className="butt" href={`/portfolio/${props.id}`}>
               View Sourcefolio
             </a>
           </div>}
-          {props.user && !props.id &&
+          {user && !props.id &&
             <div className="content_a">
             <a className="butt" href={`/form`} >
               Create Sourcefolio
             </a>
           </div>
           }
-          {!props.user &&
+          {!user &&
             <div className="content_a">
             <a className="butt" href="/login">
               Create Sourcefolio
@@ -44,4 +47,4 @@ const DashHome=(props)=>{
     );
 }
 
-export default DashHome;
+export default (DashHome);

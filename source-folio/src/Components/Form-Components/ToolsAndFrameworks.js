@@ -5,36 +5,56 @@ import {
   IoIosAddCircleOutline,
   IoIosRemoveCircleOutline,
 } from "react-icons/io";
-const ToolsAndFrameworks = (props) => {
-  const [inputList, setinputList] = useState(props.data);
+import { useSelector, useDispatch } from "react-redux";
+import { update_portfolio } from "../../redux/features/portfolioSlice";
 
+const ToolsAndFrameworks = () => {
+  const dispatch = useDispatch();
+  const { mySkills } = useSelector(state => state.portfolio.data);
   const handleinputchange = (e, index) => {
     const { name, value } = e.target;
-    const list = [...inputList];
-    list[index][name] = value;
-    setinputList(list);
-    props.onChange(name, value, index);
+    const listOfToolsAndFrameworks = [...mySkills.toolsAndFrameworks];
+    const obj = {
+      ...listOfToolsAndFrameworks[index],
+      [name]: value
+    }
+    listOfToolsAndFrameworks[index] = obj;
+    dispatch(update_portfolio({
+      mySkills: {
+        ...mySkills,
+        toolsAndFrameworks: listOfToolsAndFrameworks
+      }
+    }))
   };
 
   const handleremove = (event, index) => {
     event.preventDefault();
-    const list = [...inputList];
-    list.splice(index, 1);
-    setinputList(list);
-    props.onRemove(index);
+    const listOfToolsAndFrameworks = [...mySkills.toolsAndFrameworks];
+    listOfToolsAndFrameworks.splice(index, 1);
+    //listOfToolsAndFrameworks[index] = obj;
+    dispatch(update_portfolio({
+      mySkills: {
+        ...mySkills,
+        toolsAndFrameworks: listOfToolsAndFrameworks
+      }
+    }))
   };
 
   const handleaddclick = () => {
-    setinputList([...inputList, { toolName: "", toolLevel: "" }]);
-    props.onObjChange("toolsAndFrameworks", [
-      ...inputList,
-      { toolName: "", toolLevel: "" },
-    ]);
+    dispatch(update_portfolio({
+      mySkills: {
+        ...mySkills,
+        toolsAndFrameworks: [...mySkills.toolsAndFrameworks, {
+          toolName: "",
+          toolLevel: ""
+        }]
+      }
+    }))
   };
   const toolLevelOptions = ["Expert", "Intermediate", "Beginner"];
   return (
     <>
-      {inputList.map((x, index) => {
+      {mySkills.toolsAndFrameworks.map((x, index) => {
         return (
           <>
             <div className="mt-6 p-4">
@@ -58,13 +78,13 @@ const ToolsAndFrameworks = (props) => {
                 handleChange={handleinputchange}
               ></CustomSelect>
               <div className="flex justify-center">
-                {inputList.length - 1 === index && (
+                {mySkills.toolsAndFrameworks.length - 1 === index && (
                   <IoIosAddCircleOutline
                     className=" text-white h-7 w-7 mt-1"
                     onClick={(e) => handleaddclick(e)}
                   ></IoIosAddCircleOutline>
                 )}
-                {inputList.length !== 1 && (
+                {mySkills.toolsAndFrameworks.length !== 1 && (
                   <IoIosRemoveCircleOutline
                     className=" text-white h-7 w-7 mt-1"
                     onClick={(e) => handleremove(e, index)}

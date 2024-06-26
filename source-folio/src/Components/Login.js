@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 
-
-const Login = () => {
+const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -14,7 +13,7 @@ const Login = () => {
   const logIn = async (e) => {
     e.preventDefault();
     try {
-      if(!email||!password){
+      if(!email || !password) {
         setError("All fields are mandatory");
         return;
       }
@@ -39,12 +38,12 @@ const Login = () => {
 
       await createUserWithEmailAndPassword(getAuth(), email, password);
       navigate("/");
-    } catch (e) {
-      setError(e.message);
+    } catch (err) {
+      setError(err.message);
     }
   };
 
-  const clear=()=>{
+  const clear = () => {
     setError("");
   }
 

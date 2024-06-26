@@ -1,40 +1,60 @@
-import React, { useState } from "react";
+import React from "react";
 import InputBox from "./InputBox";
 import CustomSelect from "./CustomSelect";
 import {
   IoIosAddCircleOutline,
   IoIosRemoveCircleOutline,
 } from "react-icons/io";
+import { useSelector, useDispatch } from "react-redux";
+import { update_portfolio } from "../../redux/features/portfolioSlice";
 
-const ProgrammingSkills = (props) => {
-  const [inputList, setInputList] = useState(props.data);
+const ProgrammingSkills = () => {
+  const dispatch = useDispatch();
+  const { mySkills } = useSelector(state => state.portfolio.data);
   const handleinputchange = (e, index) => {
     const { name, value } = e.target;
-    const list = [...inputList];
-    list[index][name] = value;
-    setInputList(list);
-    props.onChange(name, value, index);
+    const listOfProgrammingSkills = [...mySkills.programmingSkills];
+    const obj = {
+      ...listOfProgrammingSkills[index],
+      [name]: value
+    }
+    listOfProgrammingSkills[index] = obj;
+    dispatch(update_portfolio({
+      mySkills: {
+        ...mySkills,
+        programmingSkills: listOfProgrammingSkills
+      }
+    }))
   };
 
   const handleremove = (event, index) => {
     event.preventDefault();
-    const list = [...inputList];
-    list.splice(index, 1);
-    setInputList(list);
-    props.onRemove(index);
+    const listOfProgrammingSkills = [...mySkills.programmingSkills];
+    listOfProgrammingSkills.splice(index, 1);
+    //listOfProgrammingSkills[index] = obj;
+    dispatch(update_portfolio({
+      mySkills: {
+        ...mySkills,
+        programmingSkills: listOfProgrammingSkills
+      }
+    }))
   };
 
   const handleaddclick = () => {
-    setInputList([...inputList, { skillName: "", skillLevel: "" }]);
-    props.onObjChange("programmingSkills", [
-      ...inputList,
-      { skillName: "", skillLevel: "" },
-    ]);
+    dispatch(update_portfolio({
+      mySkills: {
+        ...mySkills,
+        programmingSkills: [...mySkills.programmingSkills, {
+          skillName: "",
+          skillLevel: ""
+        }]
+      }
+    }))
   };
   const skillLevelOptions = ["Expert", "Intermediate", "Beginner"];
   return (
     <>
-      {inputList.map((x, index) => {
+      {mySkills.programmingSkills.map((x, index) => {
         return (
           <>
             <div className="mt-6 p-4">
@@ -58,13 +78,13 @@ const ProgrammingSkills = (props) => {
                 handleChange={handleinputchange}
               ></CustomSelect>
               <div className="flex justify-center">
-                {inputList.length - 1 === index && (
+                {mySkills.programmingSkills.length - 1 === index && (
                   <IoIosAddCircleOutline
                     className=" text-white h-7 w-7 mt-1"
                     onClick={(e) => handleaddclick(e)}
                   ></IoIosAddCircleOutline>
                 )}
-                {inputList.length !== 1 && (
+                {mySkills.programmingSkills.length !== 1 && (
                   <IoIosRemoveCircleOutline
                     className=" text-white h-7 w-7 mt-1"
                     onClick={(e) => handleremove(e, index)}

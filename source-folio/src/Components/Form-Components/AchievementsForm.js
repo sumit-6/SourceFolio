@@ -1,30 +1,34 @@
 import React from "react";
 import TextArea from "./TextArea";
 import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io";
-import { useState } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
+import { update_portfolio } from "../../redux/features/portfolioSlice";
 
 const AchievementsForm = (props) => {
-    const [inputList, setInputList] = useState(props.data);
+    const dispatch = useDispatch();
+    const { myAchievements } = useSelector(state => state.portfolio.data);
     const handleInputChange = (e, index) => {
       const {value} = e.target;
-      const list = [...inputList];
+      const list = [...myAchievements];
       list[index] = value;
-      setInputList(list);
-      props.handleChange(list);
+      dispatch(update_portfolio({
+        myAchievements: list
+      }));
     }
 
     const handleRemove= (event, index)=>{
       event.preventDefault();
-      const list=[...inputList];
+      const list=[...myAchievements];
       list.splice(index,1);
-      setInputList(list);
-      props.handleChange(list);
+      dispatch(update_portfolio({
+        myAchievements: list
+      }));
     }
 
     const handleAddClick=()=>{ 
-      setInputList([...inputList, ""]);
-      props.handleChange([...inputList, ""]);
+      dispatch(update_portfolio({
+        myAchievements: [...myAchievements, ""]
+      }));
     }    
 
     return (
@@ -36,7 +40,7 @@ const AchievementsForm = (props) => {
           Achievements Details!
         </div>
 
-        {inputList.map((box, index) => {
+        {myAchievements.map((box, index) => {
           return (
             <div className="w-full flex mt-6">
               <div className="flex-1">
@@ -51,14 +55,14 @@ const AchievementsForm = (props) => {
               ></TextArea>
               </div>
               <div className="flex">
-                {inputList.length - 1 === index && (
+                {myAchievements.length - 1 === index && (
                   <IoIosAddCircleOutline
                     className="h-8 w-8 text-white mt-12"
                     onClick={(e) => handleAddClick(e)}
                   />
                 )}
 
-                {inputList.length !== 1 && (
+                {myAchievements.length !== 1 && (
                   <IoIosRemoveCircleOutline
                     className="h-8 w-8 text-white mt-12"
                     onClick={(e) => handleRemove(e, index)}

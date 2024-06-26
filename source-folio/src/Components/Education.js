@@ -1,7 +1,9 @@
 import React from "react";
 import "./CssFiles/education.css";
+import { useSelector } from "react-redux";
 
-const Education = (props) => {
+const Education = () => {
+  const { myEducation } = useSelector(state => state.portfolio.data);
   return (
     <section className="education section " id="education">
       <h2 className="section__title">
@@ -13,7 +15,7 @@ const Education = (props) => {
         <div className="flex items-center justify-center mr-2">
           <div className="qualification__sections p-4">
             <div className="qualification__content">
-              {props.data.map((x, i) => {
+              {myEducation.map((x, i) => {
                 return (
                   <div className="data_education" key={i}>
                     <div className="w-16">

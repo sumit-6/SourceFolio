@@ -12,15 +12,16 @@ import Loading from '../Loading'
 import  DashHome  from "./Banner";
 import SearchBox from "./SearchBox";
 import DropdownMenu from "./DropDownMenu";
+import { login, logout, set_portfolio } from "../../redux/features/portfolioSlice";
+import { useDispatch } from "react-redux";
 
 const NavBar = () => {
+  const dispatch = useDispatch();
   const [Toggle, showMenu] = useState(false);
   const [focused, setFocused] = useState(false);
   const navigate = useNavigate();
   const [sfid, setsfId] = useState(null);
   const {user, isLoading} = useUser();
-  const [Token, setToken] = useState(null);
-  const [data, setData] = useState(null);
   const [searchText, setSearchText] = useState("");
   const [filter, setFilter] = useState("name");
   const [list, setList] = useState([]);
@@ -44,9 +45,10 @@ const NavBar = () => {
         reject();
       });
     }
+    const token = user && await user.getIdToken();
     const config = {
       headers: {
-        'authtoken': Token
+        'authtoken': token
       }
     }
     
@@ -57,20 +59,25 @@ const NavBar = () => {
       setList([]);
     });
   })()
-  }, [searchText, Token, filter])
+  }, [searchText, filter, user])
 
   useEffect(() => {(async() => {
 
     const token = user && await user.getIdToken();
-    setToken(token);
-    if(user){
+    if(user) {
+      dispatch(login({
+        user: user,
+        token: token,
+        isLoading: false
+      }))
+      
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/getID/${user.uid}`, {headers: {authtoken: token}});
 
       if(response.data !== 'Failure') {
         const dataRes = response.data;
         setsfId(dataRes);
-        const userData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/portfolio/${sfid}`);
-        setData(userData.data);
+        const userData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/portfolio/${dataRes}`);
+        dispatch(set_portfolio(userData.data));
       }
     } 
   })();
@@ -79,6 +86,7 @@ const NavBar = () => {
   const handleLogout = (e) => {
     e.preventDefault();
     signOut(auth).then(() => {
+      dispatch(logout());
       navigate('/');
     }).catch((err) => {
       console.log(err.message);
@@ -324,7 +332,7 @@ const NavBar = () => {
               </div>
             </nav>
           </header>
-          <DashHome user={user} id={sfid} token={Token} />
+          <DashHome id={sfid} />
         </>
       )}
     </>
