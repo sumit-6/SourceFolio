@@ -2,8 +2,10 @@ import React from "react";
 import "./CssFiles/aboutme.css";
 import Info from "./Info";
 import { Link } from "react-scroll";
+import { useSelector } from "react-redux";
 
-const About = (props) => {
+const About = () => {
+  const { profilePicture, yearsOfExperience, numberOfProjects, bio } = useSelector(state => state.portfolio.data);
   return (
     <section className="about section" id="aboutme">
       <h2 className="section__title" style={{ color: "white" }}>
@@ -13,18 +15,18 @@ const About = (props) => {
 
       <div className="about__container nav__container grid">
         <img
-          src={`${props.profilePicture !== undefined ? props.profilePicture.url : "https://res.cloudinary.com/dk26fyzkl/image/upload/v1707765680/SourceFolio/no-user-image_no8zkv.gif"}`}
+          src={`${profilePicture !== undefined ? profilePicture.url : "https://res.cloudinary.com/dk26fyzkl/image/upload/v1707765680/SourceFolio/no-user-image_no8zkv.gif"}`}
           alt=""
           className="about__img"
         />
         
         <div className="about__data">
           <Info
-            yearsOfExperience={props.yearsOfExperience}
-            numberOfProjects={props.numberOfProjects}
+            yearsOfExperience={yearsOfExperience}
+            numberOfProjects={numberOfProjects}
           />
 
-          <p className="about__description">{props.bio}</p>
+          <p className="about__description">{bio}</p>
           <Link
             to="achivements"
             className="button button--flex"

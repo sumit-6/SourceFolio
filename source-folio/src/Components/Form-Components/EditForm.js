@@ -9,95 +9,25 @@ import SkillsForm from "./SkillsForm";
 import AchievementsForm from "./AchievementsForm";
 import ContactForm from "./ContactForm";
 import axios from 'axios';
-import useUser from "../../hooks/useUser";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Preview from "../Preview/Preview";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { useSelector } from "react-redux";
 
-const EditForm=(props)=>{
+const EditForm=()=>{
+    const data = useSelector(state => state.portfolio.data);
+    const auth = useSelector(state => state.portfolio.auth);
     const [skip, setSkip] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const path = useLocation().pathname;
     const navigate = useNavigate();
     const ID = path.split("/")[2];
     const [isVisible, setIsVisible] = useState([true, false, false, false, false, false, false, false]);
-    const [inputData, setInputData] = useState({name: "", instagram: "", 
-    linkedIn: "", githubProfile: "", bio: "", yearsOfExperience: "", numberOfProjects: "", 
-    description: "", email: "", telephone: 0, profilePicture: {url: null, filename: null}, mainDesignations:[""]});
-    const [data, setData] = useState({});
-    const {user, isLoading} = useUser();
-    const [Token, setToken] = useState(null);
+    
     const [togglePreview, setTogglePreview] = useState(0);
 
-
-    
-    const [inputExperienceList, setInputExperienceList] = useState([]);
-    const [inputProjectList, setInputProjectList] = useState([]);
-    const [inputEducationList, setInputEducationList] = useState([]);
-    const [inputSkills, setInputSkills] = useState({programmingSkills: [{skillName: "", skillLevel: ""}], toolsAndFrameworks: [{toolName: "", toolLevel: ""}]});
-    const [inputAchievement, setInputAchievement] = useState([""]);
-    const [isContact,setIsContact]=useState(false)
-    
-    useEffect(() => {(async() => {
-
-        const token = user && await user.getIdToken();
-        setToken(token);
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/portfolio/${ID}`, {headers: {authtoken: token}});
-        if(typeof(response.data) === 'object') {
-            const dataRes = response.data;
-            setData(dataRes);
-            
-            setInputData({
-                ...inputData, 
-                name: dataRes.name, 
-                instagram: dataRes.instagram, 
-                linkedIn: dataRes.linkedIn, 
-                githubProfile: dataRes.githubProfile, 
-                bio: dataRes.bio, 
-                yearsOfExperience: dataRes.yearsOfExperience, 
-                numberOfProjects: dataRes.numberOfProjects, 
-                description: dataRes.description, 
-                email: dataRes.email, 
-                telephone: dataRes.telephone, 
-                profilePicture: dataRes.profilePicture,
-                mainDesignations: dataRes.mainDesignations
-            })
-            setInputExperienceList(dataRes.myExperience)
-            setInputProjectList(dataRes.myProjects)
-            setInputEducationList(dataRes.myEducation)
-            setInputSkills(dataRes.mySkills)
-            setInputAchievement(dataRes.myAchievements)
-        }
-        
-    })();
-    }, [ID, user]);
-    function handlePictureChange(file) {
-      setInputData({...inputData, profilePicture: file});
-    }
-    function handleMainDesignations(list) {
-      const obj = {...inputData};
-      obj["mainDesignations"] = list;
-      setInputData(obj);
-    }
-    function handleAchievement(list) {
-      setInputAchievement(list);
-    }
-    function handleSkills(obj) {
-      setInputSkills(obj);
-    }
-
-    function handleExperience(list) {
-      setInputExperienceList(list);
-    }
-
-    function handleProject(list) {
-      setInputProjectList(list);
-    }
-
-    function handleEducation(list) {
-      setInputEducationList(list);
-    }
+    const [isContact,setIsContact]=useState(false);
 
     const handleNavButtonClick = (e, index) => {
       e.preventDefault();
@@ -112,49 +42,47 @@ const EditForm=(props)=>{
         setIsContact(false)
       }
     }
-    
-    function handleDataChange(e) { 
-      const {name, value} = e.target;
-      const obj = {...inputData};
-      obj[name] = value;
-      setInputData(obj);
-    }
 
     useEffect(() => {
       if(skip) setSkip(false);
       if(!skip) {
+        const form = document.querySelector('.form');
+        const formData_empty = new FormData(form);
         const formData = {};
+        for(const key of formData_empty.entries()) {
+            if(key[0] === 'profilePicture' && key[1] !== undefined) formData[key[0]] = key[1]; 
+        }
         const names = ["name", "instagram", "linkedIn", "githubProfile", "bio", "yearsOfExperience", "numberOfProjects", "description", "email", "telephone", "mainDesignations"];
         names.forEach((name) => {
-          formData[name] = inputData[name];
+          formData[name] = data[name];
         })
-        if(inputEducationList.length > 0) {
+        if(data.myEducation.length > 0) {
           const names = ["institutionName", "year", "place", "aggregate", "coursePursuied"]
           names.forEach((name) => {
-            formData[name] = inputEducationList.map((x) => (x[name]));
+            formData[name] = data.myEducation.map((x) => (x[name]));
           })
         }
-        if(inputExperienceList.length) {
+        if(data.myExperience.length) {
           const names = ["role", "company", "certificate"]
           names.forEach((name) => {
-            formData[name] = inputExperienceList.map((x) => (x[name]));
+            formData[name] = data.myExperience.map((x) => (x[name]));
             
           });
           formData[`start`] = []
           formData[`end`] = []
-          inputExperienceList.forEach((exp, index) => {
+          data.myExperience.forEach((exp, index) => {
             formData[`workDescription_${index}`] = exp.workDescription;
             formData[`start`].push(exp.duration.start);
             formData[`end`].push(exp.duration.end);
           });
         }
-        if(inputProjectList.length > 0) {
+        if(data.myProjects.length > 0) {
           const names = ["projectName", "gitHubLink", "projectLink"]
           names.forEach((name) => {
-            formData[name] = inputProjectList.map((x) => (x[name]));
+            formData[name] = data.myProjects.map((x) => (x[name]));
           })
   
-          inputProjectList.forEach((project, index) => {
+          data.myProjects.forEach((project, index) => {
             formData[`projectDescription_${index}`] = project.description;
           })
         }
@@ -162,28 +90,39 @@ const EditForm=(props)=>{
         formData["skillLevel"] = [];
         formData["toolName"] = [];
         formData["toolLevel"] = [];
-        inputSkills.programmingSkills.forEach((skill) => {
+        data.mySkills.programmingSkills.forEach((skill) => {
           formData["skillName"].push(skill.skillName);
           formData["skillLevel"].push(skill.skillLevel);
         })
-        inputSkills.toolsAndFrameworks.forEach((tool) => {
+        data.mySkills.toolsAndFrameworks.forEach((tool) => {
           formData["toolName"].push(tool.toolName);
           formData["toolLevel"].push(tool.toolLevel);
         })
-        formData["myAchievements"] = inputAchievement;
+        formData["myAchievements"] = data.myAchievements;
         const abortController = new AbortController();
         const { signal } = abortController;
         const config = {
           headers: {
-            'authtoken': Token
+            'Authtoken': auth.token,
           },
           signal: signal
         }
-  
         
         ;(async () => {
           const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/edit/portfolio/${ID}`,formData,config);
+          
           if(response.data === "Success") {
+            const config = {
+              headers: {
+                'Authtoken': auth.token,
+                'Content-Type': 'multipart/form-data'
+              },
+              enctype: 'multipart/form-data',
+              signal: signal
+            }
+            if(formData["profilePicture"]) await axios.post(`${process.env.REACT_APP_BACKEND_URL}/edit/profilePicture/${ID}`,{
+              profilePicture: formData["profilePicture"]
+            },config);
             navigate("/")
           } else {
             navigate("/pageDoesn'tExist")
@@ -229,7 +168,7 @@ const EditForm=(props)=>{
             >
               <AiOutlineCloseCircle />
             </div>
-            <Preview data={{...inputData, myExperience: inputExperienceList, myEducation: inputEducationList, myProjects: inputProjectList, myAchievements: inputAchievement, mySkills: inputSkills}} />
+            <Preview />
           </div>
 
         </div>
@@ -265,74 +204,37 @@ const EditForm=(props)=>{
             </div>
           </div>
 
-     
           <BioForm
             isSelected={isVisible[0]}
-            data={{
-              name: inputData.name,
-              instagram: inputData.instagram,
-              linkedIn: inputData.linkedIn,
-              githubProfile: inputData.githubProfile,
-              bio: inputData.bio,
-              mainDesignations: inputData.mainDesignations,
-            }}
             id={ID}
-            handleChange={handleDataChange}
-            handleMainDesignations={handleMainDesignations}
-            handleFileChange={handlePictureChange}
           />
           
-      
           <AboutMe
             isSelected={isVisible[1]}
-            data={{
-              yearsOfExperience: inputData.yearsOfExperience,
-              numberOfProjects: inputData.numberOfProjects,
-              description: inputData.description,
-            }}
-            handleChange={handleDataChange}
           />
-         
          
           <EducationForm
             isSelected={isVisible[2]}
-            data={inputEducationList}
-            handleChange={handleEducation}
           />
-          
          
           <ExperienceForm
             isSelected={isVisible[3]}
-            data={inputExperienceList}
-            handleChange={handleExperience}
           />
-          
           
           <ProjectsForm
             isSelected={isVisible[4]}
-            data={inputProjectList}
-            handleChange={handleProject}
           />
-          
           
           <SkillsForm
             isSelected={isVisible[5]}
-            data={inputSkills}
-            handleChange={handleSkills}
           />
-         
           
           <AchievementsForm
             isSelected={isVisible[6]}
-            data={inputAchievement}
-            handleChange={handleAchievement}
           />
-          
           
           <ContactForm
             isSelected={isVisible[7]}
-            data={{ email: inputData.email, telephone: inputData.telephone }}
-            handleChange={handleDataChange}
           />
          
           <div

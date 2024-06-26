@@ -7,6 +7,10 @@ import { BrowserRouter } from 'react-router-dom';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { Provider } from 'react-redux';
+import { store, persister } from './redux/store';
+
+import { PersistGate } from 'redux-persist/integration/react';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -26,9 +30,13 @@ const app = initializeApp(firebaseConfig);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persister}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+      </PersistGate>
+      </Provider>
   </React.StrictMode>
 );
 

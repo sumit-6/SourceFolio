@@ -3,30 +3,18 @@ import InputBox from "./InputBox";
 import TextArea from "./TextArea";
 import MainDesignations from "./MainDesignations";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { update_portfolio } from "../../redux/features/portfolioSlice";
 
 const BioForm=(props)=>{
-  const [inputObj, setinputObj]= useState(props.data);
+  const dispatch = useDispatch();
+  const { name, profilePicture, bio, instagram, linkedIn, githubProfile } = useSelector(state => state.portfolio.data);
   const navigate = useNavigate();
   const handleinputchange=(e)=>{
-    const {name, value} = e.target;
-    const obj = {...inputObj};
-    obj[name] = value;
-    setinputObj(obj);
-    props.handleChange(e);
-  }
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setinputObj({...inputObj, profilePicture: file})
-    props.handleFileChange(file);
-  }
-
-
-  function handleMainDesignations(list) {
-    const obj = {...inputObj};
-    obj["mainDesignations"] = list;
-    setinputObj(obj);
-    props.handleMainDesignations(list);
+    const { name, value } = e.target;
+    dispatch(update_portfolio({ 
+      [name]: value
+    }))
   }
     
     return (
@@ -43,17 +31,15 @@ const BioForm=(props)=>{
               id="name"
               name="name"
               placeholder="Enter name"
-              value={inputObj.name}
+              value={name}
               handleChange={handleinputchange}
             ></InputBox>
-            {inputObj["profilePicture"] !== undefined ? <InputBox
+            {profilePicture === undefined || profilePicture.url === undefined || profilePicture.url === "" ? <InputBox
               field="Profile Picture"
               type="file"
               name="profilePicture"
               id="profilePicture"
               placeholder="Enter Profile Picture"
-              handleChange={handleFileChange}
-              value={inputObj.profilePicture}
               isSelected = {true}
             ></InputBox> : 
               <div class="md:flex md:items-center md:justify-between mb-6">
@@ -75,17 +61,14 @@ const BioForm=(props)=>{
                 </div>
               </div>}
             <div className="border border-gray-900 rounded-lg w-full">
-              <MainDesignations
-                mainDesignations={inputObj.mainDesignations}
-                handleChange={handleMainDesignations}
-              ></MainDesignations>
+              <MainDesignations />
             </div>
             <TextArea
               field="Bio"
               id="bio"
               name="bio"
               placeholder="Enter a brief description of yours, your hobby, your birthdate, and likings..."
-              value={inputObj.bio}
+              value={bio}
               handleChange={handleinputchange}
             ></TextArea>
           </div>
@@ -100,7 +83,7 @@ const BioForm=(props)=>{
               id="instagram"
               name="instagram"
               placeholder="Enter instagram profile url"
-              value={inputObj.instagram}
+              value={instagram}
               handleChange={handleinputchange}
             ></InputBox>
             <InputBox
@@ -109,7 +92,7 @@ const BioForm=(props)=>{
               id="linkedIn"
               name="linkedIn"
               placeholder="Enter linkedIn profile url"
-              value={inputObj.linkedIn}
+              value={linkedIn}
               handleChange={handleinputchange}
             ></InputBox>
             <InputBox
@@ -118,7 +101,7 @@ const BioForm=(props)=>{
               id="githubProfile"
               name="githubProfile"
               placeholder="Enter github profile url"
-              value={inputObj.githubProfile}
+              value={githubProfile}
               handleChange={handleinputchange}
             ></InputBox>
           </div>

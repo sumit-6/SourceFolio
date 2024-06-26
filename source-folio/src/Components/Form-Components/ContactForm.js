@@ -1,14 +1,19 @@
 import React, {useState} from "react";
 import InputBox from "./InputBox";
+import { useDispatch, useSelector } from "react-redux";
+import { update_portfolio } from "../../redux/features/portfolioSlice";
 
 const ContactForm = (props) => {
-    const [inputObj, setInputObj] = useState(props.data);
+    const dispatch = useDispatch();
+    const { email, telephone } = useSelector(state => state.portfolio.data);
     const handleinputchange = (e) => {
         const {name, value} = e.target;
-        const obj = {...inputObj};
+        const obj = {
+          email: email,
+          telephone: telephone
+        };
         obj[name] = value;
-        setInputObj(obj);
-        props.handleChange(e);
+        dispatch(update_portfolio(obj));
     }
     return (
       <div
@@ -24,7 +29,7 @@ const ContactForm = (props) => {
             name="email"
             placeholder="Enter email address"
             handleChange={handleinputchange}
-            value={inputObj.email}
+            value={email}
           ></InputBox>
           <InputBox
             field="Mobile Number"
@@ -33,7 +38,7 @@ const ContactForm = (props) => {
             name="telephone"
             placeholder="Enter mobile number (whatsapp number)"
             handleChange={handleinputchange}
-            value={inputObj.telephone}
+            value={telephone}
           ></InputBox>
         </div>
       </div>

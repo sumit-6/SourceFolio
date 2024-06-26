@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import CustomSelect from '../Form-Components/CustomSelect';
 
 function DropdownMenu(props) {
   const [filter, setFilter] = useState("name");
-  
-  //const {field, id, value="", array=[], name, handleChange, index=0, noField=false} = props;
+
   const array = ["skills", "experience", "education"];
   function handleChange(e) {
     const text = e.target.value

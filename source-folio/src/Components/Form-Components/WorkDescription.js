@@ -1,39 +1,69 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import TextArea from "./TextArea";
 import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io";
+import { useSelector, useDispatch } from "react-redux";
+import { update_portfolio } from "../../redux/features/portfolioSlice";
 
 const WorkDescription = (props) => {
-    const [inputList, setinputList]= useState(props.data);
-
-  useEffect(() => {
-    const list = props.data || [""]; // initialize the inputList with the workDescriptionList from props or with an empty string
-    setinputList(list);
-  }, [props.data]);
+  const dispatch = useDispatch();
+  const { workDescription } = useSelector(state => state.portfolio.data.myExperience[props.index])
+  const { myExperience } = useSelector(state => state.portfolio.data);
 
   const handleinputchange=(e, index)=>{
+    e.preventDefault();
     const {value}= e.target;
-    const list= [...inputList];
+    const list= [...workDescription];
     list[index]= value;
-    setinputList(list);
-    props.onChange(list, props.index);
+    const listOfExperience = [...myExperience];
+    const descriptionObj = {
+      ...listOfExperience[props.index],
+      workDescription: list
+    }
+
+    listOfExperience[props.index] = descriptionObj;
+    const obj = {
+      myExperience: listOfExperience
+    }
+    dispatch(update_portfolio(obj));
   }
  
   const handleremove= (event, index)=>{
     event.preventDefault();
-    const list=inputList.filter((value, ind) => {
+    const list=workDescription.filter((value, ind) => {
       return index !== ind;
     });
-    setinputList(list);
-    props.onRemove(list, index, props.index);
+    const listOfExperience = [...myExperience];
+    const descriptionObj = {
+      ...listOfExperience[props.index],
+      workDescription: list
+    }
+
+    listOfExperience[props.index] = descriptionObj;
+    
+    const obj = {
+      myExperience: listOfExperience
+    }
+    dispatch(update_portfolio(obj));
   }
 
   const handleaddclick=()=>{ 
-    setinputList([...inputList, ""]);
-    props.handleWorkDescriptionAdd([...inputList, ""], props.index)
+    const list = [...workDescription, ""];
+    const listOfExperience = [...myExperience];
+    const descriptionObj = {
+      ...listOfExperience[props.index],
+      workDescription: list
+    }
+
+    listOfExperience[props.index] = descriptionObj;
+    
+    const obj = {
+      myExperience: listOfExperience
+    }
+    dispatch(update_portfolio(obj));
   }
     return (
         <>
-        {inputList.map((x, i) => {
+        {workDescription.map((x, i) => {
             return (
                 <>
                 <div className="flex">
@@ -48,11 +78,11 @@ const WorkDescription = (props) => {
                   </div>
                   <div className="flex">
                     {
-                      inputList.length - 1 === i && 
+                      workDescription.length - 1 === i && 
                       <IoIosAddCircleOutline className="h-8 w-8 text-white mt-12" onClick={(e)=> handleaddclick(e)}/>
                     }
                     {
-                      inputList.length !== 1 &&
+                      workDescription.length !== 1 &&
                       <IoIosRemoveCircleOutline className="h-8 w-8 text-white mt-12" onClick={(e)=> handleremove(e, i)}/> 
                     }
                   </div>

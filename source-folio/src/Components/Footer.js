@@ -2,11 +2,14 @@ import React from "react";
 import "./CssFiles/footer.css"
 import { AiOutlineHome } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import { delete_portfolio } from "../redux/features/portfolioSlice";
 
-const Footer=(props)=>{
-  const {user, token, isLoading} = props;
+const Footer=()=>{
+  const dispatch = useDispatch();
+  const { user, token, isLoading } = useSelector(state => state.portfolio.auth);
+  const { _id, user_id } = useSelector(state => state.portfolio.data);
   const navigate = useNavigate();
   const handleDelete = async (e) => {
       e.preventDefault();
@@ -16,8 +19,9 @@ const Footer=(props)=>{
         }
       }
     
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/portfolio/delete/${props.id}`, {}, config);
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/portfolio/delete/${_id}`, {}, config);
       if(response.data === "Success") {
+        dispatch(delete_portfolio())
         navigate("/")
       } else {
         navigate("/pageDoesn'tExist")
@@ -26,24 +30,24 @@ const Footer=(props)=>{
     return (
       <section className="footer__copy">
         <div className="footer__content" style={{ display: "flex", alignItems: "center" }}>
-          {!isLoading && user && token && user.uid == props.data.user_id && (
+          {!isLoading && user && token && user.uid === user_id && (
             <a
               className="buttonn"
               
               onClick={() => {
-                navigate(`/edit/${props.id}`);
+                navigate(`/edit/${_id}`);
               }}
             >
               Edit SourceFolio
             </a>
           )}
-          {!isLoading && user && token && user.uid == props.data.user_id && (
+          {!isLoading && user && token && user.uid === user_id && (
             <a className="delete buttonn" onClick={handleDelete}>
               Delete SourceFolio
             </a>
           )}
         </div>
-        {!isLoading && user && token && user.uid == props.data.user_id && (
+        {!isLoading && user && token && user.uid === user_id && (
           <div className="back__home ">
             <div style={{ display: "flex" }}>
               <a

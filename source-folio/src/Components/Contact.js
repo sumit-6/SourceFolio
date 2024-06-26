@@ -4,8 +4,10 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { AiOutlineMail } from "react-icons/ai";
 import { AiOutlineWhatsApp } from "react-icons/ai";
 import { FaLinkedin } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
-const Contact=(props)=>{
+const Contact=()=>{
+    const { linkedIn, email } = useSelector(state => state.portfolio.data);
     return (
       <section className="contact section" id="contact">
         <h2 className="section__title" style={{ color: "orange" }}>
@@ -24,10 +26,10 @@ const Contact=(props)=>{
                 </span>
 
                 <h3 className="contact__card-title">Email</h3>
-                <span className="contact__card-data">{props.email}</span>
+                <span className="contact__card-data">{email}</span>
 
                 <a
-                  href={`mailto:${props.email}`}
+                  href={`mailto:${email}`}
                   className="contact__button"
                 >
                   Write me{" "}
@@ -64,10 +66,10 @@ const Contact=(props)=>{
                 </span>
 
                 <h3 className="contact__card-title">LinkedIn</h3>
-                <span className="contact__card-data">{props.linkedIn.split('/')[4]}</span>
+                <span className="contact__card-data">{linkedIn.split('/')[4]}</span>
 
                 <a
-                  href={props.linkedIn}
+                  href={linkedIn}
                   className="contact__button"
                 >
                   Write me{" "}

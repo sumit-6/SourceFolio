@@ -5,8 +5,12 @@ import useUser from "../../hooks/useUser";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import InputBox from "./InputBox";
+import { useDispatch, useSelector } from "react-redux";
+import { set_portfolio } from "../../redux/features/portfolioSlice";
 
-const ProfilePictureEditForm=(props)=>{
+const ProfilePictureEditForm= () => {
+    const dispatch = useDispatch();
+    const data = useSelector(state => state.portfolio.data);
     const navigate = useNavigate();
     const path = useLocation().pathname;
     const ID = path.split("/")[3];
@@ -38,6 +42,13 @@ const ProfilePictureEditForm=(props)=>{
       
         const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/edit/profilePicture/${ID}`, formData, config)
         if(response.data === "Success") {
+            const response = await axios.get(
+              `${process.env.REACT_APP_BACKEND_URL}/api/portfolio/${ID}`
+            );
+            dispatch(set_portfolio({
+              ...data,
+              profilePicture: response.data.profilePicture
+            }));
             navigate(`/edit/${ID}`);
         } else {
             navigate("/pageDoesn'tExist");
@@ -62,9 +73,8 @@ const ProfilePictureEditForm=(props)=>{
               name="profilePicture"
               id="profilePicture"
               placeholder="Enter Profile Picture"
-
               isSelected = {true}
-            ></InputBox>
+          ></InputBox>
           <button
             type="submit"
             className={`btn btn-lg flex items-center justify-center m-5 text-orange-400`}

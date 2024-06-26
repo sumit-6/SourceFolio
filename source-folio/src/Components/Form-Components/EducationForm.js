@@ -1,29 +1,40 @@
 import React, {useState} from "react";
 import InputBox from "./InputBox";
 import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { update_portfolio } from "../../redux/features/portfolioSlice";
 
 const EducationForm=(props)=>{
-  const [inputList, setinputList]= useState(props.data);
-
+  const dispatch = useDispatch();
+  const { myEducation } = useSelector(state => state.portfolio.data);
   const handleinputchange=(e, index)=>{
-    const {name, value}= e.target;
-    const list= [...inputList];
-    list[index][name]= value;
-    setinputList(list);
-    props.handleChange(list);
+    e.preventDefault();
+    const { name, value }= e.target;
+    let list= [...myEducation];
+    const obj = {
+      ...list[index],
+      [name]: value
+    }
+    list[index] = obj;
+    dispatch(update_portfolio({
+      'myEducation': list
+    }))
   }
  
   const handleremove= (event, index)=>{
     event.preventDefault();
-    const list=[...inputList];
+    const list=[...myEducation];
     list.splice(index,1);
-    setinputList(list);
-    props.handleChange(list);
+    dispatch(update_portfolio({
+      'myEducation': list
+    }))
   }
 
-  const handleaddclick=()=>{ 
-    setinputList([...inputList, {institutionName: "", place: "", year: 0, aggregate: 0, coursePursuied: ""}]);
-    props.handleChange([...inputList, {institutionName: "", place: "", year: 0, aggregate: 0, coursePursuied: ""}]);
+  const handleaddclick=(e)=>{
+    e.preventDefault(); 
+    dispatch(update_portfolio({
+      'myEducation': [...myEducation, {institutionName: "", place: "", year: 0, aggregate: 0, coursePursuied: ""}]
+    }));
   }
     return (
       <div
@@ -31,7 +42,7 @@ const EducationForm=(props)=>{
         style={{ display: props.isSelected ? "" : "none" }}
       >
         <div className="text-xl text-white text-center">Education Details!</div>
-        {inputList.map((x, index) => {
+        {myEducation.map((x, index) => {
           return (
             <div className="mt-6">
               <InputBox
@@ -97,7 +108,7 @@ const EducationForm=(props)=>{
                 value={x.coursePursuied}
               ></InputBox>
               <div className="flex justify-center">
-                {inputList.length - 1 === index && (
+                {myEducation.length - 1 === index && (
                   <IoIosAddCircleOutline
                     className=" text-white h-7 w-7 mt-1"
                     onClick={(e) => handleaddclick(e)}
@@ -114,7 +125,7 @@ const EducationForm=(props)=>{
           );
         })}
         <div className="flex justify-center mt-6">
-          {inputList.length === 0 && (
+          {myEducation.length === 0 && (
             <IoIosAddCircleOutline
               className=" text-white h-8 w-8"
               onClick={(e) => handleaddclick(e)}

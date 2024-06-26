@@ -4,10 +4,11 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import { useState } from "react";
-import "./CssFiles/experience.css"
+import "./CssFiles/experience.css";
+import { useSelector } from "react-redux";
 
-const Experience=(props)=>{
-
+const Experience=()=>{
+  const { myExperience } = useSelector(state => state.portfolio.data);
   function formatDate(dateString) {
     if(dateString === undefined) dateString = ""
     const months = [
@@ -29,13 +30,13 @@ const Experience=(props)=>{
     }
     return (
       <section className="services section" id="experience">
-        {props.data.length ? <h2 className="section__title">
+        {myExperience.length ? <h2 className="section__title">
           My <span style={{ color: "orange" }}>Experience.</span>
         </h2> : ""}
-        {props.data.length ? <span className="section__subtitle">My work Places</span> : ""}
+        {myExperience.length ? <span className="section__subtitle">My work Places</span> : ""}
 
         <div className="experience__container nav__container grid">
-          {props.data.map((x, i) => {
+          {myExperience.map((x, i) => {
             return (
               <div
                 style={{ marginRight: "-0.7rem", borderRadius: "1.3rem" }}

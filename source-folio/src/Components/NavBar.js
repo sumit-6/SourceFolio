@@ -3,9 +3,10 @@ import "./CssFiles/navbar.css"
 import { RxCross2 } from "react-icons/rx";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-scroll";
+import { useSelector } from "react-redux";
 
-const NavBar=(props)=>{
-
+const NavBar=()=>{
+    const { name, myProjects, myEducation, myExperience } = useSelector(state => state.portfolio.data)
     const [Toggle,showMenu]=useState(false);
     const [onFocus, setOnFocus] = useState("aboutme")
     return (
@@ -15,7 +16,7 @@ const NavBar=(props)=>{
       >
         <nav className="nav nav__container">
           <Link to="aboutme" className="nav__logo" style={{ color: "white" }}>
-            {props.name}&nbsp;<span style={{ color: "orange" }}>.</span>
+            {name}&nbsp;<span style={{ color: "orange" }}>.</span>
           </Link>
           <div className={Toggle ? "nav__menu show-menu" : "nav__menu"}>
             <ul className="nav__list ">
@@ -40,7 +41,7 @@ const NavBar=(props)=>{
                 </Link>
               </li>
 
-              {props.myEducation.length ? (<li
+              {myEducation.length ? (<li
                 className="nav__item"
                 onMouseEnter={() => {
                   setOnFocus("education");
@@ -61,7 +62,7 @@ const NavBar=(props)=>{
                 </Link>
               </li>) : ("")}
 
-              {props.myExperience.length ? (
+              {myExperience.length ? (
                 <li
                   className="nav__item"
                   onMouseEnter={() => {
@@ -86,7 +87,7 @@ const NavBar=(props)=>{
                 ""
               )}
 
-              {props.myProjects.length ? <li
+              {myProjects.length ? <li
                 className="nav__item"
                 onMouseEnter={() => {
                   setOnFocus("projects");

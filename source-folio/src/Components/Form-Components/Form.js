@@ -1,6 +1,6 @@
 import React from "react";
 import BioForm from "./BioForm";
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"; 
 import EducationForm from "./EducationForm";
 import ExperienceForm from "./ExperienceForm";
 import AboutMe from "./AboutMe";
@@ -9,119 +9,62 @@ import SkillsForm from "./SkillsForm";
 import AchievementsForm from "./AchievementsForm";
 import ContactForm from "./ContactForm";
 import axios from 'axios';
-import useUser from "../../hooks/useUser";
 import Preview from "../Preview/Preview";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { useSelector } from "react-redux";
 
-const Form=(props)=>{
+const Form=()=>{
+    const data = useSelector(state => state.portfolio.data);
+    const auth = useSelector(state => state.portfolio.auth);
     const [skip, setSkip] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isVisible, setIsVisible] = useState([true, false, false, false, false, false, false, false]);
-    const [inputData, setInputData] = useState({name: "", instagram: "", 
-    linkedIn: "", githubProfile: "", bio: "", yearsOfExperience: "", numberOfProjects: "", 
-    description: "", email: "", telephone: 0, profilePicture: {url: "https://res.cloudinary.com/dk26fyzkl/image/upload/v1707765680/SourceFolio/no-user-image_no8zkv.gif", filename: "c7xjisezokd3rbogmba9"}, mainDesignations:[""]});
-    const [sfid, setsfId] = useState(null);
 
-    const {user, isLoading} = useUser();
-    const [Token, setToken] = useState(null);
-    const [togglePreview, setTogglePreview] = useState(0);
-    
-    const [inputExperienceList, setInputExperienceList] = useState([]);
-    const [inputProjectList, setInputProjectList] = useState([]);
-    const [inputEducationList, setInputEducationList] = useState([]);
-    const [inputSkills, setInputSkills] = useState({programmingSkills: [{skillName: "", skillLevel: ""}], toolsAndFrameworks: [{toolName: "", toolLevel: ""}]});
-    const [inputAchievement, setInputAchievement] = useState([""]);
-    const [isContact,setIsContact]=useState(false)
-    
-    useEffect(() => {(async() => {
-
-      const token = user && await user.getIdToken();
-      setToken(token);
-    })();
-    }, [user, sfid]);
-    function handlePictureChange(file) {
-      setInputData({...inputData, profilePicture: file});
-    }
-    function handleMainDesignations(list) {
-      const obj = {...inputData};
-      obj["mainDesignations"] = list;
-      setInputData(obj);
-    }
-    function handleAchievement(list) {
-      setInputAchievement(list);
-    }
-    function handleSkills(obj) {
-      setInputSkills(obj);
-    }
-
-    function handleExperience(list) {
-      setInputExperienceList(list);
-    }
-
-    function handleProject(list) {
-      setInputProjectList(list);
-    }
-
-    function handleEducation(list) {
-      setInputEducationList(list);
-    }
-
-    const handleNavButtonClick = (e, index) => {
-      e.preventDefault();
-      let array = Array.apply(null, Array(5)).map(function (y) {return false});
-      array[index] = true;
-      setIsVisible(array);
-      if(index===7)
-      {
-        setIsContact(!isContact);
-      }
-      else{
-        setIsContact(false)
-      }
-    }
-    
-    function handleDataChange(e) { 
-      const {name, value} = e.target;
-      const obj = {...inputData};
-      obj[name] = value;
-      setInputData(obj);
-    }
-
+    const [togglePreview, setTogglePreview] = useState(0);    
+    const [isContact, setIsContact] = useState(false)
     useEffect(() => {
       if(skip) setSkip(false);
       if(!skip) {
+        const form = document.querySelector('.form');
+        const formData_empty = new FormData(form);
         const formData = {};
-        const names = ["name", "instagram", "linkedIn", "githubProfile", "bio", "yearsOfExperience", "numberOfProjects", "description", "email", "telephone", "mainDesignations"];
+        for(const key of formData_empty.entries()) {
+            if(key[0] === 'profilePicture' && key[1] !== undefined) formData[key[0]] = key[1]; 
+        }
+        
+        const names = ["name", "instagram", "linkedIn", "githubProfile", "bio", "yearsOfExperience", "numberOfProjects", "description", "email", "telephone", "mainDesignations", "user_id"];
         names.forEach((name) => {
-          formData[name] = inputData[name];
+          formData[name] = data[name];
         })
-        if(inputEducationList.length > 0) {
+        
+        
+        if(data.myEducation.length > 0) {
           const names = ["institutionName", "year", "place", "aggregate", "coursePursuied"]
           names.forEach((name) => {
-            formData[name] = inputEducationList.map((x) => (x[name]));
+            formData[name] = data.myEducation.map((x) => (x[name]));
           })
         }
-        if(inputExperienceList.length) {
+        if(data.myExperience.length > 0) {
           const names = ["role", "company", "certificate"]
           names.forEach((name) => {
-            formData[name] = inputExperienceList.map((x) => (x[name]));
+            formData[name] = data.myExperience.map((x) => (x[name]));
             
           });
           formData[`start`] = []
           formData[`end`] = []
-          inputExperienceList.forEach((exp, index) => {
+          data.myExperience.forEach((exp, index) => {
             formData[`workDescription_${index}`] = exp.workDescription;
             formData[`start`].push(exp.duration.start);
             formData[`end`].push(exp.duration.end);
           });
         }
-        if(inputProjectList.length > 0) {
+        if(data.myProjects.length > 0) {
           const names = ["projectName", "gitHubLink", "projectLink"]
           names.forEach((name) => {
-            formData[name] = inputEducationList.map((x) => (x[name]));
+            formData[name] = data.myProjects.map((x) => (x[name]));
           })
 
-          inputProjectList.forEach((project, index) => {
+          data.myProjects.forEach((project, index) => {
             formData[`projectDescription_${index}`] = project.description;
           })
         }
@@ -129,20 +72,20 @@ const Form=(props)=>{
         formData["skillLevel"] = [];
         formData["toolName"] = [];
         formData["toolLevel"] = [];
-        inputSkills.programmingSkills.forEach((skill) => {
+        data.mySkills.programmingSkills.forEach((skill) => {
           formData["skillName"].push(skill.skillName);
           formData["skillLevel"].push(skill.skillLevel);
         })
-        inputSkills.toolsAndFrameworks.forEach((tool) => {
+        data.mySkills.toolsAndFrameworks.forEach((tool) => {
           formData["toolName"].push(tool.toolName);
           formData["toolLevel"].push(tool.toolLevel);
         })
-        formData["myAchievements"] = inputAchievement;
+        formData["myAchievements"] = data.myAchievements;
         const abortController = new AbortController();
         const { signal } = abortController;
         const config = {
           headers: {
-            'Authtoken': Token,
+            'Authtoken': auth.token,
             'Content-Type': 'multipart/form-data'
           },
           enctype: 'multipart/form-data',
@@ -152,8 +95,8 @@ const Form=(props)=>{
           
         ;(async () => {
           
-      
           const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/portfolio/insert`,formData,config);
+          
           if(response.data === "Success") {
             window.location.href = `${process.env.REACT_APP_FRONTEND_URL}`;
           } else {
@@ -172,6 +115,20 @@ const Form=(props)=>{
     const handleSubmit = (e) => {
       e.preventDefault();
       setIsSubmitted((prev) => !prev);
+    }
+
+    const handleNavButtonClick = (e, index) => {
+      e.preventDefault();
+      let array = Array.apply(null, Array(5)).map(function (y) {return false});
+      array[index] = true;
+      setIsVisible(array);
+      if(index===7)
+      {
+        setIsContact(!isContact);
+      }
+      else{
+        setIsContact(false)
+      }
     }
     
     return (
@@ -202,7 +159,7 @@ const Form=(props)=>{
             >
               <AiOutlineCloseCircle />
             </div>
-            <Preview data={{...inputData, myExperience: inputExperienceList, myEducation: inputEducationList, myProjects: inputProjectList, myAchievements: inputAchievement, mySkills: inputSkills}} />
+            <Preview />
           </div>
 
         </div>
@@ -240,64 +197,34 @@ const Form=(props)=>{
 
           <BioForm
             isSelected={isVisible[0]}
-            data={{
-              name: inputData.name,
-              instagram: inputData.instagram,
-              linkedIn: inputData.linkedIn,
-              githubProfile: inputData.githubProfile,
-              bio: inputData.bio,
-              profilePicture: inputData.profilePicture,
-              mainDesignations: inputData.mainDesignations,
-            }}
-            handleChange={handleDataChange}
-            handleMainDesignations={handleMainDesignations}
-            handleFileChange={handlePictureChange}
           />
          
           <AboutMe
             isSelected={isVisible[1]}
-            data={{
-              yearsOfExperience: inputData.yearsOfExperience,
-              numberOfProjects: inputData.numberOfProjects,
-              description: inputData.description,
-            }}
-            handleChange={handleDataChange}
           />
           
           <EducationForm
             isSelected={isVisible[2]}
-            data={inputEducationList}
-            handleChange={handleEducation}
           />
       
           <ExperienceForm
             isSelected={isVisible[3]}
-            data={inputExperienceList}
-            handleChange={handleExperience}
           />
           
           <ProjectsForm
             isSelected={isVisible[4]}
-            data={inputProjectList}
-            handleChange={handleProject}
           />
        
           <SkillsForm
             isSelected={isVisible[5]}
-            data={inputSkills}
-            handleChange={handleSkills}
           />
          
           <AchievementsForm
             isSelected={isVisible[6]}
-            data={inputAchievement}
-            handleChange={handleAchievement}
           />
          
           <ContactForm
             isSelected={isVisible[7]}
-            data={{ email: inputData.email, telephone: inputData.telephone }}
-            handleChange={handleDataChange}
           />
           
           <div

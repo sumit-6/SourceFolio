@@ -1,49 +1,41 @@
-import React, { useState } from "react";
+import React from "react";
 import InputBox from "./InputBox";
 import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io";
 import ProjectDescription from "./ProjectDescription";
+import { useDispatch, useSelector } from "react-redux";
+import { update_portfolio } from "../../redux/features/portfolioSlice";
 
 const ProjectsForm = (props) => {
-    const [inputList, setInputList] = useState(props.data);
-    const handleProjectDescription=(list, index) => {
-      const newList = [...inputList];
-      newList[index].description = list;
-      setInputList(newList);
-      props.handleChange(newList);
-    }
+    const dispatch = useDispatch();
+    const { myProjects } = useSelector(state => state.portfolio.data);
+    
     const handleinputchange=(e, index)=>{
+        e.preventDefault();
         const {name, value}= e.target;
-        const list= [...inputList];
-        list[index][name]= value;
-        setInputList(list);
-        props.handleChange(list);
+        const list= [...myProjects];
+        const project = {
+          ...list[index],
+          [name]: value
+        }
+        list[index] = project;
+        dispatch(update_portfolio({
+          myProjects: list
+        }));
       }
-    
-      const handleProjectDescriptionChange = (value, index) => {
-        const list = [...inputList];
-        list[index].description = value;
-        setInputList(list);
-        props.handleChange(list);
-      };
-    
-      const handleProjectDescriptionDelete = (value, index, ind) => {
-        const list = [...inputList];
-        list[ind]['description'].splice(index, 1);
-        setInputList(list);
-        props.handleChange(list);
-      };
      
       const handleremove= (event, index)=>{
         event.preventDefault();
-        const list=[...inputList];
+        const list=[...myProjects];
         list.splice(index,1);
-        setInputList(list);
-        props.handleChange(list);
+        dispatch(update_portfolio({
+          myProjects: list
+        }));
       }
     
       const handleaddclick=()=>{ 
-        setInputList([...inputList, {projectName: "", gitHubLink: "", projectLink: "", description: [""]}]);
-        props.handleChange([...inputList, {projectName: "", gitHubLink: "", projectLink: "", description: [""]}]);
+        dispatch(update_portfolio({
+          myProjects: [...myProjects, {projectName: "", gitHubLink: "", projectLink: "", description: [""]}]
+        }));
       }
     return (
       <>
@@ -54,7 +46,7 @@ const ProjectsForm = (props) => {
           <div className="text-xl text-white text-center">
             Projects Details!
           </div>
-          {inputList.map((x, index) => {
+          {myProjects.map((x, index) => {
             return (
               <>
                 <div className="mt-6 ">
@@ -71,10 +63,6 @@ const ProjectsForm = (props) => {
                   <div className="border border-gray-900 rounded-lg">
                     <ProjectDescription
                       index={index}
-                      onChange={handleProjectDescriptionChange}
-                      onRemove={handleProjectDescriptionDelete}
-                      data={x.description}
-                      handleChange={handleProjectDescription}
                     />
                   </div>
                   <InputBox
@@ -100,7 +88,7 @@ const ProjectsForm = (props) => {
                   ></InputBox>
                 </div>
                 <div className="flex justify-center">
-                  {inputList.length - 1 === index && (
+                  {myProjects.length - 1 === index && (
                     <IoIosAddCircleOutline
                       className=" text-white h-7 w-7 mt-1"
                       onClick={(e) => handleaddclick(e)}
@@ -117,7 +105,7 @@ const ProjectsForm = (props) => {
             );
           })}
           <div className="flex justify-center mt-6">
-            {inputList.length === 0 && (
+            {myProjects.length === 0 && (
               <IoIosAddCircleOutline
                 className="h-8 w-8 text-white"
                 onClick={(e) => handleaddclick(e)}

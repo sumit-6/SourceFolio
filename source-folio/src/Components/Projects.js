@@ -6,13 +6,15 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 // import backgroundd from "../asset/image/back.jpg";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "./CssFiles/experience.css"
 
-const Projects=(props)=>{
+const Projects=()=>{
+    const { myProjects } = useSelector(state => state.portfolio.data);
     const responsive = {
       superLargeDesktop: {
         // the naming can be any, depends on you.
@@ -48,7 +50,7 @@ const Projects=(props)=>{
         <span className="section__subtitle">My work</span>
         <Carousel responsive={responsive} >
           {
-          props.data.map((x, i) => {
+          myProjects.map((x, i) => {
             return (
               <div className="project__content w-11/12 h-full" key={i}>
                 <div>
@@ -123,11 +125,11 @@ const Projects=(props)=>{
                 >
                   <AiOutlineCloseCircle />
                 </div>
-                <h3 className="experience__modal-title">{props.data[toggleState-1].projectName}</h3>
+                <h3 className="experience__modal-title">{myProjects[toggleState-1].projectName}</h3>
               
                 <ul className="experience__modal-experiences grid">
                     {
-                      props.data[toggleState-1].description.map((desc) => {
+                      myProjects[toggleState-1].description.map((desc) => {
                         return (
                         <li className="experience__modal-experience">
                           <div className="experience__modal-icon">
